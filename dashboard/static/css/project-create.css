@@ -1,0 +1,35 @@
+#thumbnail_container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border: 2px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+#thumbnail_container img {
+    display: none;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+#thumbnail_container .upload-icon {
+    font-size: 40px;
+    color: #aaa;
+}
+
+#thumbnail_container:hover {
+    border-color: #007bff;
+}
+
+#id_thumbnail {
+    display: none;
+}

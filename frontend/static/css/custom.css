@@ -1,0 +1,254 @@
+/* Global Rules */
+/* Flip icons horizontally in RTL mode */
+body.ltr *:not(i) {
+    font-family: "Roboto", serif;
+}
+
+body.rtl *:not(i) {
+    font-family: "Almarai", serif;
+}
+
+.table-responsive
+{
+    max-height: 240px;
+    overflow-x: auto;
+}
+
+/* Reset icon direction in LTR mode */
+body.ltr i {
+    transform: scaleX(1);
+}
+
+.layout_padding {
+    padding: 20px 0 !important;
+}
+
+#market .long_section {
+    padding: 0 !important;
+}
+
+/* End global rules */
+.hero_area {
+    min-height: max-content !important;
+}
+
+nav {
+    box-shadow: 0px 2px 0rem rgba(0, 0, 0, .075) !important;
+}
+
+nav .navbar-toggler {
+    width: unset !important;
+    height: unset !important;
+    display: flex;
+    flex-direction: column;
+    width: 47px !important;
+    padding: 5px !important;
+    align-items: end;
+    box-shadow: unset !important;
+    border: none !important;
+    outline: none;
+
+}
+
+nav .navbar-toggler:focus {
+    box-shadow: unset !important;
+    border: none !important;
+    outline: none;
+}
+
+nav #cart_btn {
+    position: relative;
+    cursor: pointer;
+}
+
+body.ltr nav #orders_count {
+    position: absolute;
+    top: -10px;
+    left: -12px;
+    border-radius: 50%;
+    font-size: 12px;
+    color: var(--bs-light);
+    width: 19px;
+    height: 19px;
+    text-align: center;
+    aspect-ratio: 1 / 1;
+}
+
+body.rtl nav #orders_count {
+    position: absolute;
+    top: -10px;
+    right: -12px;
+    border-radius: 50%;
+    font-size: 12px;
+    color: var(--bs-light);
+    width: 19px;
+    height: 19px;
+    text-align: center;
+    aspect-ratio: 1 / 1;
+}
+
+nav #search_btn {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+}
+
+body.ltr nav #search_btn {
+    margin-left: 5px;
+}
+
+body.rtl nav #search_btn {
+    margin-right: 5px;
+}
+
+nav .navbar-toggler span {
+    margin: 2px !important;
+    height: 3px !important;
+    width: 100% !important;
+    background-color: var(--bs-dark) !important;
+    display: block;
+    border-radius: 5px !important;
+
+}
+
+nav .navbar-toggler span:before,
+nav .navbar-toggler span:after {
+    content: unset !important;
+}
+
+nav .navbar-toggler span:first-child {
+    width: 45% !important;
+}
+
+nav .navbar-toggler span:nth-child(2) {
+    width: 65% !important;
+}
+
+nav .navbar-toggler span:nth-child(3) {
+    width: 85% !important;
+}
+
+/* off-canvas */
+.offcanvas {
+    width: 255px;
+}
+
+.offcanvas .offcanvas-header {
+    border-bottom: 2px solid var(--bs-gray);
+}
+
+.offcanvas .offcanvas-body {
+    padding: 1rem .5rem !important;
+}
+
+
+.offcanvas .actions_container .btn img {
+    width: 100%;
+}
+
+.offcanvas .nav-link {
+    padding: 3px 8px !important;
+    margin: 10px 6px !important;
+}
+
+/* slider */
+
+.swiper-slide {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.carousel-details {
+    width: calc(100% - 55px) !important;
+}
+
+.detail-box h2 {
+    font-size: 2rem;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+}
+
+.carousel-image {
+    width: 55%;
+}
+
+.carousel-image img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 10px;
+    margin: 0;
+}
+
+@media (max-width: 690px) {
+    .carousel-details {
+        flex-direction: column !important;
+    }
+
+    .detail-box {
+        max-width: 100% !important;
+    }
+
+    .detail-box h2 {
+        font-size: 1.8rem !important;
+    }
+
+    .carousel-image {
+        width: 100% !important;
+    }
+}
+
+
+/*  a css for image uploader */
+
+
+#thumbnail_container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border: 2px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+#thumbnail_container i {
+    font-size: 1.5rem;
+    padding: 2px;
+    background-color: var(--bs-light);
+    border-radius: 5px;
+    position: absolute;
+    display: none;
+}
+
+#thumbnail_container:hover i {
+    display: block;
+}
+
+#thumbnail_container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+#thumbnail_container .upload-icon {
+    font-size: 40px;
+    color: #aaa;
+}
+
+#thumbnail_container:hover {
+    border-color: #007bff;
+}
+
+#id_thumbnail {
+    display: none;
+}

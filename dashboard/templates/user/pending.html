@@ -1,0 +1,30 @@
+{% extends "dashboard/index.html" %}
+
+{% load static i18n %}
+
+{% block subtitle %}
+    {% trans "Pending" %}
+{% endblock subtitle %}
+
+
+{% block content %}
+    <div class="container-fluid  h-100">
+        <div class="row g-2 d-flex flex-column justify-content-center align-items-center ">
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div>
+                    <img src="{% static "images/coming-soon.png" %}" class="w-100" />
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <h4 class="text-center text-primary">
+                    {% trans "Your account is pending approval" %}
+                </h4>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <a href="{% url "user_auth:logout" %}" class="btn btn-primary m-auto d-block">
+                    {% trans "Logout" %}
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

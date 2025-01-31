@@ -1,0 +1,79 @@
+{% extends "dashboard/index.html" %}
+
+{% load static i18n %}
+
+{% block dashtitle %}
+    {% trans "User Details" %}
+{% endblock dashtitle %}
+
+
+
+{% block dash %}
+    <div class="container-fluid">
+        <h1>
+        </h1>
+
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-3 mb-3 mb-md-0">
+                        <h5>{% trans "Profile Information" %}</h5>
+                        {% if user.profile.image %}
+                            <img src="{{ user.profile.image.url }}"
+                                 alt="{% trans 'Profile Picture' %}"
+                                 class="img-thumbnail img-fluid" />
+                        {% else %}
+                            <div class="no-image-placeholder">
+                                {% trans "No Image" %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-12 col-md-9">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <tbody>
+                                    <tr>
+                                        <th>{% trans "Username" %}</th>
+                                        <td>{{ user.username }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{% trans "Email" %}</th>
+                                        <td>{{ user.email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{% trans "First Name" %}</th>
+                                        <td>{{ user.first_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{% trans "Last Name" %}</th>
+                                        <td>{{ user.last_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>{% trans "Account Status" %}</th>
+                                        <td>
+                                            {% if user.profile.is_approved %}
+                                                <span class="bg-success p-2 rounded text-white">{% trans "Active" %}</span>
+                                            {% else %}
+                                                <span class="bg-danger p-2 rounded text-white">{% trans "Inactive" %}</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>{% trans "Role" %}</th>
+                                        <td>{{ user.profile.get_role_display }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <a href="{% url 'dash:list_users' %}" class="btn btn-secondary">
+                <i class="fas fa-arrow-left"></i> {% trans "Back to User List" %}
+            </a>
+        </div>
+    </div>
+{% endblock dash %}

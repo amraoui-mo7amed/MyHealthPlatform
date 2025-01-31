@@ -1,0 +1,59 @@
+{% extends "dashboard/index.html" %}
+
+{% load static i18n %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static "css/profile.css" %}" />
+{% endblock extra_css %}
+
+{% block dashtitle %}
+    {{ user.username }}'s Profile
+{% endblock dashtitle %}
+
+{% block dash %}
+    <div class="container-fluid" id='user-overview'>
+        <div class="row g-2 align-items-center">
+            <div class="col-lg-2 col-md-12 col-sm-12">
+                <div class="d-flex flex-column w-100">
+                    <img class='w-100' src="{{ user_profile.image.url }}" alt="{{ user.username }}" />
+                    <h5 class='text-center'>
+                        {{ user.username }}
+                    </h5>
+                </div>
+            </div>
+            <div class="col-lg-10 col-md-12 col-sm-12">
+                <div class="details d-flex flex-column py-3">
+                    <div class="d-flex mb-3">
+                        <div class="col">
+                            <span>{% trans "First Name:" %}</span>
+                            <strong> {{ user.first_name }} </strong>
+                        </div>
+                        <div class="col">
+                            <span>{% trans "Last Name:" %}</span>
+                            <strong> {{ user.last_name }} </strong>
+                        </div>
+                        <div class="col">
+                            <span>{% trans "Email:" %}</span>
+                            <strong> {{ user.email }} </strong>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+                        <div class="col">
+                            <span>{% trans "Last seen:" %}</span>
+                            <strong> {{ user.last_login }} </strong>
+                        </div>
+                        <div class="col">
+                            <span>{% trans "Date Joined:" %}</span>
+                            <strong> {{ user.date_joined }} </strong>
+                        </div>
+
+                    </div>
+                    <a href="{% url "dash:edit-user-profile" %}"
+                       class='btn btn-teal d-block ms-auto my-3'>Edit Profile</a>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+{% endblock dash %}

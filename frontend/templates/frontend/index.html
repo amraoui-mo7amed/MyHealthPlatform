@@ -1,0 +1,672 @@
+
+{% load static i18n %}
+
+{% get_current_language as LC %}
+
+<!DOCTYPE html>
+<html data-lang="{{ LC }}">
+
+  <head>
+    <!-- Basic -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- Mobile Metas -->
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Site Metas -->
+    <link rel="icon" href="{% static "images/fevicon.png" %}" type="image/gif" />
+    <meta name="keywords" content="forniture,al-fath,edgecut" />
+    <meta name="description"
+          content="{% trans "your best place to get high quality furniture" %}" />
+    <meta name="author" content="{% trans "Amraoui Mohamed" %}" />
+    <title>
+      {% trans "My Health App" %} |
+      {% block subtitle %}
+        {% trans "Home" %}
+      {% endblock subtitle %}
+    </title>
+    {% if LC == "ar" %}
+      <!-- arabic font -->
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap"
+            rel="stylesheet" />
+      <!-- RTL bootstrap core css -->
+      <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap-rtl.css" %}" />
+    {% else %}
+      <!-- Roboto font -->
+      <link rel="preconnect" href="https://fonts.googleapis.com" />
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+            rel="stylesheet" />
+      <!-- LTR bootstrap core css -->
+      <link rel="stylesheet" type="text/css" href="{% static "css/bootstrap-ltr.css" %}" />
+
+    {% endif %}
+    <!-- Aos CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static "css/aos.css" %}" />
+    <!-- swiper css -->
+    <link rel="stylesheet" type="text/css" href="{% static "css/swiper.css" %}" />
+    <!-- fonts style -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap"
+          rel="stylesheet" />
+
+    <!-- font awesome style -->
+    <link href="{% static "css/font-awesome.min.css" %}" rel="stylesheet" />
+    <!-- Custom styles for this template -->
+    <link href="{% static "css/style.css" %}" rel="stylesheet" />
+    <!-- Custom style-->
+    <link rel="stylesheet" href="{% static "css/custom.css" %}" />
+
+    {% block css %}
+      <!-- responsive style -->
+      <link href="{% static "css/responsive.css" %}" rel="stylesheet" />
+    {% endblock css %}
+    {% block extra_css %}
+    {% endblock extra_css %}
+  </head>
+
+  <body class="{% if LC == 'ar' %}rtl{% else %}ltr{% endif %}">
+    <div class="hero_area">
+      <!-- header section strats -->
+      <header class="header_section long_section px-0">
+        {% block nav %}
+          <nav class="navbar navbar-expand-lg justify-content-between align-items-center custom_nav-container">
+            <a class="navbar-brand" href="{% url 'frontend:home' %}">
+              <span>{% trans "Edgecut" %}</span>
+            </a>
+            <div class="d-flex justify-content-center align-items-center">
+              <!-- Cart button -->
+              <a id='cart_btn' href="{% url "frontend:view_cart" %}" class='text-dark'>
+                <i class="fa fa-shopping-cart fs-4"></i>
+                <span id='orders_count' class='bg-teal'>
+                  {% if cart_total_items %}
+                    {{ cart_total_items }}
+                  {% else %}
+                    0
+                  {% endif %}
+                </span>
+              </a>
+              <button id="search_btn">
+                <i class="fa fa-search fs-4"></i>
+              </button>
+              <!-- Offcanvas button (navbar toggler) -->
+              <button class="navbar-toggler d-flex"
+                      type="button"
+                      data-bs-toggle="offcanvas"
+                      data-bs-target="#offcanvasNavbar"
+                      aria-controls="offcanvasNavbar"
+                      aria-expanded="false"
+                      aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+              </button>
+            </div>
+            <!-- Offcanvas content -->
+            <div class="offcanvas offcanvas-start"
+                 tabindex="-1"
+                 id="offcanvasNavbar"
+                 aria-labelledby="offcanvasNavbarLabel">
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">
+                  {% trans "Main Menu" %}
+                </h5>
+                <button type="button"
+                        class="btn-close text-reset"
+                        data-bs-dismiss="offcanvas"
+                        aria-label="Close">
+                </button>
+              </div>
+              <div class="offcanvas-body">
+                <!-- Navbar links -->
+                <ul class="navbar-nav d-flex flex-column align-items-start">
+                  <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'frontend:home' %}">{% trans "Home" %} <span class="sr-only">{% trans "(current)" %}</span></a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'frontend:home' %}#about">{% trans "About" %}</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'frontend:home' %}#furniture">{% trans "Furnitures" %}</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'frontend:home' %}#blog">{% trans "Blog" %}</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'frontend:home' %}#contact">{% trans "Contact Us" %}</a>
+                  </li>
+                </ul>
+                <!-- Language changer -->
+                {% comment %} <form action="{% url 'set_language' %}" method="post" id="languageForm">
+                  {% csrf_token %}
+                  <select name="language" id="lang" class="form-select">
+                    <option value="en" {% if LC == "en" %}selected{% endif %}>
+                      {% trans "English" %}
+                    </option>
+                    <option value="ar" {% if LC == "ar" %}selected{% endif %}>
+                      {% trans "Arabic" %}
+                    </option>
+                  </select>
+                </form> {% endcomment %}
+              </div>
+            </div>
+          </nav>
+        {% endblock nav %}
+      </header>
+      <!-- end header section -->
+      {% block slider %}
+        <div class="swiper bg-light long_section p-2 rounded">
+          <!-- Additional required wrapper -->
+          <div class="swiper-wrapper">
+            <!-- Slide 1 -->
+            <div class="swiper-slide carousel-image">
+              <div class="d-flex justify-content-between align-items-center carousel-details">
+                <div class="detail-box">
+                  <h2>
+                    {% trans "Elegant Living Spaces" %}
+                  </h2>
+                  <p>
+                    {% trans "Redefine your home with designs that bring sophistication and comfort to life." %}
+                  </p>
+                </div>
+                <div class="carousel-image">
+                  <img src="{% static 'images/living-room.png' %}" class="w-100" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="swiper-slide carousel-image">
+              <div class="d-flex justify-content-between align-items-center carousel-details">
+                <div class="detail-box">
+                  <h2>
+                    {% trans "Serene Retreats" %}
+                  </h2>
+                  <p>
+                    {% trans "Experience the perfect balance of elegance and functionality in every corner." %}
+                  </p>
+                </div>
+                <div class="carousel-image">
+                  <img src="{% static 'images/i1.png' %}" class="w-100" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="swiper-slide carousel-image">
+              <div class="d-flex justify-content-between align-items-center carousel-details">
+                <div class="detail-box">
+                  <h2>
+                    {% trans "Dine with Grace" %}
+                  </h2>
+                  <p>
+                    {% trans "Enjoy every moment with thoughtfully designed pieces that elevate your lifestyle." %}
+                  </p>
+                </div>
+                <div class="carousel-image">
+                  <img src="{% static 'images/i2.png' %}" class="w-100" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- If we need pagination -->
+        <div class="swiper-pagination">
+        </div>
+      {% endblock slider %}
+
+    </div>
+
+
+    {% block content %}
+
+      <!-- about section -->
+      <section class="about_section layout_padding long_section mt-3" id='about'>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="img-box">
+                <img src="{% static 'images/about-img.png' %}" alt="" />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="detail-box">
+                <div class="heading_container">
+                  <h2>
+                    {% trans "About Us" %}
+                  </h2>
+                </div>
+                <p>
+                  {% trans "We are a dedicated team offering high-quality furniture for every need and taste. Our mission is to provide comfort and style to your home with products that combine functionality and elegance." %}
+                </p>
+                <a href="">
+                  {% trans "Read More" %}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- end about section -->
+      <!-- furniture section -->
+      <section class="furniture_section layout_padding" id='furniture'>
+        <div class="container">
+          <div class="heading_container">
+            <div class="d-flex justify-content-between align-items-center w-100">
+              <h2>
+                {% trans "Our Furniture" %}
+              </h2>
+              <a href="{% url 'frontend:market' %}" class='fs-3 text-dark'>
+                <i class="fa fa-chevron-right"></i>
+              </a>
+            </div>
+            <p>
+              {% trans "Discover a variety of high-quality furniture pieces designed to fit every style and budget. Whether you're looking for modern, classic, or unique designs, we have the perfect pieces for your home." %}
+            </p>
+          </div>
+          <div class="row">
+            {% if products %}
+              {% for product in products %}
+                <div class="col-md-6 col-lg-4">
+                  <div class="box">
+                    <div class="img-box p-0">
+                      {% if product.image %}
+                        <img src="{{ product.image.url }}"
+                             alt="{{ product.name }}"
+                             class='rounded' 
+                             style="mix-blend-mode:multiply"
+                             
+                             />
+                      {% else %}
+                        <img src="https://placehold.co/400x400"
+                             alt="{{ product.name }}"
+                             class='rounded' />
+                      {% endif %}
+                    </div>
+                    <div class="detail-box">
+                      <a class='text-dark fw-bold text-uppercase d-block'
+                         href="{% url 'frontend:product-details' product.pk %}"
+                         style="white-space:nowrap; overflow: hidden; text-overflow: ellipsis;"
+                         
+                         >
+                        {{ product.name }}
+                      </a>
+                      <div class="price_box align-items-center">
+                        <h6 class="price_heading">
+                          <span>{% trans "DZD" %}</span> {{ product.price }}
+                        </h6>
+                        <button class='btn btn-sm btn-teal add-to-cart'
+                                data-product-id="{{ product.pk }}">
+                          {% trans "Add to Cart" %}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      </section>
+      <!-- end furniture section -->
+
+      <!-- blog section -->
+      <section class="blog_section layout_padding" id='blog'>
+        <div class="container">
+          <div class="heading_container">
+            <h2>
+              {% trans "Latest Blog" %}
+            </h2>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-lg-4 mx-auto">
+              <div class="box">
+                <div class="img-box">
+                  <img src="{% static 'images/b1.jpg' %}" alt="" />
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    {% trans "The Future of Sustainable Furniture" %}
+                  </h5>
+                  <p>
+                    {% trans "As sustainability becomes a priority in design, the furniture industry is adopting eco-friendly materials and production methods. This post explores innovative trends and how they shape the future of interior design." %}
+                  </p>
+                  <a href="">
+                    {% trans "Read More" %}
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mx-auto">
+              <div class="box">
+                <div class="img-box">
+                  <img src="{% static 'images/b2.jpg' %}" alt="" />
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    {% trans "How to Choose the Perfect Sofa for Your Living Room" %}
+                  </h5>
+                  <p>
+                    {% trans "Selecting the right sofa for your living space can be a challenge. In this article, we cover key factors such as size, comfort, style, and durability to help you make the best choice." %}
+                  </p>
+                  <a href="">
+                    {% trans "Read More" %}
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-4 mx-auto">
+              <div class="box">
+                <div class="img-box">
+                  <img src="{% static 'images/b3.jpg' %}" alt="" />
+                </div>
+                <div class="detail-box">
+                  <h5>
+                    {% trans "The Art of Creating a Cozy Home Office" %}
+                  </h5>
+                  <p>
+                    {% trans "With remote work on the rise, creating a cozy and productive home office is more important than ever. This blog post offers tips on furniture, lighting, and layout to maximize comfort and productivity." %}
+                  </p>
+                  <a href="">
+                    {% trans "Read More" %}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- end blog section -->
+
+      <!-- client section -->
+      <section class="client_section layout_padding-bottom" id='feedbacks'>
+        <div class="container">
+          <div class="heading_container">
+            <h2>
+              {% trans "Testimonial" %}
+            </h2>
+          </div>
+          <div id="carouselExample2Controls"
+               class="carousel slide"
+               data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="row">
+                  <div class="col-md-11 col-lg-10 mx-auto">
+                    <div class="box">
+                      <div class="img-box">
+                        <img src="{% static 'images/client.jpg' %}" alt="" />
+                      </div>
+                      <div class="detail-box">
+                        <div class="name">
+                          <i class="fa fa-quote-left" aria-hidden="true"></i>
+                          <h6>
+                            Siaalya
+                          </h6>
+                        </div>
+                        <p>
+                          {% trans "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout." %}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row">
+                  <div class="col-md-11 col-lg-10 mx-auto">
+                    <div class="box">
+                      <div class="img-box">
+                        <img src="{% static 'images/client.jpg' %}" alt="" />
+                      </div>
+                      <div class="detail-box">
+                        <div class="name">
+                          <i class="fa fa-quote-left" aria-hidden="true"></i>
+                          <h6>
+                            Siaalya
+                          </h6>
+                        </div>
+                        <p>
+                          {% trans "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout." %}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row">
+                  <div class="col-md-11 col-lg-10 mx-auto">
+                    <div class="box">
+                      <div class="img-box">
+                        <img src="{% static 'images/client.jpg' %}" alt="" />
+                      </div>
+                      <div class="detail-box">
+                        <div class="name">
+                          <i class="fa fa-quote-left" aria-hidden="true"></i>
+                          <h6>
+                            Siaalya
+                          </h6>
+                        </div>
+                        <p>
+                          {% trans "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout." %}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="carousel_btn-container">
+              <a class="carousel-control-prev"
+                 href="#carouselExample2Controls"
+                 role="button"
+                 data-slide="prev">
+                <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                <span class="sr-only">{% trans "Previous" %}</span>
+              </a>
+              <a class="carousel-control-next"
+                 href="#carouselExample2Controls"
+                 role="button"
+                 data-slide="next">
+                <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                <span class="sr-only">{% trans "Next" %}</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- end client section -->
+
+      <!-- contact section -->
+      <section class="contact_section long_section" id='contact'>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form_container">
+                <div class="heading_container">
+                  <h2>
+                    {% trans "Contact Us" %}
+                  </h2>
+                </div>
+                <form action="">
+                  <div>
+                    <input type="text" placeholder="{% trans 'Your Name' %}" />
+                  </div>
+                  <div>
+                    <input type="text" placeholder="{% trans 'Phone Number' %}" />
+                  </div>
+                  <div>
+                    <input type="email" placeholder="{% trans 'Email' %}" />
+                  </div>
+                  <div>
+                    <input type="text" class="message-box" placeholder="{% trans 'Message' %}" />
+                  </div>
+                  <div class="btn_box">
+                    <button>
+                      {% trans "SEND" %}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="map_container">
+                <div class="map">
+                  <div id="googleMap">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- end contact section -->
+
+      <!-- info section -->
+      <section class="info_section long_section">
+        <div class="container">
+          <div class="contact_nav">
+            <a href="">
+              <i class="fa fa-phone" aria-hidden="true"></i>
+              <span>
+                {% trans "Call : +01 123455678990" %}
+              </span>
+            </a>
+            <a href="">
+              <i class="fa fa-envelope" aria-hidden="true"></i>
+              <span>
+                {% trans "Email : demo@gmail.com" %}
+              </span>
+            </a>
+            <a href="">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>
+              <span>
+                {% trans "Location" %}
+              </span>
+            </a>
+          </div>
+
+          <div class="info_top">
+            <div class="row">
+              <div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="info_links">
+                  <h4>
+                    {% trans "QUICK LINKS" %}
+                  </h4>
+                  <div class="info_links_menu">
+                    <a class="" href="index.html">{% trans "Home" %} <span class="sr-only">(current)</span></a>
+                    <a class="" href="about.html">{% trans "About" %}</a>
+                    <a class="" href="furniture.html">{% trans "Furniture" %}</a>
+                    <a class="" href="blog.html">{% trans "Blog" %}</a>
+                    <a class="" href="contact.html">{% trans "Contact Us" %}</a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-sm-6 col-md-4 col-lg-3 mx-auto">
+                <div class="info_post">
+                  <h5>
+                    {% trans "INSTAGRAM FEEDS" %}
+                  </h5>
+                  <div class="post_box">
+                    <div class="img-box">
+                      <img src="{% static 'images/f1.png' %}" alt="" />
+                    </div>
+                    <div class="img-box">
+                      <img src="{% static 'images/f2.png' %}" alt="" />
+                    </div>
+                    <div class="img-box">
+                      <img src="{% static 'images/f3.png' %}" alt="" />
+                    </div>
+                    <div class="img-box">
+                      <img src="{% static 'images/f4.png' %}" alt="" />
+                    </div>
+                    <div class="img-box">
+                      <img src="{% static 'images/f5.png' %}" alt="" />
+                    </div>
+                    <div class="img-box">
+                      <img src="{% static 'images/f6.png' %}" alt="" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="info_form">
+                  <h4>
+                    {% trans "SIGN UP TO OUR NEWSLETTER" %}
+                  </h4>
+                  <form action="">
+                    <input type="text" placeholder="{% trans 'Enter Your Email' %}" />
+                    <button type="submit">
+                      {% trans "Subscribe" %}
+                    </button>
+                  </form>
+                  <div class="social_box">
+                    <a href="">
+                      <i class="fa fa-facebook" aria-hidden="true"></i>
+                    </a>
+                    <a href="">
+                      <i class="fa fa-twitter" aria-hidden="true"></i>
+                    </a>
+                    <a href="">
+                      <i class="fa fa-linkedin" aria-hidden="true"></i>
+                    </a>
+                    <a href="">
+                      <i class="fa fa-instagram" aria-hidden="true"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- end info_section -->
+
+    {% endblock content %}
+
+    {% block footer %}
+      <!-- footer section -->
+      <footer class="footer_section">
+        <div class="container">
+          <p>
+            &copy; <span id="displayYear"></span> {% trans "All Rights Reserved By" %}
+            <a href="https://m07amed.uk/">{% trans "Amraoui mohamed" %}</a>
+          </p>
+        </div>
+      </footer>
+      <!-- footer section -->
+    {% endblock footer %}
+
+    <!-- jQery -->
+    <script src="{% static "js/jquery-3.4.1.min.js" %}"></script>
+    <!-- bootstrap js -->
+    <script src="{% static "js/bootstrap.js" %}"></script>
+    <!-- Sweet Alert-->
+    <script src="{% static "js/sweetalert.js" %}"></script>
+    {% block js %}
+      <!-- Main js -->
+      <script src="{% static "js/script.js" %}"></script>
+
+    {% endblock js %}
+
+    <!-- Swiper Js -->
+    <script src="{% static "js/swiper.js" %}"></script>
+    <!-- Custom JS -->
+    <script src="{% static "js/custom.js" %}"></script>
+
+    <!-- Google Map -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
+    <!-- End Google Map -->
+    <!-- AOS script -->
+    <script src="{% static "js/aos.js" %}"></script>
+    <script>
+         // Init AOS
+         AOS.init();
+    </script>
+    {% block extra_js %}
+    {% endblock extra_js %}
+  </body>
+
+</html>

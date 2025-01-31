@@ -1,0 +1,26 @@
+/* General Styling */
+
+.swiper-slide {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.detail-box h2 {
+    font-size: 2rem;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+}
+.carousel-image 
+{
+    width: 55%;
+    min-width: 360px;
+}
+.carousel-image img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 10px;
+    margin: 0;
+}

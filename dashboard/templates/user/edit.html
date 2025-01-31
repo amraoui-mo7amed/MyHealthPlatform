@@ -1,0 +1,68 @@
+{% extends "dashboard/index.html" %}
+
+{% load static i18n %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static "css/profile.css" %}" />
+{% endblock extra_css %}
+
+{% block dashtitle %}
+    Edit Profile
+{% endblock dashtitle %}
+
+{% block dash %}
+    <form method='POST'
+          action='{% url "dash:edit-user-profile" %}'
+          class="d-flex bg-light align-items-center"
+          id='user-overview'>
+        {% csrf_token %}
+        <div class='m-2'>
+            <label for="id_thumbnail">
+                {% trans "Profile Picture" %}
+            </label>
+            <div id="thumbnail_container"
+                 onclick="document.getElementById('id_thumbnail').click()">
+                <i class="uil uil-upload-alt"></i>
+                <img id="thumbnail_preview"
+                     src="{{ user.profile.image.url }}"
+                     alt="Image Preview" />
+            </div>
+            <input type="file"
+                   id="id_thumbnail"
+                   name="thumbnail"
+                   accept="image/*"
+                   onchange="previewImage(event)" />
+
+        </div>
+        <div class="details d-flex flex-column py-3">
+            <div class="d-flex mb-3">
+                <div class="col me-2">
+                    <span>{% trans "First Name:" %}</span>
+                    <input class="form-control"
+                           name="first_name"
+                           value="{{ user.first_name }}"
+                           required />
+                </div>
+                <div class="col">
+                    <span>{% trans "Last Name:" %}</span>
+                    <input class="form-control"
+                           name="last_name"
+                           value="{{ user.last_name }}"
+                           required />
+                </div>
+            </div>
+            <div class="col me-2">
+                <span>{% trans "Email:" %}</span>
+                <input class="form-control" name="email" value="{{ user.email }}" required />
+            </div>
+
+            <button type='submit' class='btn btn-teal d-block ms-auto my-3'>
+                {% trans "Save" %}
+            </button>
+        </div>
+    </form>
+{% endblock dash %}
+
+{% block extra_js %}
+    <script src='{% static "js/profile.js" %}'></script>
+{% endblock extra_js %}

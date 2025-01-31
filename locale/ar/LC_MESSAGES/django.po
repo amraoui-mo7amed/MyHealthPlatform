@@ -1,0 +1,853 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-10 16:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#: core/settings.py:136 frontend/templates/frontend/index.html:139
+msgid "English"
+msgstr "إنجليزي"
+
+#: dashboard/models/product.py:11
+msgid "Category"
+msgstr "فئة"
+
+#: dashboard/templates/auth/login.html:10
+msgid "login"
+msgstr "تسجيل الدخول"
+
+#: dashboard/templates/auth/login.html:32
+msgid "Username"
+msgstr "اسم المستخدم"
+
+#: dashboard/templates/auth/login.html:39
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: dashboard/templates/auth/login.html:55
+msgid "Login"
+msgstr "تسجيل الدخول"
+
+#: dashboard/templates/categories/list.html:6
+#, fuzzy
+#| msgid "Category"
+msgid "Create a category"
+msgstr "إنشاء فئة"
+
+#: dashboard/templates/categories/list.html:19
+#, fuzzy
+#| msgid "Category"
+msgid "Category Name"
+msgstr "اسم الفئة"
+
+#: dashboard/templates/categories/list.html:23
+msgid "Category Description"
+msgstr "وصف الفئة"
+
+#: dashboard/templates/categories/list.html:26
+#: dashboard/templates/products/create.html:96
+#, fuzzy
+#| msgid "Created At"
+msgid "Create"
+msgstr "يخلق"
+
+#: dashboard/templates/categories/list.html:31
+#, fuzzy
+#| msgid "Category"
+msgid "Categories List"
+msgstr "قائمة الفئات"
+
+#: dashboard/templates/categories/list.html:39
+#, fuzzy
+#| msgid "Your Name"
+msgid "Name"
+msgstr "اسم"
+
+#: dashboard/templates/categories/list.html:42
+msgid "Description"
+msgstr "وصف"
+
+#: dashboard/templates/categories/list.html:45
+#, fuzzy
+#| msgid "Created At"
+msgid "Creation Date"
+msgstr "تاريخ الإنشاء"
+
+#: dashboard/templates/categories/list.html:48
+#: dashboard/templates/order/order.html:31
+#, fuzzy
+#| msgid "Location"
+msgid "Actions"
+msgstr "الإجراءات"
+
+#: dashboard/templates/categories/list.html:68
+#: dashboard/templates/products/list.html:54
+msgid "Delete"
+msgstr "يمسح"
+
+#: dashboard/templates/categories/list.html:78
+#: dashboard/templates/products/create.html:106
+msgid "No Categories at the moment"
+msgstr "لا يوجد فئات في الوقت الحالي"
+
+#: dashboard/templates/dashboard/index.html:10
+#: dashboard/templates/dashboard/index.html:35
+msgid "Dashboard"
+msgstr "لوحة القيادة"
+
+#: dashboard/templates/dashboard/index.html:39
+#, fuzzy
+#| msgid "Category"
+msgid "Categories"
+msgstr "فئات"
+
+#: dashboard/templates/dashboard/index.html:43
+#, fuzzy
+#| msgid "Product"
+msgid "Products"
+msgstr "منتجات"
+
+#: dashboard/templates/dashboard/index.html:47
+#: dashboard/templates/order/order.html:6
+#, fuzzy
+#| msgid "Order"
+msgid "Orders"
+msgstr "طلبات"
+
+#: dashboard/templates/dashboard/index.html:97
+msgid "Mark all as read"
+msgstr "وضع علامة على الكل كمقروء"
+
+#: dashboard/templates/dashboard/index.html:101
+msgid "No notifications at the moment"
+msgstr "لا يوجد إشعارات في الوقت الحالي"
+
+#: dashboard/templates/dashboard/index.html:120
+msgid "Profile"
+msgstr "حساب تعريفي"
+
+#: dashboard/templates/dashboard/index.html:124
+msgid "Logout"
+msgstr "تسجيل الخروج"
+
+#: dashboard/templates/dashboard/index.html:143
+#, fuzzy
+#| msgid "All Rights Reserved By"
+msgid "All rights reserved"
+msgstr "جميع الحقوق محفوظة"
+
+#: dashboard/templates/order/order.html:16
+#, fuzzy
+#| msgid "Order"
+msgid "Order ID"
+msgstr "معرف الطلب"
+
+#: dashboard/templates/order/order.html:19
+#, fuzzy
+#| msgid "Order"
+msgid "Order Total"
+msgstr "إجمالي الطلب"
+
+#: dashboard/templates/order/order.html:22 frontend/models/order.py:17
+msgid "Status"
+msgstr "حالة"
+
+#: dashboard/templates/order/order.html:25 frontend/models/order.py:27
+msgid "Payment Method"
+msgstr "طريقة الدفع"
+
+#: dashboard/templates/order/order.html:28 frontend/models/cart.py:10
+#: frontend/models/order.py:13
+msgid "Created At"
+msgstr "تم إنشاؤه في"
+
+#: dashboard/templates/order/order.html:43
+#: dashboard/templates/products/list.html:49
+#: frontend/templates/cart/cart.html:31 frontend/templates/cart/cart.html:73
+#: frontend/templates/cart/cart.html:78 frontend/templates/cart/cart.html:83
+#: frontend/templates/frontend/index.html:285
+#: frontend/templates/frontend/market/category.html:50
+#: frontend/templates/frontend/market/home.html:54
+msgid "DZD"
+msgstr "دينار جزائري"
+
+#: dashboard/templates/order/order.html:58
+msgid "approve"
+msgstr "يعتمد"
+
+#: dashboard/templates/order/order.html:69
+msgid "No orders found"
+msgstr "لم يتم العثور على الطلبات"
+
+#: dashboard/templates/products/create.html:6
+#: dashboard/templates/products/list.html:7
+#, fuzzy
+#| msgid "Product"
+msgid "Product List"
+msgstr "قائمة المنتجات"
+
+#: dashboard/templates/products/create.html:21
+#, fuzzy
+#| msgid "Product"
+msgid "Product Image"
+msgstr "صورة المنتج"
+
+#: dashboard/templates/products/create.html:45
+#, fuzzy
+#| msgid "Product"
+msgid "Product Name"
+msgstr "اسم المنتج"
+
+#: dashboard/templates/products/create.html:69
+#, fuzzy
+#| msgid "Product"
+msgid "Product Stock"
+msgstr "مخزون المنتج"
+
+#: dashboard/templates/products/create.html:81
+#, fuzzy
+#| msgid "Product"
+msgid "Product Price"
+msgstr "سعر المنتج"
+
+#: dashboard/templates/products/create.html:93
+msgid "Product Description"
+msgstr "وصف المنتج"
+
+#: dashboard/templates/products/list.html:9
+msgid "add new"
+msgstr "اضف جديدا"
+
+#: dashboard/templates/products/list.html:24
+#: dashboard/templates/products/list.html:28
+msgid "Stock"
+msgstr "مخزون"
+
+#: dashboard/templates/products/list.html:66
+#: frontend/templates/frontend/market/category.html:62
+#: frontend/templates/frontend/market/home.html:67
+msgid "No products at the moment"
+msgstr "لا يوجد منتجات في الوقت الحالي"
+
+#: dashboard/templates/user/edit.html:21
+msgid "Profile Picture"
+msgstr "صورة الملف الشخصي"
+
+#: dashboard/templates/user/edit.html:40
+#: dashboard/templates/user/profile.html:24
+#, fuzzy
+#| msgid "Your Name"
+msgid "First Name:"
+msgstr "الاسم الأول:"
+
+#: dashboard/templates/user/edit.html:47
+#: dashboard/templates/user/profile.html:28
+msgid "Last Name:"
+msgstr "اسم العائلة:"
+
+#: dashboard/templates/user/edit.html:55
+#: dashboard/templates/user/profile.html:32
+#, fuzzy
+#| msgid "Email"
+msgid "Email:"
+msgstr "بريد إلكتروني:"
+
+#: dashboard/templates/user/edit.html:60
+msgid "Save"
+msgstr "يحفظ"
+
+#: dashboard/templates/user/profile.html:38
+msgid "Last seen:"
+msgstr "آخر ظهور:"
+
+#: dashboard/templates/user/profile.html:42
+msgid "Date Joined:"
+msgstr "تاريخ الانضمام:"
+
+#: dashboard/views/auth.py:18
+msgid "Username is required."
+msgstr "اسم المستخدم مطلوب."
+
+#: dashboard/views/auth.py:20
+msgid "Password is required."
+msgstr "كلمة المرور مطلوبة."
+
+#: dashboard/views/auth.py:32
+msgid "Invalid credentials."
+msgstr "بيانات اعتماد غير صالحة."
+
+#: dashboard/views/categories.py:25 dashboard/views/products.py:33
+#, fuzzy
+#| msgid "Username is required."
+msgid "Name is required."
+msgstr "الاسم مطلوب."
+
+#: dashboard/views/categories.py:27 dashboard/views/products.py:35
+#, fuzzy
+#| msgid "Username is required."
+msgid "Description is required."
+msgstr "الوصف مطلوب."
+
+#: dashboard/views/products.py:37
+#, fuzzy
+#| msgid "Email is required."
+msgid "Price is required."
+msgstr "السعر مطلوب."
+
+#: dashboard/views/products.py:39
+#, fuzzy
+#| msgid "Password is required."
+msgid "Category is required."
+msgstr "الفئة مطلوبة."
+
+#: dashboard/views/products.py:41
+#, fuzzy
+#| msgid "Email is required."
+msgid "Stock is required."
+msgstr "يجب أن يكون المخزون مطلوبًا."
+
+#: dashboard/views/products.py:43
+#, fuzzy
+#| msgid "Email is required."
+msgid "Image is required."
+msgstr "الصورة مطلوبة."
+
+#: dashboard/views/products.py:63
+msgid "Product created successfully!"
+msgstr "تم إنشاء المنتج بنجاح!"
+
+#: dashboard/views/user.py:20
+msgid "First name is required."
+msgstr "الاسم الأول مطلوب."
+
+#: dashboard/views/user.py:22
+msgid "Last name is required."
+msgstr "الاسم الأخير مطلوب."
+
+#: dashboard/views/user.py:24
+msgid "Email is required."
+msgstr "البريد الإلكتروني مطلوب."
+
+#: frontend/models/cart.py:8 frontend/models/order.py:11
+msgid "Customer"
+msgstr "عميل"
+
+#: frontend/models/cart.py:24
+msgid "Cart"
+msgstr "العربة"
+
+#: frontend/models/cart.py:27 frontend/models/order.py:43
+msgid "Product"
+msgstr "منتج"
+
+#: frontend/models/cart.py:29 frontend/models/order.py:45
+msgid "Quantity"
+msgstr "كمية"
+
+#: frontend/models/customer.py:7
+msgid "User"
+msgstr "مستخدم"
+
+#: frontend/models/customer.py:10
+msgid "Session ID"
+msgstr "معرف الجلسة"
+
+#: frontend/models/customer.py:12 frontend/templates/frontend/index.html:485
+msgid "Phone Number"
+msgstr "رقم التليفون"
+
+#: frontend/models/customer.py:13 frontend/models/order.py:31
+msgid "Address"
+msgstr "عنوان"
+
+#: frontend/models/customer.py:14 frontend/models/order.py:32
+msgid "City"
+msgstr "مدينة"
+
+#: frontend/models/customer.py:15 frontend/models/order.py:33
+msgid "Country"
+msgstr "دولة"
+
+#: frontend/models/order.py:14
+msgid "Updated At"
+msgstr "تم التحديث في"
+
+#: frontend/models/order.py:15
+msgid "Total Price"
+msgstr "السعر الاجمالي"
+
+#: frontend/models/order.py:20
+msgid "Pending"
+msgstr "قيد الانتظار"
+
+#: frontend/models/order.py:21
+msgid "Shipped"
+msgstr "تم الشحن"
+
+#: frontend/models/order.py:22
+msgid "Delivered"
+msgstr "تم التوصيل"
+
+#: frontend/models/order.py:23
+msgid "Cancelled"
+msgstr "تم الإلغاء"
+
+#: frontend/models/order.py:27
+msgid "Cash on Delivery"
+msgstr "الدفع عند الاستلام"
+
+#: frontend/models/order.py:30
+#, fuzzy
+#| msgid "Your Name"
+msgid "Full Name"
+msgstr "الاسم الكامل"
+
+#: frontend/models/order.py:40
+msgid "Order"
+msgstr "طلب"
+
+#: frontend/models/order.py:46
+msgid "Price"
+msgstr "سعر"
+
+#: frontend/templates/cart/cart.html:6
+msgid "Shopping Cart"
+msgstr "عربة التسوق"
+
+#: frontend/templates/cart/cart.html:25
+msgid "Cart Summary"
+msgstr "ملخص العربة"
+
+#: frontend/templates/cart/cart.html:43
+msgid "Remove"
+msgstr "يزيل"
+
+#: frontend/templates/cart/cart.html:50
+msgid "Your cart is empty."
+msgstr "سلة التسوق الخاصة بك فارغة."
+
+#: frontend/templates/cart/cart.html:62
+msgid "Order Summary"
+msgstr "ملخص الطلب"
+
+#: frontend/templates/cart/cart.html:67
+#, fuzzy
+#| msgid "Product"
+msgid "Total Products:"
+msgstr "إجمالي المنتجات:"
+
+#: frontend/templates/cart/cart.html:72
+msgid "Subtotal:"
+msgstr "المجموع الفرعي:"
+
+#: frontend/templates/cart/cart.html:77
+#, fuzzy
+#| msgid "Shipped"
+msgid "Shipping:"
+msgstr "شحن:"
+
+#: frontend/templates/cart/cart.html:82
+msgid "Total Amount:"
+msgstr "المبلغ الإجمالي:"
+
+#: frontend/templates/cart/cart.html:94
+msgid "Shipping Details"
+msgstr "تفاصيل الشحن"
+
+#: frontend/templates/cart/cart.html:102
+#, fuzzy
+#| msgid "Your Name"
+msgid "Full Name:"
+msgstr "الاسم الكامل:"
+
+#: frontend/templates/cart/cart.html:113
+#, fuzzy
+#| msgid "Address"
+msgid "Address:"
+msgstr "عنوان:"
+
+#: frontend/templates/cart/cart.html:120
+#, fuzzy
+#| msgid "City"
+msgid "City:"
+msgstr "مدينة:"
+
+#: frontend/templates/cart/cart.html:127
+#, fuzzy
+#| msgid "Country"
+msgid "Country:"
+msgstr "دولة:"
+
+#: frontend/templates/cart/cart.html:131
+msgid "Algeria"
+msgstr "الجزائر"
+
+#: frontend/templates/cart/cart.html:139
+#, fuzzy
+#| msgid "Order"
+msgid "Save Order"
+msgstr "حفظ الطلب"
+
+#: frontend/templates/frontend/index.html:20
+msgid "your best place to get high quality furniture"
+msgstr "أفضل مكان للحصول على أثاث عالي الجودة"
+
+#: frontend/templates/frontend/index.html:21
+msgid "Amraoui Mohamed"
+msgstr "عمراوي محمد"
+
+#: frontend/templates/frontend/index.html:23
+#, fuzzy
+#| msgid "Edgecut"
+msgid "EdgeCut"
+msgstr "قطع الحافة"
+
+#: frontend/templates/frontend/index.html:25
+#: frontend/templates/frontend/index.html:119
+#: frontend/templates/frontend/index.html:546
+msgid "Home"
+msgstr "بيت"
+
+#: frontend/templates/frontend/index.html:76
+msgid "Edgecut"
+msgstr "قطع الحافة"
+
+#: frontend/templates/frontend/index.html:107
+msgid "Main Menu"
+msgstr "القائمة الرئيسية"
+
+#: frontend/templates/frontend/index.html:119
+msgid "(current)"
+msgstr "(حاضِر)"
+
+#: frontend/templates/frontend/index.html:122
+#: frontend/templates/frontend/index.html:547
+msgid "About"
+msgstr "عن"
+
+#: frontend/templates/frontend/index.html:125
+msgid "Furnitures"
+msgstr "الاثاث"
+
+#: frontend/templates/frontend/index.html:128
+#: frontend/templates/frontend/index.html:549
+msgid "Blog"
+msgstr "مدونة"
+
+#: frontend/templates/frontend/index.html:131
+#: frontend/templates/frontend/index.html:477
+#: frontend/templates/frontend/index.html:550
+msgid "Contact Us"
+msgstr "اتصل بنا"
+
+#: frontend/templates/frontend/index.html:142
+msgid "Arabic"
+msgstr "عربي"
+
+#: frontend/templates/frontend/index.html:161
+msgid "Elegant Living Spaces"
+msgstr "مساحات معيشة أنيقة"
+
+#: frontend/templates/frontend/index.html:164
+msgid ""
+"Redefine your home with designs that bring sophistication and comfort to "
+"life."
+msgstr "قم بإعادة تعريف منزلك بتصميمات تجلب الرقي والراحة للحياة."
+
+#: frontend/templates/frontend/index.html:178
+msgid "Serene Retreats"
+msgstr "ملاذات هادئة"
+
+#: frontend/templates/frontend/index.html:181
+msgid ""
+"Experience the perfect balance of elegance and functionality in every "
+"corner."
+msgstr "استمتع بالتوازن المثالي بين الأناقة والوظائف في كل زاوية."
+
+#: frontend/templates/frontend/index.html:195
+msgid "Dine with Grace"
+msgstr "تناول الطعام مع نعمة"
+
+#: frontend/templates/frontend/index.html:198
+msgid ""
+"Enjoy every moment with thoughtfully designed pieces that elevate your "
+"lifestyle."
+msgstr "استمتع بكل لحظة مع القطع المصممة بعناية والتي ترتقي بأسلوب حياتك."
+
+#: frontend/templates/frontend/index.html:231
+msgid "About Us"
+msgstr "معلومات عنا"
+
+#: frontend/templates/frontend/index.html:235
+msgid ""
+"We are a dedicated team offering high-quality furniture for every need and "
+"taste. Our mission is to provide comfort and style to your home with "
+"products that combine functionality and elegance."
+msgstr ""
+"نحن فريق متخصص في تقديم أثاث عالي الجودة يناسب كل الاحتياجات والأذواق. "
+"مهمتنا هي توفير الراحة والأناقة لمنزلك من خلال منتجات تجمع بين الوظيفة "
+"والأناقة."
+
+#: frontend/templates/frontend/index.html:238
+#: frontend/templates/frontend/index.html:323
+#: frontend/templates/frontend/index.html:341
+#: frontend/templates/frontend/index.html:359
+msgid "Read More"
+msgstr "اقرأ المزيد"
+
+#: frontend/templates/frontend/index.html:252
+msgid "Our Furniture"
+msgstr "أثاثنا"
+
+#: frontend/templates/frontend/index.html:259
+msgid ""
+"Discover a variety of high-quality furniture pieces designed to fit every "
+"style and budget. Whether you're looking for modern, classic, or unique "
+"designs, we have the perfect pieces for your home."
+msgstr ""
+"اكتشف مجموعة متنوعة من قطع الأثاث عالية الجودة المصممة لتناسب كل الأذواق "
+"والميزانيات. سواء كنت تبحث عن تصميمات حديثة أو كلاسيكية أو فريدة، فلدينا "
+"القطع المثالية لمنزلك."
+
+#: frontend/templates/frontend/index.html:288
+msgid "Add to Cart"
+msgstr "أضف إلى السلة"
+
+#: frontend/templates/frontend/index.html:306
+msgid "Latest Blog"
+msgstr "أحدث المدونات"
+
+#: frontend/templates/frontend/index.html:317
+msgid "The Future of Sustainable Furniture"
+msgstr "مستقبل الأثاث المستدام"
+
+#: frontend/templates/frontend/index.html:320
+msgid ""
+"As sustainability becomes a priority in design, the furniture industry is "
+"adopting eco-friendly materials and production methods. This post explores "
+"innovative trends and how they shape the future of interior design."
+msgstr ""
+"مع تحول الاستدامة إلى أولوية في التصميم، تتبنى صناعة الأثاث مواد وطرق إنتاج "
+"صديقة للبيئة. يستكشف هذا المنشور الاتجاهات المبتكرة وكيف تشكل مستقبل التصميم"
+" الداخلي."
+
+#: frontend/templates/frontend/index.html:335
+msgid "How to Choose the Perfect Sofa for Your Living Room"
+msgstr "كيفية اختيار الأريكة المثالية لغرفة المعيشة الخاصة بك"
+
+#: frontend/templates/frontend/index.html:338
+msgid ""
+"Selecting the right sofa for your living space can be a challenge. In this "
+"article, we cover key factors such as size, comfort, style, and durability "
+"to help you make the best choice."
+msgstr ""
+"قد يكون اختيار الأريكة المناسبة لمساحة المعيشة الخاصة بك تحديًا. في هذه "
+"المقالة، سنتناول العوامل الرئيسية مثل الحجم والراحة والأناقة والمتانة "
+"لمساعدتك على اتخاذ أفضل اختيار."
+
+#: frontend/templates/frontend/index.html:353
+msgid "The Art of Creating a Cozy Home Office"
+msgstr "فن إنشاء مكتب منزلي مريح"
+
+#: frontend/templates/frontend/index.html:356
+msgid ""
+"With remote work on the rise, creating a cozy and productive home office is "
+"more important than ever. This blog post offers tips on furniture, lighting,"
+" and layout to maximize comfort and productivity."
+msgstr ""
+"مع تزايد العمل عن بُعد، أصبح إنشاء مكتب منزلي مريح ومنتج أكثر أهمية من أي "
+"وقت مضى. تقدم هذه التدوينة نصائح حول الأثاث والإضاءة والتخطيط لتحقيق أقصى "
+"قدر من الراحة والإنتاجية."
+
+#: frontend/templates/frontend/index.html:374
+msgid "Testimonial"
+msgstr "شهادة"
+
+#: frontend/templates/frontend/index.html:396
+#: frontend/templates/frontend/index.html:418
+#: frontend/templates/frontend/index.html:440
+msgid ""
+"It is a long established fact that a reader will be distracted by the "
+"readable content of a page when looking at its layout."
+msgstr ""
+"من المعروف منذ زمن طويل أن القارئ سوف يشتت انتباهه عن المحتوى المقروء لصفحة "
+"ما عند النظر إلى شكل وتصميم الصفحة."
+
+#: frontend/templates/frontend/index.html:454
+msgid "Previous"
+msgstr "سابق"
+
+#: frontend/templates/frontend/index.html:461
+msgid "Next"
+msgstr "التالي"
+
+#: frontend/templates/frontend/index.html:482
+msgid "Your Name"
+msgstr "اسمك"
+
+#: frontend/templates/frontend/index.html:488
+msgid "Email"
+msgstr "بريد إلكتروني"
+
+#: frontend/templates/frontend/index.html:491
+msgid "Message"
+msgstr "رسالة"
+
+#: frontend/templates/frontend/index.html:495
+msgid "SEND"
+msgstr "يرسل"
+
+#: frontend/templates/frontend/index.html:521
+msgid "Call : +01 123455678990"
+msgstr "اتصل : +01 123455678990"
+
+#: frontend/templates/frontend/index.html:527
+msgid "Email : demo@gmail.com"
+msgstr "البريد الإلكتروني: demo@gmail.com"
+
+#: frontend/templates/frontend/index.html:533
+msgid "Location"
+msgstr "موقع"
+
+#: frontend/templates/frontend/index.html:543
+msgid "QUICK LINKS"
+msgstr "روابط سريعة"
+
+#: frontend/templates/frontend/index.html:548
+msgid "Furniture"
+msgstr "أثاث"
+
+#: frontend/templates/frontend/index.html:557
+msgid "INSTAGRAM FEEDS"
+msgstr "خلاصات الانستغرام"
+
+#: frontend/templates/frontend/index.html:584
+msgid "SIGN UP TO OUR NEWSLETTER"
+msgstr "اشترك في النشرة الإخبارية لدينا"
+
+#: frontend/templates/frontend/index.html:587
+msgid "Enter Your Email"
+msgstr "أدخل بريدك الإلكتروني"
+
+#: frontend/templates/frontend/index.html:589
+msgid "Subscribe"
+msgstr "يشترك"
+
+#: frontend/templates/frontend/index.html:621
+msgid "All Rights Reserved By"
+msgstr "جميع الحقوق محفوظة"
+
+#: frontend/templates/frontend/index.html:622
+msgid "Free Html Templates"
+msgstr "قوالب HTML مجانية"
+
+#: frontend/templates/frontend/market/category.html:53
+#: frontend/templates/frontend/market/home.html:57
+#: frontend/templates/frontend/market/product.html:51
+msgid "Add to cart"
+msgstr "أضف إلى السلة"
+
+#: frontend/templates/frontend/market/category.html:68
+#: frontend/templates/frontend/market/home.html:75
+msgid "No categories at the moment"
+msgstr "لا يوجد فئات في الوقت الحالي"
+
+#: frontend/templates/frontend/market/home.html:6
+msgid "market"
+msgstr "سوق"
+
+#: frontend/templates/frontend/market/product.html:37
+#, fuzzy
+#| msgid "Created At"
+msgid "Date Created : "
+msgstr "تاريخ الإنشاء :"
+
+#: frontend/templates/frontend/market/product.html:40
+msgid "Remaining Stock : "
+msgstr "المخزون المتبقي :"
+
+#: frontend/templates/frontend/market/product.html:45
+#, fuzzy
+#| msgid "Product"
+msgid "Product Details"
+msgstr "تفاصيل المنتج"
+
+#: frontend/views/cart/cart.py:46
+#, python-brace-format
+msgid "{quantity} x {product.name} added to cart."
+msgstr "تمت إضافة {الكمية} × {اسم المنتج} إلى سلة التسوق."
+
+#: frontend/views/cart/shipping.py:24
+msgid "Please fill out all shipping details."
+msgstr "يرجى ملء جميع تفاصيل الشحن."
+
+#: frontend/views/cart/shipping.py:53
+msgid "Shipping details saved successfully."
+msgstr "تم حفظ تفاصيل الشحن بنجاح."
+
+#: frontend/views/cart/shipping.py:61
+msgid "Failed to save shipping details {str(e)}"
+msgstr "فشل حفظ تفاصيل الشحن {str(e)}"
+
+#~ msgid "Proceed to Payment"
+#~ msgstr "انتقل إلى الدفع"
+
+#~ msgid "Brown Chair Design"
+#~ msgstr "تصميم الكرسي البني"
+
+#~ msgid "Buy Now"
+#~ msgstr "اشتري الآن"
+
+#~ msgid "Double Bed Design"
+#~ msgstr "تصميم سرير مزدوج"
+
+#~ msgid "House Chair Design"
+#~ msgstr "تصميم كرسي المنزل"
+
+#~ msgid "Brown Table Design"
+#~ msgstr "تصميم الطاولة باللون البني"
+
+#~ msgid "Blue Chair Design"
+#~ msgstr "تصميم الكرسي الأزرق"
+
+#~ msgid "For All Your"
+#~ msgstr "لجميع احتياجاتك"
+
+#~ msgid "Furniture Needs"
+#~ msgstr "احتياجات الاثاث"
+
+#~ msgid ""
+#~ "We offer a wide variety of furniture to suit all tastes and needs. Whether "
+#~ "you're looking for modern designs or classic styles, we've got something for"
+#~ " every home."
+#~ msgstr ""
+#~ "نقدم مجموعة متنوعة من الأثاث لتناسب جميع الأذواق والاحتياجات. سواء كنت تبحث "
+#~ "عن تصميمات حديثة أو أنماط كلاسيكية، فلدينا ما يناسب كل منزل."
+
+#~ msgid ""
+#~ "Find the perfect pieces for your living room, bedroom, or office. Our "
+#~ "furniture is designed to add elegance and comfort to any space."
+#~ msgstr ""
+#~ "ابحث عن القطع المثالية لغرفة المعيشة أو غرفة النوم أو المكتب. تم تصميم "
+#~ "أثاثنا لإضافة الأناقة والراحة إلى أي مساحة."
+
+#~ msgid ""
+#~ "From minimalist designs to luxurious statement pieces, we provide furniture "
+#~ "that fits your unique style and budget."
+#~ msgstr ""
+#~ "من التصميمات البسيطة إلى القطع الفاخرة، نوفر أثاثًا يناسب أسلوبك الفريد "
+#~ "وميزانيتك."

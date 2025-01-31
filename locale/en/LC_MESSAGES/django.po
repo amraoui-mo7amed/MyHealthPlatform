@@ -1,0 +1,860 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-01-10 16:24+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: core/settings.py:136 frontend/templates/frontend/index.html:139
+msgid "English"
+msgstr "English"
+
+#: dashboard/models/product.py:11
+msgid "Category"
+msgstr "Category"
+
+#: dashboard/templates/auth/login.html:10
+msgid "login"
+msgstr "login"
+
+#: dashboard/templates/auth/login.html:32
+msgid "Username"
+msgstr "Username"
+
+#: dashboard/templates/auth/login.html:39
+msgid "Password"
+msgstr "Password"
+
+#: dashboard/templates/auth/login.html:55
+msgid "Login"
+msgstr "Login"
+
+#: dashboard/templates/categories/list.html:6
+#, fuzzy
+#| msgid "Category"
+msgid "Create a category"
+msgstr "Create a category"
+
+#: dashboard/templates/categories/list.html:19
+#, fuzzy
+#| msgid "Category"
+msgid "Category Name"
+msgstr "Category Name"
+
+#: dashboard/templates/categories/list.html:23
+msgid "Category Description"
+msgstr "Category Description"
+
+#: dashboard/templates/categories/list.html:26
+#: dashboard/templates/products/create.html:96
+#, fuzzy
+#| msgid "Created At"
+msgid "Create"
+msgstr "Create"
+
+#: dashboard/templates/categories/list.html:31
+#, fuzzy
+#| msgid "Category"
+msgid "Categories List"
+msgstr "Categories List"
+
+#: dashboard/templates/categories/list.html:39
+#, fuzzy
+#| msgid "Your Name"
+msgid "Name"
+msgstr "Name"
+
+#: dashboard/templates/categories/list.html:42
+msgid "Description"
+msgstr "Description"
+
+#: dashboard/templates/categories/list.html:45
+#, fuzzy
+#| msgid "Created At"
+msgid "Creation Date"
+msgstr "Creation Date"
+
+#: dashboard/templates/categories/list.html:48
+#: dashboard/templates/order/order.html:31
+#, fuzzy
+#| msgid "Location"
+msgid "Actions"
+msgstr "Actions"
+
+#: dashboard/templates/categories/list.html:68
+#: dashboard/templates/products/list.html:54
+msgid "Delete"
+msgstr "Delete"
+
+#: dashboard/templates/categories/list.html:78
+#: dashboard/templates/products/create.html:106
+msgid "No Categories at the moment"
+msgstr "No Categories at the moment"
+
+#: dashboard/templates/dashboard/index.html:10
+#: dashboard/templates/dashboard/index.html:35
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: dashboard/templates/dashboard/index.html:39
+#, fuzzy
+#| msgid "Category"
+msgid "Categories"
+msgstr "Categories"
+
+#: dashboard/templates/dashboard/index.html:43
+#, fuzzy
+#| msgid "Product"
+msgid "Products"
+msgstr "Products"
+
+#: dashboard/templates/dashboard/index.html:47
+#: dashboard/templates/order/order.html:6
+#, fuzzy
+#| msgid "Order"
+msgid "Orders"
+msgstr "Orders"
+
+#: dashboard/templates/dashboard/index.html:97
+msgid "Mark all as read"
+msgstr "Mark all as read"
+
+#: dashboard/templates/dashboard/index.html:101
+msgid "No notifications at the moment"
+msgstr "No notifications at the moment"
+
+#: dashboard/templates/dashboard/index.html:120
+msgid "Profile"
+msgstr "Profile"
+
+#: dashboard/templates/dashboard/index.html:124
+msgid "Logout"
+msgstr "Logout"
+
+#: dashboard/templates/dashboard/index.html:143
+#, fuzzy
+#| msgid "All Rights Reserved By"
+msgid "All rights reserved"
+msgstr "All rights reserved"
+
+#: dashboard/templates/order/order.html:16
+#, fuzzy
+#| msgid "Order"
+msgid "Order ID"
+msgstr "Order ID"
+
+#: dashboard/templates/order/order.html:19
+#, fuzzy
+#| msgid "Order"
+msgid "Order Total"
+msgstr "Order Total"
+
+#: dashboard/templates/order/order.html:22 frontend/models/order.py:17
+msgid "Status"
+msgstr "Status"
+
+#: dashboard/templates/order/order.html:25 frontend/models/order.py:27
+msgid "Payment Method"
+msgstr "Payment Method"
+
+#: dashboard/templates/order/order.html:28 frontend/models/cart.py:10
+#: frontend/models/order.py:13
+msgid "Created At"
+msgstr "Created At"
+
+#: dashboard/templates/order/order.html:43
+#: dashboard/templates/products/list.html:49
+#: frontend/templates/cart/cart.html:31 frontend/templates/cart/cart.html:73
+#: frontend/templates/cart/cart.html:78 frontend/templates/cart/cart.html:83
+#: frontend/templates/frontend/index.html:285
+#: frontend/templates/frontend/market/category.html:50
+#: frontend/templates/frontend/market/home.html:54
+msgid "DZD"
+msgstr "DZD"
+
+#: dashboard/templates/order/order.html:58
+msgid "approve"
+msgstr "approve"
+
+#: dashboard/templates/order/order.html:69
+msgid "No orders found"
+msgstr "No orders found"
+
+#: dashboard/templates/products/create.html:6
+#: dashboard/templates/products/list.html:7
+#, fuzzy
+#| msgid "Product"
+msgid "Product List"
+msgstr "Product List"
+
+#: dashboard/templates/products/create.html:21
+#, fuzzy
+#| msgid "Product"
+msgid "Product Image"
+msgstr "Product Image"
+
+#: dashboard/templates/products/create.html:45
+#, fuzzy
+#| msgid "Product"
+msgid "Product Name"
+msgstr "Product Name"
+
+#: dashboard/templates/products/create.html:69
+#, fuzzy
+#| msgid "Product"
+msgid "Product Stock"
+msgstr "Product Stock"
+
+#: dashboard/templates/products/create.html:81
+#, fuzzy
+#| msgid "Product"
+msgid "Product Price"
+msgstr "Product Price"
+
+#: dashboard/templates/products/create.html:93
+msgid "Product Description"
+msgstr "Product Description"
+
+#: dashboard/templates/products/list.html:9
+msgid "add new"
+msgstr "add new"
+
+#: dashboard/templates/products/list.html:24
+#: dashboard/templates/products/list.html:28
+msgid "Stock"
+msgstr "Stock"
+
+#: dashboard/templates/products/list.html:66
+#: frontend/templates/frontend/market/category.html:62
+#: frontend/templates/frontend/market/home.html:67
+msgid "No products at the moment"
+msgstr "No products at the moment"
+
+#: dashboard/templates/user/edit.html:21
+msgid "Profile Picture"
+msgstr "Profile Picture"
+
+#: dashboard/templates/user/edit.html:40
+#: dashboard/templates/user/profile.html:24
+#, fuzzy
+#| msgid "Your Name"
+msgid "First Name:"
+msgstr "First Name:"
+
+#: dashboard/templates/user/edit.html:47
+#: dashboard/templates/user/profile.html:28
+msgid "Last Name:"
+msgstr "Last Name:"
+
+#: dashboard/templates/user/edit.html:55
+#: dashboard/templates/user/profile.html:32
+#, fuzzy
+#| msgid "Email"
+msgid "Email:"
+msgstr "Email:"
+
+#: dashboard/templates/user/edit.html:60
+msgid "Save"
+msgstr "Save"
+
+#: dashboard/templates/user/profile.html:38
+msgid "Last seen:"
+msgstr "Last seen:"
+
+#: dashboard/templates/user/profile.html:42
+msgid "Date Joined:"
+msgstr "Date Joined:"
+
+#: dashboard/views/auth.py:18
+msgid "Username is required."
+msgstr "Username is required."
+
+#: dashboard/views/auth.py:20
+msgid "Password is required."
+msgstr "Password is required."
+
+#: dashboard/views/auth.py:32
+msgid "Invalid credentials."
+msgstr "Invalid credentials."
+
+#: dashboard/views/categories.py:25 dashboard/views/products.py:33
+#, fuzzy
+#| msgid "Username is required."
+msgid "Name is required."
+msgstr "Name is required."
+
+#: dashboard/views/categories.py:27 dashboard/views/products.py:35
+#, fuzzy
+#| msgid "Username is required."
+msgid "Description is required."
+msgstr "Description is required."
+
+#: dashboard/views/products.py:37
+#, fuzzy
+#| msgid "Email is required."
+msgid "Price is required."
+msgstr "Price is required."
+
+#: dashboard/views/products.py:39
+#, fuzzy
+#| msgid "Password is required."
+msgid "Category is required."
+msgstr "Category is required."
+
+#: dashboard/views/products.py:41
+#, fuzzy
+#| msgid "Email is required."
+msgid "Stock is required."
+msgstr "Stock is required."
+
+#: dashboard/views/products.py:43
+#, fuzzy
+#| msgid "Email is required."
+msgid "Image is required."
+msgstr "Image is required."
+
+#: dashboard/views/products.py:63
+msgid "Product created successfully!"
+msgstr "Product created successfully!"
+
+#: dashboard/views/user.py:20
+msgid "First name is required."
+msgstr "First name is required."
+
+#: dashboard/views/user.py:22
+msgid "Last name is required."
+msgstr "Last name is required."
+
+#: dashboard/views/user.py:24
+msgid "Email is required."
+msgstr "Email is required."
+
+#: frontend/models/cart.py:8 frontend/models/order.py:11
+msgid "Customer"
+msgstr "Customer"
+
+#: frontend/models/cart.py:24
+msgid "Cart"
+msgstr "Cart"
+
+#: frontend/models/cart.py:27 frontend/models/order.py:43
+msgid "Product"
+msgstr "Product"
+
+#: frontend/models/cart.py:29 frontend/models/order.py:45
+msgid "Quantity"
+msgstr "Quantity"
+
+#: frontend/models/customer.py:7
+msgid "User"
+msgstr "User"
+
+#: frontend/models/customer.py:10
+msgid "Session ID"
+msgstr "Session ID"
+
+#: frontend/models/customer.py:12 frontend/templates/frontend/index.html:485
+msgid "Phone Number"
+msgstr "Phone Number"
+
+#: frontend/models/customer.py:13 frontend/models/order.py:31
+msgid "Address"
+msgstr "Address"
+
+#: frontend/models/customer.py:14 frontend/models/order.py:32
+msgid "City"
+msgstr "City"
+
+#: frontend/models/customer.py:15 frontend/models/order.py:33
+msgid "Country"
+msgstr "Country"
+
+#: frontend/models/order.py:14
+msgid "Updated At"
+msgstr "Updated At"
+
+#: frontend/models/order.py:15
+msgid "Total Price"
+msgstr "Total Price"
+
+#: frontend/models/order.py:20
+msgid "Pending"
+msgstr "Pending"
+
+#: frontend/models/order.py:21
+msgid "Shipped"
+msgstr "Shipped"
+
+#: frontend/models/order.py:22
+msgid "Delivered"
+msgstr "Delivered"
+
+#: frontend/models/order.py:23
+msgid "Cancelled"
+msgstr "Cancelled"
+
+#: frontend/models/order.py:27
+msgid "Cash on Delivery"
+msgstr "Cash on Delivery"
+
+#: frontend/models/order.py:30
+#, fuzzy
+#| msgid "Your Name"
+msgid "Full Name"
+msgstr "Full Name"
+
+#: frontend/models/order.py:40
+msgid "Order"
+msgstr "Order"
+
+#: frontend/models/order.py:46
+msgid "Price"
+msgstr "Price"
+
+#: frontend/templates/cart/cart.html:6
+msgid "Shopping Cart"
+msgstr "Shopping Cart"
+
+#: frontend/templates/cart/cart.html:25
+msgid "Cart Summary"
+msgstr "Cart Summary"
+
+#: frontend/templates/cart/cart.html:43
+msgid "Remove"
+msgstr "Remove"
+
+#: frontend/templates/cart/cart.html:50
+msgid "Your cart is empty."
+msgstr "Your cart is empty."
+
+#: frontend/templates/cart/cart.html:62
+msgid "Order Summary"
+msgstr "Order Summary"
+
+#: frontend/templates/cart/cart.html:67
+#, fuzzy
+#| msgid "Product"
+msgid "Total Products:"
+msgstr "Total Products:"
+
+#: frontend/templates/cart/cart.html:72
+msgid "Subtotal:"
+msgstr "Subtotal:"
+
+#: frontend/templates/cart/cart.html:77
+#, fuzzy
+#| msgid "Shipped"
+msgid "Shipping:"
+msgstr "Shipping:"
+
+#: frontend/templates/cart/cart.html:82
+msgid "Total Amount:"
+msgstr "Total Amount:"
+
+#: frontend/templates/cart/cart.html:94
+msgid "Shipping Details"
+msgstr "Shipping Details"
+
+#: frontend/templates/cart/cart.html:102
+#, fuzzy
+#| msgid "Your Name"
+msgid "Full Name:"
+msgstr "Full Name:"
+
+#: frontend/templates/cart/cart.html:113
+#, fuzzy
+#| msgid "Address"
+msgid "Address:"
+msgstr "Address:"
+
+#: frontend/templates/cart/cart.html:120
+#, fuzzy
+#| msgid "City"
+msgid "City:"
+msgstr "City:"
+
+#: frontend/templates/cart/cart.html:127
+#, fuzzy
+#| msgid "Country"
+msgid "Country:"
+msgstr "Country:"
+
+#: frontend/templates/cart/cart.html:131
+msgid "Algeria"
+msgstr "Algeria"
+
+#: frontend/templates/cart/cart.html:139
+#, fuzzy
+#| msgid "Order"
+msgid "Save Order"
+msgstr "Save Order"
+
+#: frontend/templates/frontend/index.html:20
+msgid "your best place to get high quality furniture"
+msgstr "your best place to get high quality furniture"
+
+#: frontend/templates/frontend/index.html:21
+msgid "Amraoui Mohamed"
+msgstr "Amraoui Mohamed"
+
+#: frontend/templates/frontend/index.html:23
+#, fuzzy
+#| msgid "Edgecut"
+msgid "EdgeCut"
+msgstr "EdgeCut"
+
+#: frontend/templates/frontend/index.html:25
+#: frontend/templates/frontend/index.html:119
+#: frontend/templates/frontend/index.html:546
+msgid "Home"
+msgstr "Home"
+
+#: frontend/templates/frontend/index.html:76
+msgid "Edgecut"
+msgstr "Edgecut"
+
+#: frontend/templates/frontend/index.html:107
+msgid "Main Menu"
+msgstr "Main Menu"
+
+#: frontend/templates/frontend/index.html:119
+msgid "(current)"
+msgstr "(current)"
+
+#: frontend/templates/frontend/index.html:122
+#: frontend/templates/frontend/index.html:547
+msgid "About"
+msgstr "About"
+
+#: frontend/templates/frontend/index.html:125
+msgid "Furnitures"
+msgstr "Furnitures"
+
+#: frontend/templates/frontend/index.html:128
+#: frontend/templates/frontend/index.html:549
+msgid "Blog"
+msgstr "Blog"
+
+#: frontend/templates/frontend/index.html:131
+#: frontend/templates/frontend/index.html:477
+#: frontend/templates/frontend/index.html:550
+msgid "Contact Us"
+msgstr "Contact Us"
+
+#: frontend/templates/frontend/index.html:142
+msgid "Arabic"
+msgstr "Arabic"
+
+#: frontend/templates/frontend/index.html:161
+msgid "Elegant Living Spaces"
+msgstr "Elegant Living Spaces"
+
+#: frontend/templates/frontend/index.html:164
+msgid ""
+"Redefine your home with designs that bring sophistication and comfort to "
+"life."
+msgstr ""
+"Redefine your home with designs that bring sophistication and comfort to "
+"life."
+
+#: frontend/templates/frontend/index.html:178
+msgid "Serene Retreats"
+msgstr "Serene Retreats"
+
+#: frontend/templates/frontend/index.html:181
+msgid ""
+"Experience the perfect balance of elegance and functionality in every "
+"corner."
+msgstr ""
+"Experience the perfect balance of elegance and functionality in every "
+"corner."
+
+#: frontend/templates/frontend/index.html:195
+msgid "Dine with Grace"
+msgstr "Dine with Grace"
+
+#: frontend/templates/frontend/index.html:198
+msgid ""
+"Enjoy every moment with thoughtfully designed pieces that elevate your "
+"lifestyle."
+msgstr ""
+"Enjoy every moment with thoughtfully designed pieces that elevate your "
+"lifestyle."
+
+#: frontend/templates/frontend/index.html:231
+msgid "About Us"
+msgstr "About Us"
+
+#: frontend/templates/frontend/index.html:235
+msgid ""
+"We are a dedicated team offering high-quality furniture for every need and "
+"taste. Our mission is to provide comfort and style to your home with "
+"products that combine functionality and elegance."
+msgstr ""
+"We are a dedicated team offering high-quality furniture for every need and "
+"taste. Our mission is to provide comfort and style to your home with "
+"products that combine functionality and elegance."
+
+#: frontend/templates/frontend/index.html:238
+#: frontend/templates/frontend/index.html:323
+#: frontend/templates/frontend/index.html:341
+#: frontend/templates/frontend/index.html:359
+msgid "Read More"
+msgstr "Read More"
+
+#: frontend/templates/frontend/index.html:252
+msgid "Our Furniture"
+msgstr "Our Furniture"
+
+#: frontend/templates/frontend/index.html:259
+msgid ""
+"Discover a variety of high-quality furniture pieces designed to fit every "
+"style and budget. Whether you're looking for modern, classic, or unique "
+"designs, we have the perfect pieces for your home."
+msgstr ""
+"Discover a variety of high-quality furniture pieces designed to fit every "
+"style and budget. Whether you're looking for modern, classic, or unique "
+"designs, we have the perfect pieces for your home."
+
+#: frontend/templates/frontend/index.html:288
+msgid "Add to Cart"
+msgstr "Add to Cart"
+
+#: frontend/templates/frontend/index.html:306
+msgid "Latest Blog"
+msgstr "Latest Blog"
+
+#: frontend/templates/frontend/index.html:317
+msgid "The Future of Sustainable Furniture"
+msgstr "The Future of Sustainable Furniture"
+
+#: frontend/templates/frontend/index.html:320
+msgid ""
+"As sustainability becomes a priority in design, the furniture industry is "
+"adopting eco-friendly materials and production methods. This post explores "
+"innovative trends and how they shape the future of interior design."
+msgstr ""
+"As sustainability becomes a priority in design, the furniture industry is "
+"adopting eco-friendly materials and production methods. This post explores "
+"innovative trends and how they shape the future of interior design."
+
+#: frontend/templates/frontend/index.html:335
+msgid "How to Choose the Perfect Sofa for Your Living Room"
+msgstr "How to Choose the Perfect Sofa for Your Living Room"
+
+#: frontend/templates/frontend/index.html:338
+msgid ""
+"Selecting the right sofa for your living space can be a challenge. In this "
+"article, we cover key factors such as size, comfort, style, and durability "
+"to help you make the best choice."
+msgstr ""
+"Selecting the right sofa for your living space can be a challenge. In this "
+"article, we cover key factors such as size, comfort, style, and durability "
+"to help you make the best choice."
+
+#: frontend/templates/frontend/index.html:353
+msgid "The Art of Creating a Cozy Home Office"
+msgstr "The Art of Creating a Cozy Home Office"
+
+#: frontend/templates/frontend/index.html:356
+msgid ""
+"With remote work on the rise, creating a cozy and productive home office is "
+"more important than ever. This blog post offers tips on furniture, lighting,"
+" and layout to maximize comfort and productivity."
+msgstr ""
+"With remote work on the rise, creating a cozy and productive home office is "
+"more important than ever. This blog post offers tips on furniture, lighting,"
+" and layout to maximize comfort and productivity."
+
+#: frontend/templates/frontend/index.html:374
+msgid "Testimonial"
+msgstr "Testimonial"
+
+#: frontend/templates/frontend/index.html:396
+#: frontend/templates/frontend/index.html:418
+#: frontend/templates/frontend/index.html:440
+msgid ""
+"It is a long established fact that a reader will be distracted by the "
+"readable content of a page when looking at its layout."
+msgstr ""
+"It is a long established fact that a reader will be distracted by the "
+"readable content of a page when looking at its layout."
+
+#: frontend/templates/frontend/index.html:454
+msgid "Previous"
+msgstr "Previous"
+
+#: frontend/templates/frontend/index.html:461
+msgid "Next"
+msgstr "Next"
+
+#: frontend/templates/frontend/index.html:482
+msgid "Your Name"
+msgstr "Your Name"
+
+#: frontend/templates/frontend/index.html:488
+msgid "Email"
+msgstr "Email"
+
+#: frontend/templates/frontend/index.html:491
+msgid "Message"
+msgstr "Message"
+
+#: frontend/templates/frontend/index.html:495
+msgid "SEND"
+msgstr "SEND"
+
+#: frontend/templates/frontend/index.html:521
+msgid "Call : +01 123455678990"
+msgstr "Call : +01 123455678990"
+
+#: frontend/templates/frontend/index.html:527
+msgid "Email : demo@gmail.com"
+msgstr "Email : demo@gmail.com"
+
+#: frontend/templates/frontend/index.html:533
+msgid "Location"
+msgstr "Location"
+
+#: frontend/templates/frontend/index.html:543
+msgid "QUICK LINKS"
+msgstr "QUICK LINKS"
+
+#: frontend/templates/frontend/index.html:548
+msgid "Furniture"
+msgstr "Furniture"
+
+#: frontend/templates/frontend/index.html:557
+msgid "INSTAGRAM FEEDS"
+msgstr "INSTAGRAM FEEDS"
+
+#: frontend/templates/frontend/index.html:584
+msgid "SIGN UP TO OUR NEWSLETTER"
+msgstr "SIGN UP TO OUR NEWSLETTER"
+
+#: frontend/templates/frontend/index.html:587
+msgid "Enter Your Email"
+msgstr "Enter Your Email"
+
+#: frontend/templates/frontend/index.html:589
+msgid "Subscribe"
+msgstr "Subscribe"
+
+#: frontend/templates/frontend/index.html:621
+msgid "All Rights Reserved By"
+msgstr "All Rights Reserved By"
+
+#: frontend/templates/frontend/index.html:622
+msgid "Free Html Templates"
+msgstr "Free Html Templates"
+
+#: frontend/templates/frontend/market/category.html:53
+#: frontend/templates/frontend/market/home.html:57
+#: frontend/templates/frontend/market/product.html:51
+msgid "Add to cart"
+msgstr "Add to cart"
+
+#: frontend/templates/frontend/market/category.html:68
+#: frontend/templates/frontend/market/home.html:75
+msgid "No categories at the moment"
+msgstr "No categories at the moment"
+
+#: frontend/templates/frontend/market/home.html:6
+msgid "market"
+msgstr "market"
+
+#: frontend/templates/frontend/market/product.html:37
+#, fuzzy
+#| msgid "Created At"
+msgid "Date Created : "
+msgstr "Date Created :"
+
+#: frontend/templates/frontend/market/product.html:40
+msgid "Remaining Stock : "
+msgstr "Remaining Stock :"
+
+#: frontend/templates/frontend/market/product.html:45
+#, fuzzy
+#| msgid "Product"
+msgid "Product Details"
+msgstr "Product Details"
+
+#: frontend/views/cart/cart.py:46
+#, python-brace-format
+msgid "{quantity} x {product.name} added to cart."
+msgstr "{quantity} x {product.name} added to cart."
+
+#: frontend/views/cart/shipping.py:24
+msgid "Please fill out all shipping details."
+msgstr "Please fill out all shipping details."
+
+#: frontend/views/cart/shipping.py:53
+msgid "Shipping details saved successfully."
+msgstr "Shipping details saved successfully."
+
+#: frontend/views/cart/shipping.py:61
+msgid "Failed to save shipping details {str(e)}"
+msgstr "Failed to save shipping details {str(e)}"
+
+#~ msgid "Proceed to Payment"
+#~ msgstr "Proceed to Payment"
+
+#~ msgid "Brown Chair Design"
+#~ msgstr "Brown Chair Design"
+
+#~ msgid "Buy Now"
+#~ msgstr "Buy Now"
+
+#~ msgid "Double Bed Design"
+#~ msgstr "Double Bed Design"
+
+#~ msgid "House Chair Design"
+#~ msgstr "House Chair Design"
+
+#~ msgid "Brown Table Design"
+#~ msgstr "Brown Table Design"
+
+#~ msgid "Blue Chair Design"
+#~ msgstr "Blue Chair Design"
+
+#~ msgid "For All Your"
+#~ msgstr "For All Your"
+
+#~ msgid "Furniture Needs"
+#~ msgstr "Furniture Needs"
+
+#~ msgid ""
+#~ "We offer a wide variety of furniture to suit all tastes and needs. Whether "
+#~ "you're looking for modern designs or classic styles, we've got something for"
+#~ " every home."
+#~ msgstr ""
+#~ "We offer a wide variety of furniture to suit all tastes and needs. Whether "
+#~ "you're looking for modern designs or classic styles, we've got something for"
+#~ " every home."
+
+#~ msgid ""
+#~ "Find the perfect pieces for your living room, bedroom, or office. Our "
+#~ "furniture is designed to add elegance and comfort to any space."
+#~ msgstr ""
+#~ "Find the perfect pieces for your living room, bedroom, or office. Our "
+#~ "furniture is designed to add elegance and comfort to any space."
+
+#~ msgid ""
+#~ "From minimalist designs to luxurious statement pieces, we provide furniture "
+#~ "that fits your unique style and budget."
+#~ msgstr ""
+#~ "From minimalist designs to luxurious statement pieces, we provide furniture "
+#~ "that fits your unique style and budget."

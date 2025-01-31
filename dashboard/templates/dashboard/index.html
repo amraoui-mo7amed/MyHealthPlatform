@@ -1,0 +1,156 @@
+{% extends "frontend/index.html" %}
+
+{% load static i18n %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "css/dash.css" %}" />
+    <link rel="stylesheet"
+          href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css" />
+{% endblock css %}
+
+{% block subtitle %}
+    {% trans "Dashboard" %}
+{% endblock subtitle %}
+
+{% block slider %}
+{% endblock slider %}
+
+{% block nav %}
+{% endblock nav %}
+
+{% block hero %}
+{% endblock hero %}
+
+{% block content %}
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div id="sidebar" class='d-flex flex-column shadow hide-sidebar'>
+            <div class="user-overview d-flex flex-column">
+                <img src="{{ user_profile.image.url }}" alt="" />
+                <h3>
+                    {{ user.username }}
+                </h3>
+            </div>
+            <ul id="menu">
+                <li class="nav-item" data-url="{% url 'dash:home' %}">
+                    <i class="fa fa-tachometer" aria-hidden="true"></i>
+                    <a href="{% url "dash:home" %}" class="nav-link">{% trans "Dashboard" %}</a>
+                </li>
+                {% comment %} admin menu {% endcomment %}
+                {% if request.user.is_superuser %}
+                    <li class="nav-item" data-url="{% url 'dash:list_users' %}">
+                        <i class="fa fa-users" aria-hidden="true"></i>
+                        <a href="{% url "dash:list_users" %}" class="nav-link">{% trans "Users" %}</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </div>
+        <div class="d-flex flex-column w-100" id='dash-page'>
+            <!--Top nav-->
+            <div class="dash-navbar shadow-sm">
+                <div class="left">
+                    <button class="menu-btn" id='menu-btn'>
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                             aria-hidden="true"
+                             xmlns="http://www.w3.org/2000/svg"
+                             width="24"
+                             height="24"
+                             fill="none"
+                             viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h14" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="right">
+                    <button class="notification-btn">
+
+                        <span class="bg-teal text-white">
+                            {{ user_profile.notifications_count }}
+                        </span>
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                             aria-hidden="true"
+                             xmlns="http://www.w3.org/2000/svg"
+                             width="24"
+                             height="24"
+                             fill="none"
+                             viewBox="0 0 24 24">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 5.365V3m0 2.365a5.338 5.338 0 0 1 5.133 5.368v1.8c0 2.386 1.867 2.982 1.867 4.175 0 .593 0 1.292-.538 1.292H5.538C5 18 5 17.301 5 16.708c0-1.193 1.867-1.789 1.867-4.175v-1.8A5.338 5.338 0 0 1 12 5.365ZM8.733 18c.094.852.306 1.54.944 2.112a3.48 3.48 0 0 0 4.646 0c.638-.572 1.236-1.26 1.33-2.112h-6.92Z" />
+                        </svg>
+                        <div class="dropdown-menu shadow-sm">
+                            {% if notifications %}
+                                {% for item in notifications %}
+                                    <div class="d-flex flex-column">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fa fa-envelope mx-2"></i>
+                                            <p class='m-0'>
+                                                {{ item.text|safe }}
+                                            </p>
+                                            <br />
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <div class="mark-as-read">
+                                    {% trans "Mark all as read" %}
+                                </div>
+                            {% else %}
+                                <div class="text-align-center text-center">
+                                    {% trans "No notifications at the moment" %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </button>
+                    <button class="user-btn">
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white"
+                             aria-hidden="true"
+                             xmlns="http://www.w3.org/2000/svg"
+                             width="24"
+                             height="24"
+                             fill="currentColor"
+                             viewBox="0 0 24 24">
+                            <path fill-rule="evenodd" d="M12 20a7.966 7.966 0 0 1-5.002-1.756l.002.001v-.683c0-1.794 1.492-3.25 3.333-3.25h3.334c1.84 0 3.333 1.456 3.333 3.25v.683A7.966 7.966 0 0 1 12 20ZM2 12C2 6.477 6.477 2 12 2s10 4.477 10 10c0 5.5-4.44 9.963-9.932 10h-.138C6.438 21.962 2 17.5 2 12Zm10-5c-1.84 0-3.333 1.455-3.333 3.25S10.159 13.5 12 13.5c1.84 0 3.333-1.455 3.333-3.25S13.841 7 12 7Z" clip-rule="evenodd" />
+                        </svg>
+                        <div class="dropdown-menu">
+                            <a href="{% url "dash:user-profile" %}"
+                               class='d-flex align-items-center'>
+                                <i class="uil uil-user-circle"></i>
+                                {% trans "Profile" %}
+                            </a>
+                            <a href="{% url "user_auth:logout" %}" class='d-flex align-items-center'>
+                                <i class="uil uil-exit"></i>
+                                {% trans "Logout" %}
+                            </a>
+                        </div>
+                    </button>
+                </div>
+            </div>
+            <div id='content'>
+                <h3 id='dashtitle'>
+                    {% block dashtitle %}
+
+                    {% endblock dashtitle %}
+                </h3>
+                <div id="dash" class='bg-light rounded p-2 pb-5'>
+                    {% block dash %}
+
+                    {% endblock dash %}
+
+                </div>
+                <div id="footer" class='d-flex'>
+                    <span>{% trans "All rights reserved" %}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Script to indetify the active link-->
+    <script src='{% static "js/dash.js" %}'>
+    </script>
+
+{% endblock content %}
+
+{% block footer %}
+{% endblock footer %}
+
+{% block js %}
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+{% endblock js %}

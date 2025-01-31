@@ -1,0 +1,66 @@
+#login-container {
+    max-width: 35%;
+    min-width: 340px;
+    width: 100%;
+    border-radius: 5px;
+    margin: auto;
+    margin-top: 12rem;
+    position: relative;
+    padding-top: 5rem;
+    text-align: center;
+}
+
+#login-container img {
+    max-width: 220px;
+    position: absolute;
+    top: -8rem;
+    left: 50%;
+    transform: translate(-50%);
+}
+#error-messages
+{
+    padding: 5px;
+    margin: 5px;
+    text-align: start;
+}
+#error-messages ul
+{
+    margin-top: 0;
+    margin-bottom: 0rem;
+    list-style: none;
+    padding-left: 0;
+}
+#login-container form {
+    padding: 0.5rem;
+}
+#login-container form label 
+{
+    text-align: start;
+    width: 100%;
+}
+#login-container .password-input 
+{
+    position: relative;
+    display: flex;
+}
+
+body.ltr #login-container #password-visibility
+{
+    font-size: 23px;
+    border-radius: 5px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+}
+body.rtl #login-container #password-visibility
+{
+    font-size: 23px;
+    border-radius: 5px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+}

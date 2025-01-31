@@ -1,0 +1,77 @@
+<!-- dashboard/templates/dashboard/yourmodel_list.html -->
+
+{% extends "dashboard/index.html" %}
+
+{% load static i18n %}
+{% load tags %}
+
+{% block dashtitle %}
+    <div class="d-flex align-items-center justify-content-between w-100">
+        {{ title }}
+        {% if create_url %}
+            <a class="btn btn-sm btn-warning" href="{% url create_url %}"><i class="uil uil-plus"></i></a>
+        {% endif %}
+    </div>
+{% endblock dashtitle %}
+
+{% block dash %}
+    <div class="bg-white p-2 m-2">
+        {% if items %}
+            <div class="table-responsive">
+                <table id="globalDataTable" class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            {% for field_name, verbose_name in fields %}
+                                <th>
+                                    {% trans verbose_name %}
+                                </th>
+                                <!-- Translates verbose name -->
+                            {% endfor %}
+                            {% if delete_url %}
+                                <th>
+                                    actions
+                                </th>
+
+                            {% endif %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                            <tr>
+                                {% for field_name,verbose_name in fields %}
+                                    <td>
+                                        {{ item|get_attr:field_name }}
+                                    </td>
+                                    <!-- Use custom filter to get attribute -->
+                                {% endfor %}
+                                {% if delete_url %}
+                                    <td>
+                                        <form method="POST"
+                                              action="{% url delete_url item.pk %}"
+                                              style="display:inline">
+                                            {% csrf_token %}
+                                            <button type="submit"
+                                                    class="btn btn-sm btn-danger delete-item p-0"
+                                                    data-id="{{ item.pk }}">
+                                                <i class="uil uil-trash fs-5"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+                                {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        {% else %}
+            <h3 class='w-100 text-center'>
+                No items at the moment
+            </h3>
+        {% endif %}
+    </div>
+{% endblock dash %}
+
+{% block extra_js %}
+    <script src="{% static "js/list.js" %}"></script>
+{% endblock extra_js %}

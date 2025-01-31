@@ -1,0 +1,12 @@
+# Dirs
+.venv
+# Files
+*.sqlite3
+*.pyc
+# .env
+# Ignore all .png files
+# *.png
+
+# Exclude user.png from being ignored
+!user-teal.png
+!logo.png

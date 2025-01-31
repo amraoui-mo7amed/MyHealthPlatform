@@ -1,0 +1,51 @@
+{% extends 'dashboard/index.html' %}
+
+{% load static i18n %}
+
+{% block subtite %}
+    {% trans "Users" %}
+{% endblock subtite %}
+
+{% block dashtitle %}
+    {% trans "Users" %}
+{% endblock dashtitle %}
+
+{% block dash %}
+    <div class="container-fluid">
+        <div class="row g-2 p-2">
+            {% for user in users %}
+                <div class="col-lg-2 col-md-3 col-sm-6">
+                    <div class="user-card bg-white shadow rounded position-relative">
+                        <a href="{% url 'dash:user-details' user.pk %}">
+                            <div class="user-image">
+                                <img src="{{ user.profile.image.url }}"
+                                     alt="{{ user.username }}"
+                                     class="w-75 m-auto d-block" />
+                            </div>
+                            <div class="user-info">
+                                <h5 class="text-center text-primary"
+                                    style='whitespace:nowrap;
+                                           overflow:hidden;
+                                           text-overflow:ellipsis'>
+                                    {{ user.get_full_name }}
+                                </h5>
+                                <div class="status">
+                                    {% if user.profile.is_approved %}
+                                        <button class="btn btn-sm bg-success text-light position-absolute start-0 top-0 ">
+                                            {% trans "Approved" %}
+                                        </button>
+                                    {% else %}
+                                        <button class="btn btn-sm bg-danger text-light position-absolute start-0 top-0">
+                                            {% trans "Pending" %}
+                                        </button>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock dash %}
