@@ -1,5 +1,5 @@
 # Dirs
 .venv
 # Files
-*.sqlite3
+
 *.pyc
