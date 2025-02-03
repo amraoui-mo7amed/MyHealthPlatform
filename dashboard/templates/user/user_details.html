@@ -10,9 +10,7 @@
 
 {% block dash %}
     <div class="container-fluid">
-        <h1>
-        </h1>
-
+        <div class="errorList"></div>
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -114,7 +112,12 @@
                 <i class="fas fa-arrow-left"></i> {% trans "Back to User List" %}
             </a>
             {% if not user.profile.is_approved %}
-                <a href="{% url "dash:approve_user" user.pk %}" class='bg-success text-white p-2 rounded mx-1'></a>
+                <form method="post" action="{% url 'dash:approve_user' user.profile.pk %}" class='d-inline form'>
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success mx-1">
+                        {% trans "Approve User" %}
+                    </button>
+                </form>
             {% endif %}
         </div>
     </div>

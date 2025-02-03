@@ -14,7 +14,7 @@ from django.conf import settings
 from django.urls import reverse
 from dashboard.models import Notifications
 
-from user_auth.models import UserProfile
+from user_auth import models
 
 
 
@@ -71,13 +71,22 @@ def delete_user(request, pk):
         return JsonResponse({'success': False, 'message': 'User not found'}, status=404)
 
 def approve_user(request, pk):
+    errors = []
+    
     if not request.user.is_superuser:
-        return JsonResponse({'success': False, 'message': 'Permission denied'}, status=403)
+        errors.append(_('Permission denied'))
+        return JsonResponse({'success': False, 'errors': errors}, status=403)
     
     try:
-        profile = UserProfile.objects.get(pk=pk)
+        profile = models.UserProfile.objects.get(pk=pk)
+        
+        if not profile:
+            errors.append(_('User not found'))
+            return JsonResponse({'success': False, 'errors': errors}, status=404)
+        
         if profile.is_approved:
-            return JsonResponse({'success': False, 'message': 'User is already approved'})
+            errors.append(_('User is already approved'))
+            return JsonResponse({'success': False, 'errors': errors}, status=400)
         
         profile.is_approved = True
         profile.save()
@@ -98,8 +107,11 @@ def approve_user(request, pk):
         send_mail(subject, message, from_email, recipient_list)
         
         return JsonResponse({'success': True, 'message': 'User has been approved'})
-    except UserProfile.DoesNotExist:
-        return JsonResponse({'success': False, 'message': 'User not found'}, status=404)
+
+    except Exception as e:
+        errors.append(str(e))
+        print(e)
+        return JsonResponse({'success': False, 'errors': errors}, status=500)
 
 def pending_view(request):
     """

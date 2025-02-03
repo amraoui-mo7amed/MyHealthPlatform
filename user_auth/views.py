@@ -47,7 +47,7 @@ def login_view(request):
                 login(request,user)
                 return JsonResponse({'success':True,'redirect_url' : reverse('dash:home')})
             else:
-                return JsonResponse({'errors': [_('Invalid credentials.')]})
+                return JsonResponse({'errors': [_('Invalid credentials.')],'success':False})
         except Exception as e:
             print(e)
 
@@ -160,7 +160,6 @@ def register_view(request):
                     speciality=speciality if role == 'DOCTOR' else None
                 )
                 
-                admin.profile.save()                                           
                 user.save()
                 profile.save()
                 if role == 'DOCTOR':
@@ -171,6 +170,7 @@ def register_view(request):
                         text=_("A new Doctor registered. Please approve. <a href='{}' class='text-primary'>View Profile</a>").format(reverse('dash:user-details', args=[user.pk])),
                     )
                     admin.profile.notifications_count += 1
+                    admin.profile.save()                                           
                     notification.save()
                 # Return success response without logging in
                 if role == 'PATIENT':
