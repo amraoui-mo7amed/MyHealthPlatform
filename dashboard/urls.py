@@ -14,7 +14,6 @@ urlpatterns = [
     path('users/delete/<int:pk>', user.delete_user, name='delete_user'),
     path('users/approve-user/<int:pk>/', user.approve_user, name='approve_user'),
     path('pending/', user.pending_view, name='pending'),
-    path('patient-data/', user.patient_data_view, name='patient_data'),
     # notifications
     path('reset-notifications/',notifications.reset_notifications_count,name='reset-notifications'),
 ]

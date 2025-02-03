@@ -1,4 +1,4 @@
-from pyexpat.errors import messages
+from django.contrib import messages
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from django.utils.translation import gettext_lazy as _
@@ -12,6 +12,10 @@ from dashboard.models import Notifications
 
 from user_auth.models import UserProfile
 
+from django.contrib.auth import get_user_model
+from user_auth.models import OTP
+
+userModel = get_user_model()
 
 def login_view(request):
     if request.user.is_authenticated:
@@ -36,9 +40,9 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request,user)
-                if user.profile.is_approved:
+                if user.profile.is_approved :
                     return JsonResponse({'redirect_url': reverse('dash:home')})  # Redirect to dashboard or another page
-                else:
+                else :
                     return JsonResponse({'success':True,'redirect_url' : reverse('dash:pending')})
             else:
                 return JsonResponse({'errors': [_('Invalid credentials.')]})
@@ -69,6 +73,13 @@ def register_view(request):
         role = request.POST.get('role')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
+        
+        # Add new fields from the template
+        gender = request.POST.get('gender')
+        phone_number = request.POST.get('phone_number')
+        wilaya = request.POST.get('wilaya')
+        certificate_serial = request.POST.get('certificate_serial')
+        speciality = request.POST.get('speciality')
 
         # Move User model definition to the top of the function
         User = get_user_model()
@@ -90,6 +101,19 @@ def register_view(request):
         for field, value in required_fields.items():
             if not value:
                 errors.append(_(f"{field.replace('_', ' ').title()} is required."))
+
+        # Add validation for new fields
+        if not gender:
+            errors.append(_("Gender is required."))
+        if not phone_number:
+            errors.append(_("Phone number is required."))
+        if not wilaya:
+            errors.append(_("Wilaya is required."))
+        if role == 'DOCTOR':
+            if not certificate_serial:
+                errors.append(_("Certificate serial is required for doctors."))
+            if not speciality:
+                errors.append(_("Speciality is required for doctors."))
 
         # Password validation
         if password1 != password2:
@@ -125,7 +149,12 @@ def register_view(request):
                     birthdate=birthdate,
                     image='images/user-teal.png',
                     notifications_count=0,
-                    role=role
+                    role=role,
+                    gender=gender,
+                    phone_number=phone_number,
+                    wilaya=wilaya,
+                    certificate_serial=certificate_serial if role == 'DOCTOR' else None,
+                    speciality=speciality if role == 'DOCTOR' else None
                 )
                 print(role)
                 notification = Notifications.objects.create(
@@ -138,14 +167,61 @@ def register_view(request):
                 user.save()
                 profile.save()
                 notification.save()
+                # Return success response without logging in
                 if role == 'PATIENT':
-                    login(request, user)
-                    return JsonResponse({'success': True, 'redirect_url': reverse('dash:patient_data')})
+                    return JsonResponse({
+                        'success': True,
+                        'message': _('Registration successful! Please confirm your e-mail.'),
+                        'redirect_url': reverse('user_auth:login')
+                    })
                 else:
-                    return JsonResponse({'success': True, 'redirect_url': reverse('dash:home')})
+                    return JsonResponse({
+                        'success': True,
+                        'message': _('Registration successful! Please confirm your e-mail.'),
+                        'redirect_url': reverse('user_auth:login')
+                    })
             except Exception as e:
                 errors.append(str(e))
                 return JsonResponse({'errors': errors, 'success': False})
 
     return render(request, 'auth/register.html')
+
+
+def activate_email(request):
+    """
+    Handle email activation using the token sent to the user
+    """
+    token = request.GET.get('token')
+    print(token)
+    
+    if not token:
+        messages.error(request, _('Activation token is missing.'))
+        return render(request, 'emails/activation_status.html')
+
+    try:
+        # Get the OTP instance for this token
+        otp = OTP.objects.get(code=token)
+        print(otp)
+        if not otp.is_valid():
+            messages.error(request, _('Activation link has expired. Please request a new one.'))
+            return render(request, 'emails/activation_status.html')
+        
+        # Activate the user
+        user = otp.user
+        user.profile.email_confirmed = True
+        user.save()
+        
+        # Delete the used OTP
+        otp.delete()
+        
+        messages.success(request, _('Your account has been successfully activated! You can now login.'))
+        return render(request, 'emails/activation_status.html')
+    
+    except OTP.DoesNotExist:
+        messages.error(request, _('Invalid activation link.'))
+        return render(request, 'emails/activation_status.html')
+    
+    except Exception as e:
+        messages.error(request, _('An error occurred during activation. Please try again.'))
+        return render(request, 'emails/activation_status.html')
 

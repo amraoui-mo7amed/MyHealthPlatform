@@ -175,3 +175,11 @@ MEDIA_ROOT = BASE_DIR / 'media'  # Directory to store media files
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# SMTP SERVER
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'raniaseghiri599@gmail.com'  # Replace with your Gmail address
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')  # Replace with the App Password you generated

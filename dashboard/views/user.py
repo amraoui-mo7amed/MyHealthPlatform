@@ -13,8 +13,6 @@ from django.urls import reverse
 from dashboard.models import Notifications
 
 from user_auth.models import UserProfile
-from dashboard.forms.user import PatientDataForm
-from dashboard.models.user import PatientData
 
 
 
@@ -101,78 +99,6 @@ def pending_view(request):
         return render(request, 'user/pending.html')
     return redirect('dash:home')
 
-@login_required
-def patient_data_view(request):
-    if request.user.profile.role != 'PATIENT':
-        return redirect('dash:home')
-    
-    try:
-        patient_data = request.user.patient_data
-    except PatientData.DoesNotExist:
-        patient_data = None
-
-    # Initialize form for both GET and POST
-    form = PatientDataForm(instance=patient_data)
-
-    if request.method == 'POST':
-        try:
-            form = PatientDataForm(request.POST, instance=patient_data)
-            if form.is_valid():
-                patient_data = form.save(commit=False)
-                patient_data.user = request.user
-                patient_data.save()
-                return JsonResponse({'success': True, 'redirect_url': reverse('dash:home')})
-            else:
-                # Return form errors if validation fails
-                errors = {field: error_list for field, error_list in form.errors.items()}
-                return JsonResponse({'success': False, 'errors': errors}, status=400)
-        except Exception as e:
-            return JsonResponse({'success': False, 'errors': {'__all__': [str(e)]}}, status=500)
-
-    # Handle GET request - render the form
-    return render(request, 'user/patient_data.html', {'form': form})
-
-@require_POST
-def patient_data(request):
-    form = PatientDataForm(request.POST)
-    
-    try:
-        if form.is_valid():
-            # Process the form data
-            instance = form.save()
-            return JsonResponse({
-                'success': True,
-                'message': 'Patient data saved successfully!',
-                'data': {
-                    'id': instance.id,
-                    # Add any other relevant data you want to return
-                }
-            })
-        else:
-            # Format errors for AJAX response
-            errors = {}
-            for field, error_list in form.errors.items():
-                errors[field] = error_list
-            
-            return JsonResponse({
-                'success': False,
-                'errors': errors
-            }, status=400)
-            
-    except ValidationError as e:
-        # Handle specific validation errors
-        return JsonResponse({
-            'success': False,
-            'errors': {'__all__': [str(e)]}
-        }, status=400)
-        
-    except Exception as e:
-        # Handle unexpected errors
-        return JsonResponse({
-            'success': False,
-            'errors': {'__all__': ['An unexpected error occurred. Please try again.']}
-        }, status=500)
-    
 
 @login_required
 def list_users(request):
