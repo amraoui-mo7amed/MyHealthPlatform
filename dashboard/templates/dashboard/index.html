@@ -28,7 +28,7 @@
             <div class="user-overview d-flex flex-column">
                 <img src="{{ user_profile.image.url }}" alt="" />
                 <h3>
-                    {{ user.username }}
+                    {{ request.user.username }}
                 </h3>
             </div>
             <ul id="menu">

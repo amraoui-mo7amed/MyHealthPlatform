@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate, login,logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.core.exceptions import ValidationError
+from django.core.mail import send_mail
+from django.conf import settings
 
 from django.urls import reverse
 from dashboard.models import Notifications
@@ -86,6 +88,14 @@ def approve_user(request, pk):
             title=_("Account Approved"),
             text=_("Your account has been approved by the admin. You can now access all features."),
         )
+        
+        # Send email notification
+        subject = _("Account Approved")
+        message = _(f"Hello {profile.user.get_full_name()} Your account has been approved by the admin. You can now access all features.")
+        from_email = settings.EMAIL_HOST_USER
+        recipient_list = [profile.user.email]
+        
+        send_mail(subject, message, from_email, recipient_list)
         
         return JsonResponse({'success': True, 'message': 'User has been approved'})
     except UserProfile.DoesNotExist:

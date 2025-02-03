@@ -38,12 +38,14 @@ def login_view(request):
             
             # Authentication and login logic (you can replace with actual user login)
             user = authenticate(request, username=username, password=password)
+            
             if user is not None:
+                if not user.profile.email_confirmed:
+                    return JsonResponse({'errors': [_('Please confirm your email address before logging in.')]})
+                if not user.profile.is_approved:
+                    return JsonResponse({'errors': [_('Your account is pending approval. Please wait for admin approval.')]})
                 login(request,user)
-                if user.profile.is_approved :
-                    return JsonResponse({'redirect_url': reverse('dash:home')})  # Redirect to dashboard or another page
-                else :
-                    return JsonResponse({'success':True,'redirect_url' : reverse('dash:pending')})
+                return JsonResponse({'success':True,'redirect_url' : reverse('dash:home')})
             else:
                 return JsonResponse({'errors': [_('Invalid credentials.')]})
         except Exception as e:
@@ -152,21 +154,24 @@ def register_view(request):
                     role=role,
                     gender=gender,
                     phone_number=phone_number,
+                    is_approved = False if role == 'DOCTOR' else True,
                     wilaya=wilaya,
                     certificate_serial=certificate_serial if role == 'DOCTOR' else None,
                     speciality=speciality if role == 'DOCTOR' else None
                 )
-                print(role)
-                notification = Notifications.objects.create(
-                    user=admin,
-                    title=_("New Doctor registered"),
-                    text=_("A new Doctor registered. Please approve. <a href='{}' class='text-primary'>View Profile</a>").format(reverse('dash:user-details', args=[user.pk])),
-                )
-                admin.profile.notifications_count += 1
+                
                 admin.profile.save()                                           
                 user.save()
                 profile.save()
-                notification.save()
+                if role == 'DOCTOR':
+                    # Send notification to admin
+                    notification = Notifications.objects.create(
+                        user=admin,
+                        title=_("New Doctor registered"),
+                        text=_("A new Doctor registered. Please approve. <a href='{}' class='text-primary'>View Profile</a>").format(reverse('dash:user-details', args=[user.pk])),
+                    )
+                    admin.profile.notifications_count += 1
+                    notification.save()
                 # Return success response without logging in
                 if role == 'PATIENT':
                     return JsonResponse({
@@ -177,7 +182,7 @@ def register_view(request):
                 else:
                     return JsonResponse({
                         'success': True,
-                        'message': _('Registration successful! Please confirm your e-mail.'),
+                        'message': _('Registration successful! Please confirm your e-mail & wait for admin approval.'),
                         'redirect_url': reverse('user_auth:login')
                     })
             except Exception as e:
@@ -192,7 +197,6 @@ def activate_email(request):
     Handle email activation using the token sent to the user
     """
     token = request.GET.get('token')
-    print(token)
     
     if not token:
         messages.error(request, _('Activation token is missing.'))
@@ -201,7 +205,6 @@ def activate_email(request):
     try:
         # Get the OTP instance for this token
         otp = OTP.objects.get(code=token)
-        print(otp)
         if not otp.is_valid():
             messages.error(request, _('Activation link has expired. Please request a new one.'))
             return render(request, 'emails/activation_status.html')
@@ -209,6 +212,7 @@ def activate_email(request):
         # Activate the user
         user = otp.user
         user.profile.email_confirmed = True
+        user.profile.save()
         user.save()
         
         # Delete the used OTP

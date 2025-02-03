@@ -128,7 +128,7 @@ class OTP(models.Model):
     
     # User relationship and OTP details
     user = models.OneToOneField(UserModel, on_delete=models.CASCADE, related_name='otp')
-    code = models.CharField(max_length=6)  # OTP code
+    code = models.CharField(max_length=6,unique=True)  # OTP code
     created_at = models.DateTimeField(auto_now_add=True)  # Creation timestamp
     expires_at = models.DateTimeField()  # Expiration timestamp
 

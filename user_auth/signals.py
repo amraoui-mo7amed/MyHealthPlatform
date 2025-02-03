@@ -54,10 +54,11 @@ def send_otp_on_user_creation(sender, instance, created, **kwargs):
             expires_at=expires_at
         )
         otp.save()
+        print(otp.user,otp.code)
         send_mail(
             'Account Activation',  # Email subject
             strip_tags(email_body),  # Plain text version
-            'noreply@yourdomain.com',
+            'myhealthypartner0@gmail.com',
             [instance.email],
             html_message=email_body  # HTML version
         )

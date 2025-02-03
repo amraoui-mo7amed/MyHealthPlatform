@@ -17,7 +17,9 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12 col-md-3 mb-3 mb-md-0">
-                        <h5>{% trans "Profile Information" %}</h5>
+                        <h5>
+                            {% trans "Profile Information" %}
+                        </h5>
                         {% if user.profile.image %}
                             <img src="{{ user.profile.image.url }}"
                                  alt="{% trans 'Profile Picture' %}"
@@ -29,38 +31,75 @@
                         {% endif %}
                     </div>
                     <div class="col-12 col-md-9">
-                        <div class="table-responsive">
+                        <div class="table-responsive" style='max-height: 360px;'>
                             <table class="table table-striped">
                                 <tbody>
                                     <tr>
-                                        <th>{% trans "Username" %}</th>
-                                        <td>{{ user.username }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>{% trans "Email" %}</th>
-                                        <td>{{ user.email }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>{% trans "First Name" %}</th>
-                                        <td>{{ user.first_name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>{% trans "Last Name" %}</th>
-                                        <td>{{ user.last_name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>{% trans "Account Status" %}</th>
+                                        <th>
+                                            {% trans "Username" %}
+                                        </th>
                                         <td>
-                                            {% if user.profile.is_approved %}
-                                                <span class="bg-success p-2 rounded text-white">{% trans "Active" %}</span>
-                                            {% else %}
-                                                <span class="bg-danger p-2 rounded text-white">{% trans "Inactive" %}</span>
-                                            {% endif %}
+                                            {{ user.username }}
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th>{% trans "Role" %}</th>
-                                        <td>{{ user.profile.get_role_display }}</td>
+                                        <th>
+                                            {% trans "Email" %}
+                                        </th>
+                                        <td>
+                                            {{ user.email }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            {% trans "First Name" %}
+                                        </th>
+                                        <td>
+                                            {{ user.first_name }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            {% trans "Last Name" %}
+                                        </th>
+                                        <td>
+                                            {{ user.last_name }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            {% trans "Approval Status" %}
+                                        </th>
+                                        <td>
+                                            {% if user.profile.is_approved %}
+                                                <span class="bg-success p-2 rounded text-white mx-2">{% trans "Approved" %}</span>
+                                            {% else %}
+                                                <span class="bg-danger p-2 rounded text-white mx-2">{% trans "Not approved" %}</span>
+                                            {% endif %}
+
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            {% trans "confirmation status" %}
+                                        </th>
+                                        <td>
+                                            {% if user.profile.email_confirmed %}
+                                                <span class="bg-success p-2 rounded text-white mx-2">{% trans "Confirmed" %}</span>
+                                            {% else %}
+                                                <span class="bg-danger p-2 rounded text-white mx-2">{% trans "not Confirmed" %}</span>
+                                            {% endif %}
+                                        </td>
+
+                                    </tr>
+                                    <tr>
+                                        <th>
+                                            {% trans "Role" %}
+                                        </th>
+                                        <td>
+                                            {{ user.profile.get_role_display }}
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -74,6 +113,9 @@
             <a href="{% url 'dash:list_users' %}" class="btn btn-secondary">
                 <i class="fas fa-arrow-left"></i> {% trans "Back to User List" %}
             </a>
+            {% if not user.profile.is_approved %}
+                <a href="{% url "dash:approve_user" user.pk %}" class='bg-success text-white p-2 rounded mx-1'></a>
+            {% endif %}
         </div>
     </div>
 {% endblock dash %}
