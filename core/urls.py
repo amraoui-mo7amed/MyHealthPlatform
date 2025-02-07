@@ -11,6 +11,8 @@ urlpatterns = [
     path('tinymce/', include('tinymce.urls')),
     # Language Changer
     path('set-language/', set_language, name='set_language'),
+    # frontend
+    path('', include('frontend.urls',namespace='frontend')),
     # Auth
     path('',include('user_auth.urls',namespace='user_auth')),
     # Patient 
