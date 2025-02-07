@@ -1,0 +1,30 @@
+{% extends "dashboard/index.html" %}
+
+{% load static i18n %}
+
+{% block subtitle %}
+
+{% trans "Request a diet" %}
+{% endblock subtitle %}
+
+{% block content %}
+    <div class="container ">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card shadow-sm border rounded mt-5">
+                    <div class="card-body p-4">
+                        <h3 class='text-center text-primary fw-bold mb-4'>
+                            {% trans "Welcome to better health" %}
+                        </h3>
+                        <p class="text-center lead">
+                            {% trans "If you're ready to transform your body and mind, let's start this journey together with a personalized diet plan. It's not just about losing weight; it's about building healthy habits for life. Let me guide you every step of the way to becoming healthier and stronger." %}
+                        </p>
+                        <a href="{% url "patient:bmi_calculator" %}" class="btn btn-primary d-block mx-auto text-uppercase">
+                            {% trans "request a diet" %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

@@ -45,7 +45,7 @@ def login_view(request):
                 if not user.profile.is_approved:
                     return JsonResponse({'errors': [_('Your account is pending approval. Please wait for admin approval.')]})
                 login(request,user)
-                return JsonResponse({'success':True,'redirect_url' : reverse('dash:home')})
+                return JsonResponse({'success':True,'redirect_url' : reverse('patient:request_a_diet')})
             else:
                 return JsonResponse({'errors': [_('Invalid credentials.')],'success':False})
         except Exception as e:

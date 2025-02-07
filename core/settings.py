@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'tinymce',
     'frontend',
     'dashboard',
+    'patient',
 ]
 # TinyMCE CONFIG
 MIDDLEWARE = [

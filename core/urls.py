@@ -13,6 +13,8 @@ urlpatterns = [
     path('set-language/', set_language, name='set_language'),
     # Auth
     path('',include('user_auth.urls',namespace='user_auth')),
+    # Patient 
+    path('patient/',include('patient.urls',namespace='patient')),
 
 ]
 

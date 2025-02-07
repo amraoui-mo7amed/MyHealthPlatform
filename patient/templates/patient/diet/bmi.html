@@ -1,0 +1,118 @@
+{% extends "dashboard/index.html" %}
+
+{% load static i18n %}
+
+{% block subtitle %}
+
+    {% trans "Diet Informations" %}
+{% endblock subtitle %}
+
+{% block content %}
+    <div class="container ">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="card shadow-sm border rounded mt-5">
+                    <div class="card-body p-4">
+                        <h3 class='text-center text-primary fw-bold mb-4'>
+                            {% trans "Diet Informations" %}
+                        </h3>
+                        <form action="{% url "patient:bmi_calculator" %}" class='form'>
+                            <div class="form-group mb-3">
+                                <label for="height" class="form-label">
+                                    {% trans "Whats your height (cm)?" %}
+                                </label>
+                                <input type="number"
+                                       class="form-control"
+                                       id="height"
+                                       name="height"
+                                       step="0.01"
+                                       placeholder='{% trans "Enter your height in cm" %}'
+                                       required />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="weight" class="form-label">
+                                    {% trans "What's your weight (kg)?" %}
+                                </label>
+                                <input type="number"
+                                       class="form-control"
+                                       id="weight"
+                                       name="weight"
+                                       step="0.01"
+                                       placeholder='{% trans "Enter your weight in kg" %}'
+                                       required />
+                            </div>
+                            <div class="form-group mb-3">
+                                <label for="bmi" class="form-label">
+                                    {% trans "Your body mass index is:" %}
+                                </label>
+                                <input type="number"
+                                       class="form-control"
+                                       id="bmi"
+                                       name="bmi"
+                                       readonly
+                                       placeholder='{% trans "BMI will be calculated here" %}' />
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">
+                                    {% trans "Select any relevant health conditions:" %}
+                                </label>
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           type="checkbox"
+                                           id="diabetes"
+                                           name="illnesses"
+                                           value="diabetes" />
+                                    <label class="form-check-label" for="diabetes">
+                                        {% trans "Diabetes" %}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           type="checkbox"
+                                           id="obesity"
+                                           name="illnesses"
+                                           value="obesity" />
+                                    <label class="form-check-label" for="obesity">
+                                        {% trans "Obesity" %}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           type="checkbox"
+                                           id="colitis"
+                                           name="illnesses"
+                                           value="colitis" />
+                                    <label class="form-check-label" for="colitis">
+                                        {% trans "Colitis" %}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="row align-items-center ">
+                                    <div class="col-lg-6 col-md-12">
+                                        {% trans "Get your Diet from:" %}
+                                    </div>
+                                    <div class="col-lg-6 col-md-12 d-flex gap-2">
+                                        <button class="btn btn-outline-primary flex-grow-1">
+                                            {% trans "AI" %}
+                                        </button>
+                                        <button class="btn btn-outline-primary flex-grow-1">
+                                            {% trans "Expert" %}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block js %}
+    <script src="{% static 'js/bmi.js' %}"></script>
+{% endblock js %}
+
