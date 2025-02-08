@@ -244,3 +244,11 @@ document.addEventListener('DOMContentLoaded', function () {
         return cookieValue;
     }
 });
+// Mobile menu toggle
+const mobileMenu = document.getElementById('mobile-menu');
+const navMenu = document.querySelector('.nav-menu');
+
+mobileMenu.addEventListener('click', () => {
+    mobileMenu.classList.toggle('active');
+    navMenu.classList.toggle('active');
+});

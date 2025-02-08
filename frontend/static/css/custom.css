@@ -8,8 +8,7 @@ body.rtl *:not(i) {
     font-family: "Almarai", serif;
 }
 
-.table-responsive
-{
+.table-responsive {
     max-height: 240px;
     overflow-x: auto;
 }
@@ -30,6 +29,7 @@ body.ltr i {
 /* End global rules */
 .hero_area {
     min-height: max-content !important;
+
 }
 
 nav {
@@ -218,4 +218,11 @@ nav .navbar-toggler span:after {
 
 #id_thumbnail {
     display: none;
+}
+
+.glass-navbar {
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
 }
