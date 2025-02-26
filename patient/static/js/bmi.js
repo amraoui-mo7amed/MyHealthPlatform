@@ -20,3 +20,16 @@ document.addEventListener('DOMContentLoaded', function () {
     heightInput.addEventListener('input', calculateBMI);
     weightInput.addEventListener('input', calculateBMI);
 });
+
+// Show/hide diabetes fields when checkbox is clicked
+document.getElementById('diabetes').addEventListener('change', function () {
+    const diabetesFields = document.getElementById('diabetesFields');
+    diabetesFields.style.display = this.checked ? 'block' : 'none';
+});
+
+
+// Show/hide obesity fields when checkbox is clicked
+document.getElementById('obesity').addEventListener('change', function () {
+    const obesityFields = document.getElementById('obesityFields');
+    obesityFields.style.display = this.checked ? 'block' : 'none';
+});

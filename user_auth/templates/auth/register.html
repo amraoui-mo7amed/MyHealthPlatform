@@ -242,19 +242,52 @@
                 <!-- Doctor Specific Fields (Conditional) -->
                 <div id="doctorFields" class="d-none">
                     <div class="mb-3">
+                        <label for="main_diploma" class="form-label">
+                            {% trans "Main Diploma" %} *
+                        </label>
+                        <input type="file"
+                               class="form-control"
+                               id="main_diploma"
+                               name="main_diploma"
+                               accept="application/pdf"
+                               required />
+                        <small class="form-text text-muted">
+                            {% trans "Upload your main diploma as a PDF file" %}
+                        </small>
+                    </div>
+                    <div class="mb-3">
                         <label for="certificate_serial" class="form-label">
-                            {% trans "Certificate Serial" %}
+                            {% trans "Certificate Serial" %} *
                         </label>
                         <input type="text"
                                class="form-control"
                                id="certificate_serial"
-                               name="certificate_serial" />
+                               name="certificate_serial"
+                               required />
                     </div>
                     <div class="mb-3">
                         <label for="speciality" class="form-label">
-                            {% trans "Speciality" %}
+                            {% trans "Speciality" %} *
                         </label>
-                        <input type="text" class="form-control" id="speciality" name="speciality" />
+                        <input type="text"
+                               class="form-control"
+                               id="speciality"
+                               name="speciality"
+                               required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="additional_diplomas" class="form-label">
+                            {% trans "Additional Diplomas" %}
+                        </label>
+                        <input type="file"
+                               class="form-control"
+                               id="additional_diplomas"
+                               name="additional_diplomas"
+                               accept="application/pdf"
+                               multiple />
+                        <small class="form-text text-muted">
+                            {% trans "Upload PDF files of additional diplomas (optional)" %}
+                        </small>
                     </div>
                 </div>
 

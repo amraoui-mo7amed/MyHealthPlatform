@@ -102,6 +102,7 @@ class UserProfile(models.Model):
     )
     certificate_serial = models.CharField(max_length=20, verbose_name='Certificate Serial', default='', null=True, blank=True)
     speciality = models.CharField(max_length=20, verbose_name='Speciality', default='', null=True, blank=True)
+    main_diploma = models.FileField(upload_to='main_diplomas/', null=True, blank=True)
 
     # Status Fields
     is_approved = models.BooleanField(default=True, verbose_name='Is Approved')
@@ -143,3 +144,11 @@ class OTP(models.Model):
             bool: True if OTP is valid, False if expired
         """
         return timezone.now() < self.expires_at
+
+class AdditionalDiploma(models.Model):
+    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE, related_name='additional_diplomas')
+    diploma_file = models.FileField(upload_to='diplomas/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Additional diploma for {self.user_profile.user.username}"

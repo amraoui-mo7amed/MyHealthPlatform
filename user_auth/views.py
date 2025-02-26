@@ -11,6 +11,7 @@ from django.urls import reverse
 from dashboard.models import Notifications
 
 from user_auth.models import UserProfile
+from user_auth.models import AdditionalDiploma
 
 from django.contrib.auth import get_user_model
 from user_auth.models import OTP
@@ -87,6 +88,8 @@ def register_view(request):
         wilaya = request.POST.get('wilaya')
         certificate_serial = request.POST.get('certificate_serial')
         speciality = request.POST.get('speciality')
+        main_diploma = request.FILES.get('main_diploma')
+        additional_diplomas = request.FILES.getlist('additional_diplomas')
 
         # Move User model definition to the top of the function
         User = get_user_model()
@@ -121,6 +124,14 @@ def register_view(request):
                 errors.append(_("Certificate serial is required for doctors."))
             if not speciality:
                 errors.append(_("Speciality is required for doctors."))
+            if not main_diploma:
+                errors.append(_("Main diploma is required for doctors."))
+            elif main_diploma.content_type != 'application/pdf':
+                errors.append(_("Main diploma must be a PDF file."))
+            for diploma in additional_diplomas:
+                if diploma.content_type != 'application/pdf':
+                    errors.append(_("All additional diplomas must be PDF files."))
+                    break
 
         # Password validation
         if password1 != password2:
@@ -162,11 +173,21 @@ def register_view(request):
                     is_approved = False if role == 'DOCTOR' else True,
                     wilaya=wilaya,
                     certificate_serial=certificate_serial if role == 'DOCTOR' else None,
-                    speciality=speciality if role == 'DOCTOR' else None
+                    speciality=speciality if role == 'DOCTOR' else None,
+                    main_diploma=main_diploma if role == 'DOCTOR' else None
                 )
                 
                 user.save()
                 profile.save()
+                
+                # Save additional diplomas if any
+                if role == 'DOCTOR' and additional_diplomas:
+                    for diploma in additional_diplomas:
+                        AdditionalDiploma.objects.create(
+                            user_profile=profile,
+                            diploma_file=diploma
+                        )
+
                 if role == 'DOCTOR':
                     # Send notification to admin
                     notification = Notifications.objects.create(

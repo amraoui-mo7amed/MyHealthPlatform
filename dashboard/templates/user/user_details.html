@@ -10,7 +10,8 @@
 
 {% block dash %}
     <div class="container-fluid">
-        <div class="errorList"></div>
+        <div class="errorList">
+        </div>
         <div class="card">
             <div class="card-body">
                 <div class="row">
@@ -99,6 +100,48 @@
                                             {{ user.profile.get_role_display }}
                                         </td>
                                     </tr>
+                                    <tr>
+                                        <th>
+                                            {% trans "User Documents" %}
+                                        </th>
+                                        <td>
+                                            {% if user.profile.main_diploma %}
+                                                <div class="d-flex flex-column">
+                                                    <span>{% trans "Main Diploma:" %}</span>
+                                                    <a href="{{ user.profile.main_diploma.url }}"
+                                                       target="_blank"
+                                                       class="text-decoration-none ps-2">
+                                                        <i class="fa fa-download"></i>
+                                                        {% trans "Diploma" %}
+                                                    </a>
+                                                </div>
+                                            {% endif %}
+
+                                            {% if user.profile.additional_diplomas %}
+                                                <div class="d-flex flex-column">
+                                                    <span>{% trans "Additional diplomas:" %}</span>
+
+                                                    {% if user.profile.additional_diplomas.all %}
+                                                        <ul class="list-unstyled">
+                                                            {% for diploma in user.profile.additional_diplomas.all %}
+                                                                <li>
+                                                                    <a href="{{ diploma.diploma_file.url }}"
+                                                                       target="_blank"
+                                                                       class="text-decoration-none ps-2">
+                                                                        <i class="fa fa-download"></i>
+
+                                                                        {% trans "Diploma" %} 
+                                                                    </a>
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    {% else %}
+                                                        <span class="text-muted">{% trans "No diplomas uploaded" %}</span>
+                                                    {% endif %}
+                                                </div>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -109,10 +152,12 @@
 
         <div class="mt-3">
             <a href="{% url 'dash:list_users' %}" class="btn btn-secondary">
-                <i class="fas fa-arrow-left"></i> {% trans "Back to User List" %}
+                <i class="fa fa-arrow-left"></i> {% trans "Back to User List" %}
             </a>
             {% if not user.profile.is_approved %}
-                <form method="post" action="{% url 'dash:approve_user' user.profile.pk %}" class='d-inline form'>
+                <form method="post"
+                      action="{% url 'dash:approve_user' user.profile.pk %}"
+                      class='d-inline form'>
                     {% csrf_token %}
                     <button type="submit" class="btn btn-success mx-1">
                         {% trans "Approve User" %}
