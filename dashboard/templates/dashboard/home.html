@@ -2,6 +2,10 @@
 
 {% load static i18n %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}?v={% now 'U' %}" />
+{% endblock extra_css %}
+
 {% block subtitle %}
     {% trans "Home" %}
 {% endblock subtitle %}
@@ -11,15 +15,66 @@
 {% endblock dashtitle %}
 
 {% block dash %}
-    {% if user.is_authenticated and role == 'DOCTOR' and not user_profile.is_approved %}
-        <div class="alert alert-danger">
-            {% trans "Your account is not yet approved by the admin" %}
+    <!-- DOCTOR section -->
+    {% if role == 'DOCTOR' %}
+        <div id="diet_requests">
+            <h3 class="text-teal">
+                {% trans "Diet requests" %}
+            </h3>
+            <div class="container-xl">
+                <div class="row">
+                    {% for request in diet_requests %}
+                        <div class="col-lg-4 col-md-12 col-sm-12">
+                            <div class="p-2 bg-white rounded text-dark">
+                                <h5 class="text-dark mb-2 text-truncate ">
+                                    {{ request.patient.get_full_name }}
+                                </h5>
+                                <div class="request_meta">
+                                    <span class='request_date d-flex align-items-center'>
+                                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                                        <span class="fs-6">
+                                            {{ request.date_created }}
+                                        </span>
+                                    </span>
+                                    <span class="request_bmi d-flex align-items-center">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>
+                                        <span class="fs-6">
+                                            {{ request.bmi.bmi_value }}
+                                        </span>
+                                    </span>
+                                    <span class="request_status d-flex align-items-center">
+                                        {% if request.request_verified %}
+                                            <i class="fa fa-check text-seccess" aria-hidden="true"></i>
+                                            <span class="fs-6">
+                                                {% trans "Request has been verified" %}
+                                            </span>
+                                        {% else %}
+                                            <i class="fa fa-times text-danger" aria-hidden="true"></i>
+                                            <span class="fs-6">
+                                                {% trans "Request is not verified" %}
+                                            </span>
+                                        {% endif %}
+
+                                    </span>
+                                </div>
+                                <div class="d-flex w-100">
+                                    <a href="" class="btn btn-teal btn-sm ms-auto ">
+                                        {% trans "Details" %}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
-    {% elif user.is_authenticated and role == 'PATIENT' %}
+    {% elif role == 'PATIENT' %}
+        <!-- Patient Section: Placeholder for patient-specific content -->
         <div class="alert alert-danger">
             {{ role }}
         </div>
-    {% elif user.is_authenticated and role == 'ADMIN' %}
+    {% elif role == 'ADMIN' %}
+        <!-- Admin Section: Shows dashboard with statistics and user management -->
         <div class="container-fluid">
             <div class="row gx-2 mb-2">
                 <!-- Card 1: Total Users -->

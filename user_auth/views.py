@@ -20,6 +20,9 @@ userModel = get_user_model()
 
 def login_view(request):
     if request.user.is_authenticated:
+        if request.META.get('HTTP_REFERER') == request.build_absolute_uri():
+            logout(request)
+            return redirect('user_auth:login')
         return redirect('dash:home')
     if request.method == 'POST':
         try: 
@@ -49,14 +52,19 @@ def login_view(request):
                 login(request,user)
                 # Redirect based on user role
                 if user.profile.role == 'PATIENT':
-                    return JsonResponse({'success':True,'redirect_url' : reverse('patient:request_a_diet')})
+                    if user.bmi_records:
+                        return JsonResponse({'success':True,'redirect_url' : reverse('dash:pending')})
+                    else:
+                        return JsonResponse({'success':True,'redirect_url' : reverse('patient:request_a_diet')})
                 else:
                     return JsonResponse({'success':True,'redirect_url' : reverse('dash:home')})
             else:
                 return JsonResponse({'errors': [_('Invalid credentials.')],'success':False})
         except Exception as e:
             print(e)
+            return JsonResponse({'errors': [_('An error occurred during login.')],'success':False})
 
+    request.session.flush()
     return render(request, 'auth/login.html')
 
 

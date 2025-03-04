@@ -81,7 +81,7 @@
                      width="30"
                      height="30"
                      class="d-inline-block align-text-top me-2" />
-                {% trans "My Health Platform" %}
+                {% trans "My Healthy Partner" %}
               </a>
 
               <button class="navbar-toggler"
@@ -171,14 +171,15 @@
       <section id="about" class="py-5">
         <div class="container">
           <div class="row align-items-center">
-            <div class="col-lg-6" data-aos="fade-right">
-              <img src="{% static 'images/about.png' %}"
+            <div class="col-lg-4" data-aos="fade-right">
+              <img src="{% static 'images/about2.jpg' %}"
                    alt="About Us"
-                   class="img-fluid rounded mb-2" />
+                   class="img-fluid rounded mb-2"
+                   />
             </div>
-            <div class="col-lg-6" data-aos="fade-left">
+            <div class="col-lg-8" data-aos="fade-left">
               <h2 class="text-teal mb-4">
-                {% trans "About My Health Platform" %}
+                {% trans "About My Healthy Partner" %}
               </h2>
               <p class="lead">
                 {% trans "We are dedicated to revolutionizing healthcare through innovative technology and personalized care." %}
@@ -364,7 +365,7 @@
           <div class="row">
             <div class="col text-center">
               <p class="mb-0 text-muted">
-                {% trans "© 2023 My Health Platform. All rights reserved." %}
+                {% trans "© 2023 My Healthy Partner. All rights reserved." %}
               </p>
             </div>
           </div>
@@ -389,9 +390,7 @@
     <!-- Custom JS -->
     <script src="{% static "js/custom.js" %}"></script>
 
-    <!-- Google Map -->
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap"></script>
-    <!-- End Google Map -->
+
     <!-- AOS script -->
     <script src="{% static "js/aos.js" %}"></script>
     <script>

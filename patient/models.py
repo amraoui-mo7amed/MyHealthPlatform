@@ -9,9 +9,16 @@ UserModel = get_user_model()
 # Define choices for illnesses that can be associated with BMI records
 ILLNESS_CHOICES = [
     ('DIABETES', 'Diabetes'),
-    ('COLON', 'Colon'),
     ('OBESITY', 'Obesity'),
 ]
+
+
+# Add new Illness model to store illness choices
+class Illness(models.Model):
+    name = models.CharField(max_length=20, choices=ILLNESS_CHOICES, unique=True)
+    
+    def __str__(self):
+        return self.get_name_display()
 
 class BMI(models.Model):
     # One-to-one relationship with Patient model, deleting BMI if patient is deleted
@@ -23,19 +30,9 @@ class BMI(models.Model):
     # Automatically set to current date/time when record is created
     date_recorded = models.DateTimeField(auto_now_add=True)
     # Changed from CharField to ManyToManyField to allow multiple selections
-    sickness = models.ManyToManyField('Illness')
+    sickness = models.ManyToManyField(Illness)
+    bmi_value = models.FloatField(null=True, blank=True)  # New field to store calculated BMI
 
-    @property
-    def value(self):
-        """Calculate BMI using the formula: weight (kg) / (height (m) ^ 2)"""
-        if self.height > 0:
-            # Return BMI rounded to one decimal place
-            return round(self.weight / (self.height ** 2), 1)
-        return None
-
-    def __str__(self):
-        # String representation of the BMI record
-        return f"BMI for {self.patient}: {self.value}"
 
     class Meta:
         # Customize the display name in admin interface
@@ -59,9 +56,41 @@ class BMI(models.Model):
             # For existing records, just save normally
             super().save(*args, **kwargs)
 
-# Add new Illness model to store illness choices
-class Illness(models.Model):
-    name = models.CharField(max_length=20, choices=ILLNESS_CHOICES, unique=True)
-    
+class Diabetes(models.Model):
+    bmi = models.OneToOneField(BMI, on_delete=models.CASCADE, related_name='diabetes')
+    glucose_type = models.CharField(max_length=10, choices=[('mg/dl', 'mg/dl'), ('mmol/l', 'mmol/l')])
+    fasting_glucose = models.FloatField()
+    hba1c = models.FloatField()
+    cholesterol = models.IntegerField()
+
     def __str__(self):
-        return self.get_name_display()
+        return f"Diabetes data for {self.bmi.patient}"
+
+    class Meta:
+        verbose_name = "Diabetes Record"
+        verbose_name_plural = "Diabetes Records"
+
+class Obesity(models.Model):
+    bmi = models.OneToOneField(BMI, on_delete=models.CASCADE, related_name='obesity')
+    glucose = models.FloatField()
+    hdl = models.FloatField()
+    ldl = models.FloatField()
+    triglycerides = models.FloatField()
+    cholesterol = models.IntegerField()
+    ac_uric = models.IntegerField()
+
+    def __str__(self):
+        return f"Obesity data for {self.bmi.patient}"
+
+    class Meta:
+        verbose_name = "Obesity Record"
+        verbose_name_plural = "Obesity Records"
+
+
+class DietRequest(models.Model):
+    patient = models.OneToOneField(UserModel, on_delete=models.CASCADE, related_name='diet_request')
+    bmi = models.OneToOneField(BMI, on_delete=models.CASCADE)
+    diabetes = models.OneToOneField(Diabetes, on_delete=models.CASCADE, null=True, blank=True)
+    obesity = models.OneToOneField(Obesity, on_delete=models.CASCADE,  null=True, blank=True)
+    date_created = models.DateTimeField(auto_now_add=True)
+    request_verified = models.BooleanField(default=False)

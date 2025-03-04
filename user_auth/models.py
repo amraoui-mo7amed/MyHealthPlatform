@@ -108,6 +108,7 @@ class UserProfile(models.Model):
     is_approved = models.BooleanField(default=True, verbose_name='Is Approved')
     email_confirmed = models.BooleanField(default=False, verbose_name='Email Confirmed')
     notifications_count = models.IntegerField(default=0, verbose_name='User Notifications')
+    signup_finished = models.BooleanField(default=True,null=True,blank=True)
 
     def __str__(self):
         """String representation of the UserProfile model"""

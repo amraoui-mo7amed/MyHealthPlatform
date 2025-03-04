@@ -7,7 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import authenticate, login,logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, PermissionDenied
 from django.core.mail import send_mail
 from django.conf import settings
 
@@ -61,7 +61,7 @@ def EditUserProfile(request):
 
 def delete_user(request, pk):
     if not request.user.is_superuser:
-        return JsonResponse({'success': False, 'message': 'Permission denied'}, status=403)
+        raise PermissionDenied
     
     try:
         user = get_user_model().objects.get(pk=pk)
@@ -71,11 +71,10 @@ def delete_user(request, pk):
         return JsonResponse({'success': False, 'message': 'User not found'}, status=404)
 
 def approve_user(request, pk):
-    errors = []
-    
     if not request.user.is_superuser:
-        errors.append(_('Permission denied'))
-        return JsonResponse({'success': False, 'errors': errors}, status=403)
+        raise PermissionDenied
+    
+    errors = []
     
     try:
         profile = models.UserProfile.objects.get(pk=pk)
@@ -117,7 +116,7 @@ def pending_view(request):
     """
     View to show pending approval page
     """
-    if request.user.is_authenticated and not request.user.profile.is_approved:
+    if request.user.is_authenticated and not request.user.profile.is_approved or request.user.profile.role == 'PATIENT':
         return render(request, 'user/pending.html')
     return redirect('dash:home')
 
@@ -125,7 +124,7 @@ def pending_view(request):
 @login_required
 def list_users(request):
     if not request.user.is_superuser:
-        return JsonResponse({'success': False, 'message': 'Permission denied'}, status=403)
+        raise PermissionDenied
     
     context = {}
     # Get all users except admins
@@ -136,6 +135,8 @@ def list_users(request):
     
 @login_required
 def userDetails(request, pk):
+    if not request.user.is_superuser:
+        raise PermissionDenied
     if request.user.is_superuser:
         try:
             user = get_user_model().objects.get(pk=pk)
