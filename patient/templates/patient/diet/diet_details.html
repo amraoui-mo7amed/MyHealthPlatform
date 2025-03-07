@@ -1,0 +1,63 @@
+{% extends "dashboard/index.html" %}
+
+{% load static i18n %}
+
+{% block dashtitle %}
+{% endblock dashtitle %}
+
+{% block dash %}
+    <div class="container-fluid">
+
+        <div id="dietDetails">
+            <div class="d-flex align-items-center justify-content-between">
+                <h3 class="text-teal mb-0">
+                    {% trans "Patient Diet" %}
+                </h3>
+            </div>
+
+            <div class="container-fluid">
+                <div class="row">
+                    {% for daily_plan in diet.daily_plans.all %}
+                        <div class="col mb-4 p-0">
+                            <div class="h-100 m-1 bg-white">
+                                <div class="card-header bg-teal text-light">
+                                    <h4 class="mb-0 text-center">
+                                        {{ daily_plan.get_day_display }}
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    {% for meal in daily_plan.meals.all %}
+                                        <div class="mb-3">
+                                            <div class="d-flex flex-column mb-2">
+                                                <h5 class="text-teal mb-0">
+                                                    {{ meal.get_meal_type_display }}
+                                                </h5>
+                                                <small class="text-muted">
+                                                    {% if meal.meal_type == 'BREAKFAST' %}
+                                                        8:00 AM
+                                                    {% elif meal.meal_type == 'LUNCH' %}
+                                                        12:00 PM
+                                                    {% elif meal.meal_type == 'SNACK' %}
+                                                        4:00 PM
+                                                    {% elif meal.meal_type == 'DINNER' %}
+                                                        8:00 PM
+                                                    {% endif %}
+                                                </small>
+                                            </div>
+                                            <p>
+                                                {{ meal.description }}
+                                            </p>
+                                        </div>
+                                        {% if not forloop.last %}
+                                            <hr />
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock dash %}

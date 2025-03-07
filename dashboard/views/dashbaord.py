@@ -44,6 +44,6 @@ def home(request):
         
     # Doctors get list of all diet requests
     if request.user.profile.role == 'DOCTOR':
-        context['diet_requests'] = DietRequest.objects.all()
+        context['diet_requests'] = DietRequest.objects.all().order_by('-date_created')
         
     return render(request, template_name='dashboard/home.html', context=context)

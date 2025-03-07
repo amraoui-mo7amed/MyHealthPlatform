@@ -21,50 +21,167 @@
             <h3 class="text-teal">
                 {% trans "Diet requests" %}
             </h3>
-            <div class="container-xl">
+            <div class="container-fluid">
                 <div class="row">
-                    {% for request in diet_requests %}
-                        <div class="col-lg-4 col-md-12 col-sm-12">
-                            <div class="p-2 bg-white rounded text-dark">
-                                <h5 class="text-dark mb-2 text-truncate ">
-                                    {{ request.patient.get_full_name }}
-                                </h5>
-                                <div class="request_meta">
-                                    <span class='request_date d-flex align-items-center'>
-                                        <i class="fa fa-calendar" aria-hidden="true"></i>
-                                        <span class="fs-6">
-                                            {{ request.date_created }}
-                                        </span>
-                                    </span>
-                                    <span class="request_bmi d-flex align-items-center">
-                                        <i class="fa fa-heart" aria-hidden="true"></i>
-                                        <span class="fs-6">
-                                            {{ request.bmi.bmi_value }}
-                                        </span>
-                                    </span>
-                                    <span class="request_status d-flex align-items-center">
-                                        {% if request.request_verified %}
-                                            <i class="fa fa-check text-seccess" aria-hidden="true"></i>
-                                            <span class="fs-6">
-                                                {% trans "Request has been verified" %}
-                                            </span>
-                                        {% else %}
-                                            <i class="fa fa-times text-danger" aria-hidden="true"></i>
-                                            <span class="fs-6">
-                                                {% trans "Request is not verified" %}
-                                            </span>
-                                        {% endif %}
-
-                                    </span>
+                    <div class="col-12">
+                        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                            <button class="nav-link active"
+                                    id="nav-verified-tab"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#nav-verified"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="nav-verified"
+                                    aria-selected="true">
+                                {% trans "Verified Requests" %}
+                            </button>
+                            <button class="nav-link"
+                                    id="nav-unverified-tab"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#nav-unverified"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="nav-unverified"
+                                    aria-selected="false">
+                                {% trans "Unverified Requests" %}
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="tab-content" id="nav-tabContent">
+                            <!-- Verified Requests Pane -->
+                            <div class="tab-pane fade show active"
+                                 id="nav-verified"
+                                 role="tabpanel"
+                                 aria-labelledby="nav-verified-tab">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    {% trans "Patient Name" %}
+                                                </th>
+                                                <th>
+                                                    {% trans "Date Created" %}
+                                                </th>
+                                                <th>
+                                                    {% trans "BMI Value" %}
+                                                </th>
+                                                <th>
+                                                    {% trans "Status" %}
+                                                </th>
+                                                <th>
+                                                    {% trans "Actions" %}
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for request in diet_requests %}
+                                                {% if request.request_verified %}
+                                                    <tr>
+                                                        <td>
+                                                            {{ request.patient.get_full_name }}
+                                                        </td>
+                                                        <td>
+                                                            {{ request.date_created }}
+                                                        </td>
+                                                        <td>
+                                                            {{ request.bmi.bmi_value }}
+                                                        </td>
+                                                        <td>
+                                                            <span class="text-success">
+                                                                <i class="fa fa-check" aria-hidden="true"></i>
+                                                                {% trans "Verified" %}
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex align-items-center ">
+                                                                <a href="{% url "doctor:diet-request-details" request.pk %}" class="btn btn-teal btn-sm">
+                                                                    {% trans "Details" %}
+                                                                </a>
+                                                                <button class="btn btn-sm btn-danger delete-button d-block w-100 ms-1"
+                                                                        data-delete-url="{% url "doctor:diet-request-delete" request.pk %}"
+                                                                        data-csrf-token="{{ csrf_token }}"
+                                                                        data-url="{% url 'doctor:diet-request-delete' request.pk %}">
+                                                                    {% trans "Delete" %}
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
                                 </div>
-                                <div class="d-flex w-100">
-                                    <a href="" class="btn btn-teal btn-sm ms-auto ">
-                                        {% trans "Details" %}
-                                    </a>
+                            </div>
+
+                            <!-- Unverified Requests Pane -->
+                            <div class="tab-pane fade"
+                                 id="nav-unverified"
+                                 role="tabpanel"
+                                 aria-labelledby="nav-unverified-tab">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    {% trans "Patient Name" %}
+                                                </th>
+                                                <th>
+                                                    {% trans "Date Created" %}
+                                                </th>
+                                                <th>
+                                                    {% trans "BMI Value" %}
+                                                </th>
+                                                <th>
+                                                    {% trans "Status" %}
+                                                </th>
+                                                <th>
+                                                    {% trans "Actions" %}
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for request in diet_requests %}
+                                                {% if not request.request_verified %}
+                                                    <tr>
+                                                        <td>
+                                                            {{ request.patient.get_full_name }}
+                                                        </td>
+                                                        <td>
+                                                            {{ request.date_created }}
+                                                        </td>
+                                                        <td>
+                                                            {{ request.bmi.bmi_value }}
+                                                        </td>
+                                                        <td>
+                                                            <span class="text-danger">
+                                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                                                {% trans "Unverified" %}
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex align-items-center ">
+                                                                <a href="{% url "doctor:diet-request-details" request.pk %}" class="btn btn-teal btn-sm">
+                                                                    {% trans "Details" %}
+                                                                </a>
+                                                                <button class="btn btn-sm btn-danger delete-button d-block w-100 ms-1"
+                                                                        data-delete-url="{% url "doctor:diet-request-delete" request.pk %}"
+                                                                        data-csrf-token="{{ csrf_token }}"
+                                                                        data-url="{% url 'doctor:diet-request-delete' request.pk %}">
+                                                                    {% trans "Delete" %}
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
-                    {% endfor %}
+                    </div>
                 </div>
             </div>
         </div>

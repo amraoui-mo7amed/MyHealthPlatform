@@ -1,0 +1,152 @@
+{% extends "dashboard/index.html" %}
+
+{% load static i18n %}
+
+{% comment %} 
+{% block dashtitle %}
+    {% trans "Diet Request Details" %}
+{% endblock dashtitle %} {% endcomment %}
+
+{% block dash %}
+    <div class="container-fluid mb-3">
+        <h3 class="text-teal">
+            {% trans "Diet Request Details" %}
+        </h3>
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-teal text-light"
+                         data-toggle="collapse"
+                         data-target="#patientInfo"
+                         aria-expanded="true">
+                        <h4 class='mb-0 text-center'>
+                            {% trans "Patient Information" %}
+                        </h4>
+                    </div>
+                    <div class="card-body collapse show" id="patientInfo">
+                        <p>
+                            <strong>{% trans "Patient" %}:</strong> {{ diet_request.patient.get_full_name }}
+                        </p>
+                        <p>
+                            <strong>{% trans "Request Date" %}:</strong> {{ diet_request.date_created }}
+                        </p>
+                        <p>
+                            <strong>{% trans "Verified" %}:</strong> {{ diet_request.request_verified|yesno:_("Yes,No") }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header bg-teal text-light"
+                         data-toggle="collapse"
+                         data-target="#bmiInfo"
+                         aria-expanded="true">
+                        <h4 class='mb-0 text-center'>
+                            {% trans "BMI Information" %}
+                        </h4>
+                    </div>
+                    <div class="card-body collapse show" id="bmiInfo">
+                        <p>
+                            <strong>{% trans "Height" %}:</strong> {{ bmi.height }} m
+                        </p>
+                        <p>
+                            <strong>{% trans "Weight" %}:</strong> {{ bmi.weight }} kg
+                        </p>
+                        <p>
+                            <strong>{% trans "BMI Value" %}:</strong> {{ bmi.bmi_value|floatformat:2 }}
+                        </p>
+                        <p>
+                            <strong>{% trans "Recorded Date" %}:</strong> {{ bmi.date_recorded }}
+                        </p>
+                        <p>
+                            <strong>{% trans "Associated Illnesses" %}:</strong>
+                            {% for illness in bmi.sickness.all %}
+                                {{ illness.get_name_display }}
+                                {% if not forloop.last %}
+                                    ,
+                                {% endif %}
+                            {% endfor %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            {% if diabetes %}
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-teal text-light"
+                             data-toggle="collapse"
+                             data-target="#diabetesInfo"
+                             aria-expanded="true">
+                            <h4 class='mb-0 text-center'>
+                                {% trans "Diabetes Information" %}
+                            </h4>
+                        </div>
+                        <div class="card-body collapse show" id="diabetesInfo">
+                            <p>
+                                <strong>{% trans "Glucose Type" %}:</strong> {{ diabetes.glucose_type }}
+                            </p>
+                            <p>
+                                <strong>{% trans "Fasting Glucose" %}:</strong> {{ diabetes.fasting_glucose }}
+                            </p>
+                            <p>
+                                <strong>{% trans "HbA1c" %}:</strong> {{ diabetes.hba1c }}
+                            </p>
+                            <p>
+                                <strong>{% trans "Cholesterol" %}:</strong> {{ diabetes.cholesterol }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if obesity %}
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-teal text-light"
+                             data-toggle="collapse"
+                             data-target="#obesityInfo"
+                             aria-expanded="true">
+                            <h4 class="mb-0 text-light">
+                                {% trans "Obesity Information" %}
+                            </h4>
+                        </div>
+                        <div class="card-body collapse show" id="obesityInfo">
+                            <p>
+                                <strong>{% trans "Glucose" %}:</strong> {{ obesity.glucose }}
+                            </p>
+                            <p>
+                                <strong>{% trans "HDL" %}:</strong> {{ obesity.hdl }}
+                            </p>
+                            <p>
+                                <strong>{% trans "LDL" %}:</strong> {{ obesity.ldl }}
+                            </p>
+                            <p>
+                                <strong>{% trans "Triglycerides" %}:</strong> {{ obesity.triglycerides }}
+                            </p>
+                            <p>
+                                <strong>{% trans "Cholesterol" %}:</strong> {{ obesity.cholesterol }}
+                            </p>
+                            <p>
+                                <strong>{% trans "AC Uric" %}:</strong> {{ obesity.ac_uric }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+        <div class="d-flex my-2">
+            <a href="{% url "doctor:diet-create" diet_request.pk %}"
+               class="btn btn-teal ms-auto">
+                {% if diet %}
+                    {% trans "Preview Diet" %}
+                {% else %}
+                    {% trans "Create diet" %}
+                {% endif %}
+            </a>
+        </div>
+    </div>
+
+{% endblock dash %}

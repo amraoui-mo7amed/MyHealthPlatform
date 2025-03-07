@@ -17,6 +17,9 @@ urlpatterns = [
     path('',include('user_auth.urls',namespace='user_auth')),
     # Patient 
     path('patient/',include('patient.urls',namespace='patient')),
+    # Doctor
+    path('doctor/',include('doctor.urls',namespace='doctor')),
+    
 
 ]
 

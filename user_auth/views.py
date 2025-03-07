@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login,logout, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.core.exceptions import ValidationError
+from patient import models as pt_models
 
 from django.urls import reverse
 from dashboard.models import Notifications
@@ -20,9 +21,6 @@ userModel = get_user_model()
 
 def login_view(request):
     if request.user.is_authenticated:
-        if request.META.get('HTTP_REFERER') == request.build_absolute_uri():
-            logout(request)
-            return redirect('user_auth:login')
         return redirect('dash:home')
     if request.method == 'POST':
         try: 
@@ -52,19 +50,22 @@ def login_view(request):
                 login(request,user)
                 # Redirect based on user role
                 if user.profile.role == 'PATIENT':
-                    if user.bmi_records:
-                        return JsonResponse({'success':True,'redirect_url' : reverse('dash:pending')})
-                    else:
-                        return JsonResponse({'success':True,'redirect_url' : reverse('patient:request_a_diet')})
+                    try:
+                        diet_request = pt_models.DietRequest.objects.get(patient=user)
+                        if diet_request.request_verified == False:
+                            return JsonResponse({'success':True,'redirect_url' : reverse('dash:pending')})
+                        else:
+                            return JsonResponse({'success':True,'redirect_url' : reverse('patient:diet_details',args=[diet_request.pk])})
+                            
+                    except pt_models.DietRequest.DoesNotExist:
+                            return JsonResponse({'success':True,'redirect_url' : reverse('patient:request_a_diet')})
                 else:
                     return JsonResponse({'success':True,'redirect_url' : reverse('dash:home')})
             else:
                 return JsonResponse({'errors': [_('Invalid credentials.')],'success':False})
         except Exception as e:
             print(e)
-            return JsonResponse({'errors': [_('An error occurred during login.')],'success':False})
 
-    request.session.flush()
     return render(request, 'auth/login.html')
 
 

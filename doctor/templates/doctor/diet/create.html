@@ -1,0 +1,164 @@
+{% extends "dashboard/index.html" %}
+
+{% load static i18n %}
+
+{% block dashtitle %}
+{% endblock dashtitle %}
+
+{% block dash %}
+    <div class="container-fluid">
+        <div class="errorList">
+        </div>
+        {% if diet %}
+            <div class="text-right mb-3">
+
+            </div>
+            <div id="dietDetails">
+                <div class="d-flex align-items-center justify-content-between">
+                    <h3 class="text-teal mb-0">
+                        {% trans "Patient Diet" %}
+                    </h3>
+                    <button id="updateDietBtn" class="btn btn-teal btn-sm">
+                        {% trans "Update Diet" %}
+                    </button>
+                </div>
+
+                <div class="container-fluid">
+                    <div class="row">
+                        {% for daily_plan in diet.daily_plans.all %}
+                            <div class="col mb-4 p-0">
+                                <div class="h-100 m-1 bg-white">
+                                    <div class="card-header bg-teal text-light">
+                                        <h4 class="mb-0 text-center">
+                                            {{ daily_plan.get_day_display }}
+                                        </h4>
+                                    </div>
+                                    <div class="card-body">
+                                        {% for meal in daily_plan.meals.all %}
+                                            <div class="mb-3">
+                                                <div class="d-flex flex-column mb-2">
+                                                    <h5 class="text-teal mb-0">
+                                                        {{ meal.get_meal_type_display }}
+                                                    </h5>
+                                                    <small class="text-muted">
+                                                        {% if meal.meal_type == 'BREAKFAST' %}
+                                                            8:00 AM
+                                                        {% elif meal.meal_type == 'LUNCH' %}
+                                                            12:00 PM
+                                                        {% elif meal.meal_type == 'SNACK' %}
+                                                            4:00 PM
+                                                        {% elif meal.meal_type == 'DINNER' %}
+                                                            8:00 PM
+                                                        {% endif %}
+                                                    </small>
+                                                </div>
+                                                <p>
+                                                    {{ meal.description }}
+                                                </p>
+                                            </div>
+                                            {% if not forloop.last %}
+                                                <hr />
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div id="updateForm" style="display: none;">
+                <form method="post"
+                      class='form'
+                      action="{% url "doctor:diet-create" diet_request.pk %}">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        {% for day, day_name in WEEK_DAYS %}
+                            <div class="col mb-4 p-0">
+                                <div class="h-100 m-1">
+                                    <div class="bg-primary mb-2 text-white text-center p-1 rounded">
+                                        {{ day_name }}
+                                    </div>
+                                    <div class="">
+                                        {% for meal, meal_name in MEAL_TYPES %}
+
+                                            <div class="form-group mb-3 bg-white p-2 rounded">
+                                                <div class="d-flex flex-column">
+                                                    <label for="{{ day }}_{{ meal }}">
+                                                        {{ meal_name }}
+                                                    </label>
+                                                    <small class="text-muted">
+
+                                                        {% if meal == 'BREAKFAST' %}
+                                                            8:00 AM
+                                                        {% elif meal == 'LUNCH' %}
+                                                            12:00 PM
+                                                        {% elif meal == 'SNACK' %}
+                                                            4:00 PM
+                                                        {% elif meal == 'DINNER' %}
+                                                            8:00 PM
+                                                        {% endif %}
+                                                    </small>
+                                                </div>
+                                                <textarea class="form-control" name="{{ day }}_{{ meal }}" rows="3"></textarea>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary">
+                            Create Diet Plan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        {% else %}
+            <div id="updateForm">
+                <form method="post"
+                      class='form'
+                      action="{% url "doctor:diet-create" diet_request.pk %}">
+                    {% csrf_token %}
+
+                    <div class="row">
+                        {% for day, day_name in WEEK_DAYS %}
+                            <div class="col mb-4 p-0">
+                                <div class="h-100 m-1">
+                                    <div class="bg-primary mb-2 text-white text-center p-1 rounded">
+                                        {{ day_name }}
+                                    </div>
+                                    <div class="">
+                                        {% for meal, meal_name in MEAL_TYPES %}
+                                            <div class="form-group mb-3 bg-white p-2 rounded">
+                                                <label for="{{ day }}_{{ meal }}">
+                                                    {{ meal_name }}
+                                                </label>
+                                                <textarea class="form-control" name="{{ day }}_{{ meal }}" rows="3"></textarea>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-primary">
+                            Create Diet Plan
+                        </button>
+                    </div>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+
+    
+{% endblock dash %}
+
+{% block js %}
+    <script src="{% static "js/diet.js" %}"></script>
+{% endblock js %}

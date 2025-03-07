@@ -7,6 +7,7 @@ from patient.models import BMI, ILLNESS_CHOICES, Diabetes, Obesity, Illness, Die
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
+from doctor import models as dc_models
 
 UserModel = get_user_model()
 
@@ -58,7 +59,7 @@ def BMICalculator(request):
             height_float = float(height)
             weight_float = float(weight)
             # Convert height from cm to meters for BMI calculation
-            bmi_value = (weight_float / (height ** 2) / 100) if height > 0 else None
+            bmi_value = round((weight_float / ((height_float / 100) ** 2)), 2) if height_float > 0 else None
                         # Get illness instances using the model's choices structure
             illness_instances = []
             for illness_name in illnesses:
@@ -174,3 +175,12 @@ def BMICalculator(request):
     else:
 
         return render(request,'patient/diet/bmi.html')
+    
+@patient_required
+def diet_details(request,diet_request_pk):
+    diet_request = DietRequest.objects.get(pk=diet_request_pk)
+    diet = dc_models.Diet.objects.get(diet_request=diet_request)
+    context = {
+        'diet' : diet
+    }
+    return render(request,'patient/diet/diet_details.html',context=context)
