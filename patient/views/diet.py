@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from patient.decorators import patient_required
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -8,12 +8,21 @@ from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from doctor import models as dc_models
+from dashboard.models import Notifications
 
 UserModel = get_user_model()
 
 
 @patient_required
 def request_a_diet(request):
+    context = {}
+    try:
+            diet_request = DietRequest.objects.get(patient=request.user)
+            context['diet_request'] = diet_request
+            if diet_request.request_verified == False:
+                return redirect('dash:pending')
+    except Exception as e:
+            pass
     return render(request,'patient/diet/request_a_diet.html')
 
 @patient_required
@@ -160,9 +169,21 @@ def BMICalculator(request):
                 }
             )
             
+            # Get the diet_request after creation
+            diet_request = DietRequest.objects.get(patient=patient)
+            
             if errors:
                 return JsonResponse({'success':False,'errors':errors})
             
+            doctors = UserModel.objects.filter(profile__role='DOCTOR')
+            for dc in doctors:
+                Notifications.objects.create(
+                    user = dc, 
+                    title='A new Diet request has been created',
+                    text=f'New diet request created, view it at <a href="{reverse_lazy("doctor:diet-request-details", kwargs={"pk": diet_request.pk})}">View Request</a>'
+                )
+                dc.profile.notifications_count += 1
+                dc.profile.save()
             return JsonResponse({
                 'success' : True,
                 'messages': _('BMI has been created '),
@@ -173,8 +194,17 @@ def BMICalculator(request):
             return JsonResponse({'success':False,'errors':[_(f'{str(e)}')]})
     
     else:
-
-        return render(request,'patient/diet/bmi.html')
+        context = {}
+        try:
+            diet_request = DietRequest.objects.get(patient=request.user)
+            context['diet_request'] = diet_request            
+            try:
+                diet = dc_models.Diet.objects.get(diet_request=diet_request)
+            except Exception as e:
+                pass
+        except Exception:
+            pass
+        return render(request,'patient/diet/bmi.html',context=context)
     
 @patient_required
 def diet_details(request,diet_request_pk):
@@ -184,3 +214,30 @@ def diet_details(request,diet_request_pk):
         'diet' : diet
     }
     return render(request,'patient/diet/diet_details.html',context=context)
+
+@patient_required 
+def reset_diet_request_status(request,pk):
+    errors = []
+    if request.method == 'POST':
+        try :
+            diet_request = DietRequest.objects.get(pk=pk)
+            diet_request.request_verified = False
+            diet_request.save()
+            diet = dc_models.Diet.objects.get(diet_request=diet_request)
+            diet.delete()
+
+            return JsonResponse({
+                'success':True,
+                'message' : _('Diet status has been updated, redirecting...'),
+                'redirect_url' : reverse_lazy('patient:bmi_calculator')
+            })
+        except DietRequest.DoesNotExist:
+            errors.append(_('Diet request doesnt exist'))
+        except Exception as e:
+            errors.append(str(e))
+        if errors:
+            return JsonResponse({
+                'success':False,
+                'errors' : errors
+            })
+        

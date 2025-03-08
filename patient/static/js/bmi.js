@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', function () {
     const heightInput = document.getElementById('height');
     const weightInput = document.getElementById('weight');
@@ -21,15 +19,33 @@ document.addEventListener('DOMContentLoaded', function () {
     weightInput.addEventListener('input', calculateBMI);
 });
 
-// Show/hide diabetes fields when checkbox is clicked
-document.getElementById('diabetes').addEventListener('change', function () {
+// Initialize fields on page load
+document.addEventListener('DOMContentLoaded', function() {
+    // Hide all fields by default
+    document.getElementById('diabetesFields').style.display = 'none';
+    document.getElementById('obesityFields').style.display = 'none';
+    
+    // Then check if any should be shown
+    toggleDiabetesFields();
+    toggleObesityFields();
+});
+
+// Show/hide diabetes fields when checkbox is clicked or on page load
+function toggleDiabetesFields() {
     const diabetesFields = document.getElementById('diabetesFields');
-    diabetesFields.style.display = this.checked ? 'block' : 'none';
-});
+    const diabetesCheckbox = document.getElementById('diabetes');
+    diabetesFields.style.display = diabetesCheckbox.checked ? 'block' : 'none';
+}
 
+document.getElementById('diabetes').addEventListener('change', toggleDiabetesFields);
+toggleDiabetesFields(); // This checks the state on page load
 
-// Show/hide obesity fields when checkbox is clicked
-document.getElementById('obesity').addEventListener('change', function () {
+// Show/hide obesity fields when checkbox is clicked or on page load
+function toggleObesityFields() {
     const obesityFields = document.getElementById('obesityFields');
-    obesityFields.style.display = this.checked ? 'block' : 'none';
-});
+    const obesityCheckbox = document.getElementById('obesity');
+    obesityFields.style.display = obesityCheckbox.checked ? 'block' : 'none';
+}
+
+document.getElementById('obesity').addEventListener('change', toggleObesityFields);
+toggleObesityFields(); // This checks the state on page load

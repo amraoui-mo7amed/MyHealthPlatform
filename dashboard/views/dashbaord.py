@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from dashboard.decorators import role_or_admin_required
 from patient.models import DietRequest
+from doctor import models as dc_models
 
 UserModel = get_user_model()
 
@@ -29,9 +30,14 @@ def home(request):
     if request.user.profile.role == 'PATIENT':
         try:
             # If patient has existing diet request, redirect to pending
-            diet = DietRequest.objects.get(patient=request.user)
-            if diet.request_verified == False:
+            diet_request = DietRequest.objects.get(patient=request.user)
+            diet = dc_models.Diet.objects.get(diet_request=diet_request)
+            
+            if diet_request.request_verified == False and dc_models.Diet.DoesNotExist:
                 return redirect('dash:pending')
+            else:
+                
+                context['diet'] = diet
         except DietRequest.DoesNotExist:
             # If no diet request exists, redirect to request creation
             return redirect('patient:request_a_diet')

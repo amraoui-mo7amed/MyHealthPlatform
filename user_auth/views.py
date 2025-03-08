@@ -55,7 +55,8 @@ def login_view(request):
                         if diet_request.request_verified == False:
                             return JsonResponse({'success':True,'redirect_url' : reverse('dash:pending')})
                         else:
-                            return JsonResponse({'success':True,'redirect_url' : reverse('patient:diet_details',args=[diet_request.pk])})
+                            # return JsonResponse({'success':True,'redirect_url' : reverse('patient:diet_details',args=[diet_request.pk])})
+                            return JsonResponse({'success':True,'redirect_url' : reverse('dash:home')})
                             
                     except pt_models.DietRequest.DoesNotExist:
                             return JsonResponse({'success':True,'redirect_url' : reverse('patient:request_a_diet')})
