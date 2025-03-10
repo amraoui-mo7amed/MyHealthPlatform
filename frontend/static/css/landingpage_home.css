@@ -1,0 +1,9 @@
+.hero_area
+{
+    background-image: url(../images/bg2_1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: bottom;
+    background-position-y: -14rem;
+    height: 32rem;
+}

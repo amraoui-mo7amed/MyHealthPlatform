@@ -11,7 +11,10 @@
     <div class="container ">
         <div class="row justify-content-center">
             <div class="col-12 col-md-8 col-lg-6">
-                <div class="card shadow-sm border rounded mt-5">
+                <div class="card shadow-sm border rounded mt-5"
+                     style='max-height:85vh;
+                            overflow:hidden;
+                            overflow-y:scroll'>
                     <div class="card-body p-4">
                         <h3 class='text-center text-primary fw-bold mb-4'>
                             {% trans "Diet Informations" %}
@@ -83,10 +86,12 @@
                                                 {% trans "Select the type of glucose measurement:" %}
                                             </label>
                                             <select class="form-select" name="glucose_type">
-                                                <option value="mg/dl" {% if diet_request and diet_request.diabetes.glucose_type == 'mg/dl' %}selected{% endif %}>
+                                                <option value="mg/dl"
+                                                        {% if diet_request and diet_request.diabetes.glucose_type == 'mg/dl' %}selected{% endif %}>
                                                     mg/dl
                                                 </option>
-                                                <option value="mmol/l" {% if diet_request and diet_request.diabetes.glucose_type == 'mmol/l' %}selected{% endif %}>
+                                                <option value="mmol/l"
+                                                        {% if diet_request and diet_request.diabetes.glucose_type == 'mmol/l' %}selected{% endif %}>
                                                     mmol/l
                                                 </option>
                                             </select>
@@ -206,29 +211,446 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="form-check">
+                                    <input class="form-check-input"
+                                           type="checkbox"
+                                           id="diabetesandobesity"
+                                           name="illnesses"
+                                           value="diabetesandobesity" />
+                                    <label class="form-check-label" for="diabetesandobesity">
+                                        {% trans "Diabetes and obesity" %}
+                                    </label>
+                                    <!-- Diabetes and Obesity specific fields -->
+                                    <div id="diabetesandobesityFields" class="mt-3">
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">
+                                                {% trans "Enter fasting glucose result:" %}
+                                            </label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   name="db_glucose"
+                                                   step="0.1"
+                                                   {% comment %}
+                                                   value="{% if diet_request %}{{ diet_request.obesity.glucose }}{% endif %}"
+                                                   {% endcomment %}
+                                                   placeholder='{% trans "Fasting glucose result" %}' />
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">
+                                                {% trans "Enter HB1AC analysis result:" %}
+                                            </label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   name="db_hb1ac"
+                                                   step="0.1"
+                                                   {% comment %}
+                                                   value="{% if diet_request %}{{ diet_request.obesity.hdl }}{% endif %}"
+                                                   {% endcomment %}
+                                                   placeholder='{% trans "HB1AC result" %}' />
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">
+                                                {% trans "Enter HDL analysis result:" %}
+                                            </label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   name="db_hdl"
+                                                   step="0.1"
+                                                   {% comment %}
+                                                   value="{% if diet_request %}{{ diet_request.obesity.hdl }}{% endif %}"
+                                                   {% endcomment %}
+                                                   placeholder='{% trans "HDL result" %}' />
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">
+                                                {% trans "Enter LDL analysis result:" %}
+                                            </label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   name="db_ldl"
+                                                   step="0.1"
+                                                   {% comment %}
+                                                   value="{% if diet_request %}{{ diet_request.obesity.ldl }}{% endif %}"
+                                                   {% endcomment %}
+                                                   placeholder='{% trans "LDL result" %}' />
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">
+                                                {% trans "Enter Triglycerides analysis result:" %}
+                                            </label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   name="db_triglycerides"
+                                                   step="0.1"
+                                                   {% comment %}
+                                                   value="{% if diet_request %}{{ diet_request.obesity.triglycerides }}{% endif %}"
+                                                   {% endcomment %}
+                                                   placeholder='{% trans "Triglycerides result" %}' />
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">
+                                                {% trans "Enter CHOLESTEROL analysis result:" %}
+                                            </label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   name="db_cholesterol"
+                                                   step="1"
+                                                   {% comment %}
+                                                   value="{% if diet_request %}{{ diet_request.obesity.cholesterol }}{% endif %}"
+                                                   {% endcomment %}
+                                                   placeholder='{% trans "CHOLESTEROL result" %}' />
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">
+                                                {% trans "Enter AC URIC analysis result:" %}
+                                            </label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   name="db_ac_uric"
+                                                   step="1"
+                                                   {% comment %}
+                                                   value="{% if diet_request %}{{ diet_request.obesity.ac_uric }}{% endif %}"
+                                                   {% endcomment %}
+                                                   placeholder='{% trans "AC URIC result" %}' />
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">
+                                                {% trans "Enter FNS analysis result:" %}
+                                            </label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   name="db_fns"
+                                                   step="0.1"
+                                                   value="{% if diet_request %}{{ diet_request.obesity.fns }}{% endif %}"
+                                                   placeholder='{% trans "FNS result" %}' />
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">
+                                                {% trans "Enter CRP analysis result:" %}
+                                            </label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   name="db_crp"
+                                                   step="0.1"
+                                                   value="{% if diet_request %}{{ diet_request.obesity.crp }}{% endif %}"
+                                                   placeholder='{% trans "CRP result" %}' />
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">
+                                                {% trans "Enter vitamin D analysis result:" %}
+                                            </label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   name="db_vitamin_d"
+                                                   step="0.1"
+                                                   value="{% if diet_request %}{{ diet_request.obesity.vitamin_d }}{% endif %}"
+                                                   placeholder='{% trans "Vitamin D result" %}' />
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">
+                                                {% trans "Enter B12 analysis result:" %}
+                                            </label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   name="db_b12"
+                                                   step="0.1"
+                                                   value="{% if diet_request %}{{ diet_request.obesity.b12 }}{% endif %}"
+                                                   placeholder='{% trans "B12 result" %}' />
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label class="form-label">
+                                                {% trans "Enter MAGNESIUM analysis result:" %}
+                                            </label>
+                                            <input type="number"
+                                                   class="form-control"
+                                                   name="db_magnesium"
+                                                   step="0.1"
+                                                   value="{% if diet_request %}{{ diet_request.obesity.magnesium }}{% endif %}"
+                                                   placeholder='{% trans "MAGNESIUM result" %}' />
+                                        </input />
+                                    </div>
+                                </div>
                             </div>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label">
+                                {% trans "How many times a day you eat?" %}
+                            </label>
+                            <select class="form-select" name="meals_per_day">
+                                <option value="1">
+                                    {% trans "Once a day" %}
+                                </option>
+                                <option value="2">
+                                    {% trans "Twice a day" %}
+                                </option>
+                                <option value="3">
+                                    {% trans "Three times a day" %}
+                                </option>
+                                <option value="4">
+                                    {% trans "Four times a day" %}
+                                </option>
+                            </select>
                         </div>
 
-                        <div class="form-group">
-                            <div class="row align-items-center ">
-                                <div class="col-lg-6 col-md-12">
-                                    {% trans "Get your Diet from:" %}
-                                </div>
-                                <div class="col-lg-6 col-md-12 d-flex gap-2">
-                                    <button class="btn btn-outline-primary flex-grow-1" type='submit'>
-                                        {% trans "AI" %}
-                                    </button>
-                                    <button class="btn btn-outline-primary flex-grow-1" type='submit'>
-                                        {% trans "Expert" %}
-                                    </button>
-                                </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label">
+                                {% trans "Do you eat between main meals?" %}
+                            </label>
+                            <div class="form-check">
+                                <input class="form-check-input"
+                                       type="radio"
+                                       name="between_meals"
+                                       id="between_meals_yes"
+                                       value="yes" />
+                                <label class="form-check-label" for="between_meals_yes">
+                                    {% trans "Yes" %}
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input"
+                                       type="radio"
+                                       name="between_meals"
+                                       id="between_meals_no"
+                                       value="no" />
+                                <label class="form-check-label" for="between_meals_no">
+                                    {% trans "No" %}
+                                </label>
                             </div>
                         </div>
-                    </form>
-                </div>
+                        <div class="form-group mb-3">
+                            <label class="form-label">
+                                {% trans "Do you eat sweets?" %}
+                            </label>
+                            <div class="form-check">
+                                <input class="form-check-input"
+                                       type="radio"
+                                       name="sweets"
+                                       id="sweets_yes"
+                                       value="yes" />
+                                <label class="form-check-label" for="sweets_yes">
+                                    {% trans "Yes" %}
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input"
+                                       type="radio"
+                                       name="sweets"
+                                       id="sweets_no"
+                                       value="no" />
+                                <label class="form-check-label" for="sweets_no">
+                                    {% trans "No" %}
+                                </label>
+                            </div>
+                        </div>
+                        {% comment %} 
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">
+                                    {% trans "Do you eat fast food meals?" %}
+                                </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="fast_food" id="fast_food_yes" value="yes" />
+                                    <label class="form-check-label" for="fast_food_yes">
+                                        {% trans "Yes" %}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="fast_food" id="fast_food_no" value="no" />
+                                    <label class="form-check-label" for="fast_food_no">
+                                        {% trans "No" %}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">
+                                    {% trans "Are you drinking enough water through the day?" %}
+                                </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="enough_water" id="enough_water_yes" value="yes" />
+                                    <label class="form-check-label" for="enough_water_yes">
+                                        {% trans "Yes" %}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="enough_water" id="enough_water_no" value="no" />
+                                    <label class="form-check-label" for="enough_water_no">
+                                        {% trans "No" %}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">
+                                    {% trans "Do you have a food allergy?" %}
+                                </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="food_allergy" id="food_allergy_yes" value="yes" />
+                                    <label class="form-check-label" for="food_allergy_yes">
+                                        {% trans "Yes" %}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="food_allergy" id="food_allergy_no" value="no" />
+                                    <label class="form-check-label" for="food_allergy_no">
+                                        {% trans "No" %}
+                                    </label>
+                                </div>
+                                <div id="allergyDetails" style="display: none;">
+                                    <div class="form-group mt-3">
+                                        <label class="form-label">
+                                            {% trans "If yes, this food allergy against what?" %}
+                                        </label>
+                                        <input type="text" class="form-control" name="allergy_details" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">
+                                    {% trans "Do you smoke?" %}
+                                </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="smoke" id="smoke_yes" value="yes" />
+                                    <label class="form-check-label" for="smoke_yes">
+                                        {% trans "Yes" %}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="smoke" id="smoke_no" value="no" />
+                                    <label class="form-check-label" for="smoke_no">
+                                        {% trans "No" %}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">
+                                    {% trans "Do you drink alcohol?" %}
+                                </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="alcohol" id="alcohol_yes" value="yes" />
+                                    <label class="form-check-label" for="alcohol_yes">
+                                        {% trans "Yes" %}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="alcohol" id="alcohol_no" value="no" />
+                                    <label class="form-check-label" for="alcohol_no">
+                                        {% trans "No" %}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">
+                                    {% trans "Are you suffering from depression or stress?" %}
+                                </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="depression_stress" id="depression_stress_yes" value="yes" />
+                                    <label class="form-check-label" for="depression_stress_yes">
+                                        {% trans "Yes" %}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="depression_stress" id="depression_stress_no" value="no" />
+                                    <label class="form-check-label" for="depression_stress_no">
+                                        {% trans "No" %}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">
+                                    {% trans "Do you have a specific medication that you take?" %}
+                                </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="medication" id="medication_yes" value="yes" />
+                                    <label class="form-check-label" for="medication_yes">
+                                        {% trans "Yes" %}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="medication" id="medication_no" value="no" />
+                                    <label class="form-check-label" for="medication_no">
+                                        {% trans "No" %}
+                                    </label>
+                                </div>
+                                <div id="medicationDetails" style="display: none;">
+                                    <div class="form-group mt-3">
+                                        <label class="form-label">
+                                            {% trans "If yes what is it?" %}
+                                        </label>
+                                        <input type="text" class="form-control" name="medication_details" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">
+                                    {% trans "What time do you eat your last meal of the day?" %}
+                                </label>
+                                <input type="time" class="form-control" name="last_meal_time" />
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">
+                                    {% trans "Do you walk at least 30 minutes a day?" %}
+                                </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="walking" id="walking_yes" value="yes" />
+                                    <label class="form-check-label" for="walking_yes">
+                                        {% trans "Yes" %}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="walking" id="walking_no" value="no" />
+                                    <label class="form-check-label" for="walking_no">
+                                        {% trans "No" %}
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label class="form-label">
+                                    {% trans "Do you sleep at least 7 hours a night?" %}
+                                </label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="sleep" id="sleep_yes" value="yes" />
+                                    <label class="form-check-label" for="sleep_yes">
+                                        {% trans "Yes" %}
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="sleep" id="sleep_no" value="no" />
+                                    <label class="form-check-label" for="sleep_no">
+                                        {% trans "No" %}
+                                    </label>
+                                </div>
+                        </div> {% endcomment %}
+
+                    </div>
+
+                    <div class="form-group mx-2">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 col-md-12">
+                                {% trans "Get your Diet from:" %}
+                            </div>
+                            <div class="col-lg-6 col-md-12 d-flex gap-2">
+                                <button class="btn btn-outline-primary flex-grow-1" type='submit'>
+                                    {% trans "AI" %}
+                                </button>
+                                <button class="btn btn-outline-primary flex-grow-1" type='submit'>
+                                    {% trans "Expert" %}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 {% endblock content %}
 
 {% block js %}

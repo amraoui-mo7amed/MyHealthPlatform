@@ -24,10 +24,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Hide all fields by default
     document.getElementById('diabetesFields').style.display = 'none';
     document.getElementById('obesityFields').style.display = 'none';
+    document.getElementById('diabetesandobesityFields').style.display = 'none';
     
     // Then check if any should be shown
     toggleDiabetesFields();
     toggleObesityFields();
+    toggleDiabetesAndObesityFields();
 });
 
 // Show/hide diabetes fields when checkbox is clicked or on page load
@@ -49,3 +51,35 @@ function toggleObesityFields() {
 
 document.getElementById('obesity').addEventListener('change', toggleObesityFields);
 toggleObesityFields(); // This checks the state on page load
+
+// Show/hide diabetes and obesity fields when checkbox is clicked or on page load
+function toggleDiabetesAndObesityFields() {
+    const diabetesAndObesityFields = document.getElementById('diabetesandobesityFields');
+    const diabetesAndObesityCheckbox = document.getElementById('diabetesandobesity');
+    diabetesAndObesityFields.style.display = diabetesAndObesityCheckbox.checked ? 'block' : 'none';
+}
+
+document.getElementById('diabetesandobesity').addEventListener('change', toggleDiabetesAndObesityFields);
+toggleDiabetesAndObesityFields(); // This checks the state on page load
+
+// Handle allergy details visibility
+function toggleAllergyDetails() {
+    const allergyDetails = document.getElementById('allergyDetails');
+    const allergyYes = document.getElementById('food_allergy_yes');
+    allergyDetails.style.display = allergyYes.checked ? 'block' : 'none';
+}
+
+document.getElementById('food_allergy_yes').addEventListener('change', toggleAllergyDetails);
+document.getElementById('food_allergy_no').addEventListener('change', toggleAllergyDetails);
+toggleAllergyDetails();
+
+// Handle medication details visibility
+function toggleMedicationDetails() {
+    const medicationDetails = document.getElementById('medicationDetails');
+    const medicationYes = document.getElementById('medication_yes');
+    medicationDetails.style.display = medicationYes.checked ? 'block' : 'none';
+}
+
+document.getElementById('medication_yes').addEventListener('change', toggleMedicationDetails);
+document.getElementById('medication_no').addEventListener('change', toggleMedicationDetails);
+toggleMedicationDetails();

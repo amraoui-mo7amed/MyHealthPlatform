@@ -65,6 +65,7 @@
       <link href="{% static "css/responsive.css" %}" rel="stylesheet" />
     {% endblock css %}
     {% block extra_css %}
+      <link rel="stylesheet" href="{% static "css/landingpage_home.css" %}">
     {% endblock extra_css %}
   </head>
 
@@ -73,7 +74,7 @@
       <!-- header section strats -->
       <header class=" px-0">
         {% block nav %}
-          <nav class="navbar navbar-expand-lg navbar-light bg-light align-items-center">
+          <nav class="navbar navbar-expand-lg navbar-light align-items-center">
             <div class="container-fluid d-flex align-items-center">
               <a class="navbar-brand d-flex align-items-center" href="#">
                 <img src="{% static 'images/favicon2.png' %}"
@@ -112,12 +113,12 @@
                   <div class="d-flex flex-grow-1">
                     {% if request.user.is_authenticated %}
                       <a href="{% url "dash:home" %}"
-                         class="btn btn-teal rounded ms-auto flex-grow-1">
+                         class="btn btn-outline-dark  rounded ms-auto flex-grow-1">
                         {% trans "Dashboard" %}
                       </a>
                     {% else %}
                       <a href="{% url "user_auth:login" %}"
-                         class="btn btn-teal rounded ms-auto flex-grow-1">
+                         class="btn btn-outline-dark rounded ms-auto flex-grow-1">
                         {% trans "Get started" %}
                       </a>
                     {% endif %}
@@ -131,35 +132,35 @@
       </header>
       <!-- end header section -->
       {% block slider %}
-        <div class="container-fluid px-0 bg-light">
+        <div class="container-fluid px-0" >
           <div class="row g-2 align-items-center">
-            <div class="col-lg-6 col-md-12 col-sm-12 pt-4">
-              <div class="header-text px-2" data-aos="fade-right">
+            <div class="col-lg-12 col-md-12 col-sm-12 pt-4">
+              <div class="header-text px-2 text-center text-white mt-2" data-aos="fade-right">
                 <span class="text-bold fs-6 fw-bold">{% trans "Your Health, Our Mission" %}</span>
-                <h3 class="text-bold text-teal">
+                <h3 class="text-bold text-white">
                   {% trans "Empowering Your Journey to Wellness" %}
                 </h3>
                 <p class="fs-5">
                   {% trans "Discover personalized health solutions and expert guidance tailored to your unique needs." %}
                 </p>
                 {% if request.user.is_authenticated %}
-                  <a href="{% url "dash:home" %}" class="btn btn-teal rounded">
+                  <a href="{% url "dash:home" %}" class="btn btn-outline-dark  rounded">
                     {% trans "Dashboard" %}
                   </a>
                 {% else %}
-                  <a href="{% url "user_auth:login" %}" class="btn btn-teal rounded">
+                  <a href="{% url "user_auth:login" %}" class="btn btn-outline-dark btn-lg rounded w-25">
                     {% trans "Get started" %}
                   </a>
                 {% endif %}
               </div>
             </div>
-            <div class="col-lg-6 col-md-12 col-sm-12">
+            {% comment %} <div class="col-lg-6 col-md-12 col-sm-12">
               <div class="header-image" data-aos="fade-left">
                 <img src="{% static 'images/food.png' %}"
                      alt="My Health App Logo"
                      class="img-fluid" />
               </div>
-            </div>
+            </div> {% endcomment %}
           </div>
 
         </div>
@@ -177,8 +178,8 @@
                    class="img-fluid rounded mb-2"
                    />
             </div>
-            <div class="col-lg-8" data-aos="fade-left">
-              <h2 class="text-teal mb-4">
+            <div class="col-lg-8 text-center" data-aos="fade-left">
+              <h2 class="text-dark mb-4 ">
                 {% trans "About My Healthy Partner" %}
               </h2>
               <p class="lead">
@@ -213,7 +214,7 @@
               <h2 class="text-teal">
                 {% trans "Our Services" %}
               </h2>
-              <p class="lead">
+              <p class="lead fw-bold">
                 {% trans "Comprehensive healthcare solutions tailored to your needs" %}
               </p>
             </div>
@@ -347,7 +348,7 @@
                   </div>
                 </div>
                 <div class="text-center">
-                  <button type="submit" class="btn btn-teal">
+                  <button type="submit" class="btn btn-outline-dark btn-lg">
                     {% trans "Send Message" %}
                   </button>
                 </div>
@@ -365,7 +366,7 @@
           <div class="row">
             <div class="col text-center">
               <p class="mb-0 text-muted">
-                {% trans "© 2023 My Healthy Partner. All rights reserved." %}
+                {% trans "© 2025 My Healthy Partner. All rights reserved." %}
               </p>
             </div>
           </div>

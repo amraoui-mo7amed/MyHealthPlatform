@@ -11,7 +11,6 @@
 {% endblock subtitle %}
 
 {% block dashtitle %}
-    {% trans "Home" %}
 {% endblock dashtitle %}
 
 {% block dash %}
@@ -44,6 +43,16 @@
                                     aria-controls="nav-unverified"
                                     aria-selected="false">
                                 {% trans "Unverified Requests" %}
+                            </button>
+                            <button class="nav-link"
+                                    id="nav-updates-tab"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#nav-updates"
+                                    type="button"
+                                    role="tab"
+                                    aria-controls="nav-updates"
+                                    aria-selected="false">
+                                {% trans "Request Updates" %}
                             </button>
                         </div>
                     </div>
@@ -144,7 +153,7 @@
                                         </thead>
                                         <tbody>
                                             {% for request in diet_requests %}
-                                                {% if not request.request_verified %}
+                                                {% if not request.request_verified and request.update_status == 'NONE' %}
                                                     <tr>
                                                         <td>
                                                             {{ request.patient.get_full_name }}
@@ -159,6 +168,73 @@
                                                             <span class="text-danger">
                                                                 <i class="fa fa-times" aria-hidden="true"></i>
                                                                 {% trans "Unverified" %}
+                                                            </span>
+                                                        </td>
+                                                        <td>
+                                                            <div class="d-flex align-items-center ">
+                                                                <a href="{% url "doctor:diet-request-details" request.pk %}"
+                                                                   class="btn btn-teal btn-sm">
+                                                                    {% trans "Details" %}
+                                                                </a>
+                                                                <button class="btn btn-sm btn-danger delete-button d-block w-100 ms-1"
+                                                                        data-delete-url="{% url "doctor:diet-request-delete" request.pk %}"
+                                                                        data-csrf-token="{{ csrf_token }}"
+                                                                        data-url="{% url 'doctor:diet-request-delete' request.pk %}">
+                                                                    {% trans "Delete" %}
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Request Updates Pane -->
+                            <div class="tab-pane fade"
+                                 id="nav-updates"
+                                 role="tabpanel"
+                                 aria-labelledby="nav-updates-tab">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>
+                                                    {% trans "Patient Name" %}
+                                                </th>
+                                                <th>
+                                                    {% trans "Date Created" %}
+                                                </th>
+                                                <th>
+                                                    {% trans "BMI Value" %}
+                                                </th>
+                                                <th>
+                                                    {% trans "Status" %}
+                                                </th>
+                                                <th>
+                                                    {% trans "Actions" %}
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for request in diet_requests %}
+                                                {% if request.update_status == 'PENDING' %}
+                                                    <tr>
+                                                        <td>
+                                                            {{ request.patient.get_full_name }}
+                                                        </td>
+                                                        <td>
+                                                            {{ request.date_created }}
+                                                        </td>
+                                                        <td>
+                                                            {{ request.bmi.bmi_value }}
+                                                        </td>
+                                                        <td>
+                                                            <span class="text-warning">
+                                                                <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                                                {% trans "Update Requested" %}
                                                             </span>
                                                         </td>
                                                         <td>
@@ -203,7 +279,7 @@
                     <form action="{% url "patient:reset_diet_request_status" diet.diet_request.pk %}"
                           class='form'
                           method='POST'>
-                          {% csrf_token %}
+                        {% csrf_token %}
                         <button type="submit" class='btn btn-sm btn-teal'>
                             {% trans "Request an update" %}
                         </button>

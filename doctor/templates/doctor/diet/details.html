@@ -136,6 +136,58 @@
                     </div>
                 </div>
             {% endif %}
+            {% if diabetes_and_obesity %}
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header bg-teal text-light"
+                             data-toggle="collapse"
+                             data-target="#diabetesObesityInfo"
+                             aria-expanded="true">
+                            <h4 class='mb-0 text-center'>
+                                {% trans "Diabetes & Obesity Information" %}
+                            </h4>
+                        </div>
+                        <div class="card-body collapse show" id="diabetesObesityInfo">
+                            <p>
+                                <strong>{% trans "Glucose" %}:</strong> {{ diabetes_and_obesity.glucose }}
+                            </p>
+                            <p>
+                                <strong>{% trans "HbA1c" %}:</strong> {{ diabetes_and_obesity.hb1ac }}
+                            </p>
+                            <p>
+                                <strong>{% trans "HDL" %}:</strong> {{ diabetes_and_obesity.hdl }}
+                            </p>
+                            <p>
+                                <strong>{% trans "LDL" %}:</strong> {{ diabetes_and_obesity.ldl }}
+                            </p>
+                            <p>
+                                <strong>{% trans "Triglycerides" %}:</strong> {{ diabetes_and_obesity.triglycerides }}
+                            </p>
+                            <p>
+                                <strong>{% trans "Cholesterol" %}:</strong> {{ diabetes_and_obesity.cholesterol }}
+                            </p>
+                            <p>
+                                <strong>{% trans "AC Uric" %}:</strong> {{ diabetes_and_obesity.ac_uric }}
+                            </p>
+                            <p>
+                                <strong>{% trans "FNS" %}:</strong> {{ diabetes_and_obesity.fns }}
+                            </p>
+                            <p>
+                                <strong>{% trans "CRP" %}:</strong> {{ diabetes_and_obesity.crp }}
+                            </p>
+                            <p>
+                                <strong>{% trans "Vitamin D" %}:</strong> {{ diabetes_and_obesity.vitamin_d }}
+                            </p>
+                            <p>
+                                <strong>{% trans "B12" %}:</strong> {{ diabetes_and_obesity.b12 }}
+                            </p>
+                            <p>
+                                <strong>{% trans "Magnesium" %}:</strong> {{ diabetes_and_obesity.magnesium }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
         </div>
         <div class="d-flex my-2">
             <a href="{% url "doctor:diet-create" diet_request.pk %}"

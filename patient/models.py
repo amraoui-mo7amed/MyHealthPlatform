@@ -10,6 +10,8 @@ UserModel = get_user_model()
 ILLNESS_CHOICES = [
     ('DIABETES', 'Diabetes'),
     ('OBESITY', 'Obesity'),
+    ('DIABETESANDOBESITY', 'diabetesandobesity'),
+    
 ]
 
 
@@ -87,10 +89,63 @@ class Obesity(models.Model):
         verbose_name_plural = "Obesity Records"
 
 
+
+class DiabetesAndObesity(models.Model):
+    bmi = models.OneToOneField(BMI, on_delete=models.CASCADE, related_name='diabetes_and_obesity')
+    glucose = models.FloatField()
+    hb1ac = models.FloatField()
+    hdl = models.FloatField()
+    ldl = models.FloatField()
+    triglycerides = models.FloatField()
+    cholesterol = models.IntegerField()
+    ac_uric = models.IntegerField()
+    fns = models.FloatField()
+    crp = models.FloatField()
+    vitamin_d = models.FloatField()
+    b12 = models.FloatField()
+    magnesium = models.FloatField()
+
+    def __str__(self):
+        return f"Diabetes and Obesity data for {self.bmi.patient}"
+
+    class Meta:
+        verbose_name = "Diabetes and Obesity Record"
+        verbose_name_plural = "Diabetes and Obesity Records"
+
+
+
 class DietRequest(models.Model):
     patient = models.OneToOneField(UserModel, on_delete=models.CASCADE, related_name='diet_request')
     bmi = models.OneToOneField(BMI, on_delete=models.CASCADE)
     diabetes = models.OneToOneField(Diabetes, on_delete=models.CASCADE, null=True, blank=True)
-    obesity = models.OneToOneField(Obesity, on_delete=models.CASCADE,  null=True, blank=True)
+    obesity = models.OneToOneField(Obesity, on_delete=models.CASCADE, null=True, blank=True)
+    diabetes_and_obesity = models.OneToOneField(DiabetesAndObesity, on_delete=models.CASCADE, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
     request_verified = models.BooleanField(default=False)
+    meals_per_day = models.PositiveSmallIntegerField(choices=[(1, 'Once a day'), (2, 'Twice a day'), (3, 'Three times a day'), (4, 'Four times a day')], default=1)
+    between_meals = models.BooleanField(default=False)
+    sweets = models.BooleanField(default=False)
+    
+    # New field to track update status
+    update_status = models.CharField(
+        max_length=20,
+        choices=[
+            ('PENDING', 'Pending Update'),
+            ('UPDATED', 'Successfully Updated'),
+            ('NONE', 'No Update Needed')
+        ],
+        default='NONE'
+    )
+    
+    # fast_food = models.BooleanField()
+    # enough_water = models.BooleanField()
+    # food_allergy = models.BooleanField()
+    # allergy_details = models.CharField(max_length=255, blank=True, null=True)
+    # smoke = models.BooleanField()
+    # alcohol = models.BooleanField()
+    # depression_stress = models.BooleanField()
+    # medication = models.BooleanField()
+    # medication_details = models.CharField(max_length=255, blank=True, null=True)
+    # last_meal_time = models.TimeField()
+    # walking = models.BooleanField()
+    # sleep = models.BooleanField()

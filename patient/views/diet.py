@@ -3,7 +3,7 @@ from patient.decorators import patient_required
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.views.decorators.http import require_POST
-from patient.models import BMI, ILLNESS_CHOICES, Diabetes, Obesity, Illness, DietRequest
+from patient.models import BMI, ILLNESS_CHOICES, Diabetes, Obesity, Illness, DietRequest, DiabetesAndObesity
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
@@ -60,8 +60,10 @@ def BMICalculator(request):
             # Check if all selected illnesses are valid
             valid_illnesses = [choice[0] for choice in ILLNESS_CHOICES]
             for illness in illnesses:
+                if illness == 'diabietesandobesity':
+                    print('diabetesandobesity is present in user choices')
                 if illness.upper() not in valid_illnesses:
-                    errors.append(_('Ilness must be Diabetes or Obesity'))
+                    errors.append(_('Ilness must be Diabetes or Obesity or both'))
                     break
             
             # Calculate BMI
@@ -69,17 +71,22 @@ def BMICalculator(request):
             weight_float = float(weight)
             # Convert height from cm to meters for BMI calculation
             bmi_value = round((weight_float / ((height_float / 100) ** 2)), 2) if height_float > 0 else None
-                        # Get illness instances using the model's choices structure
+            
+            # Get illness instances using the model's choices structure
             illness_instances = []
             for illness_name in illnesses:
                 try:
                     # Get the illness instance using the uppercase name
+                    
                     instance = Illness.objects.get(name=illness_name.upper())
                     illness_instances.append(instance)
+                    if instance:
+                        print(f'ilness instance with name {instance} exist')
+                    else:
+                        print('doesnt exist')
                 except Illness.DoesNotExist:
-                    # Handle case where illness doesn't exist
+                    errors.append(f'ilnness with name {illness_name} doesnt exist' )
                     continue
-            
             # Create or update BMI record
             bmi, created = BMI.objects.update_or_create(
                 patient=patient,
@@ -96,6 +103,7 @@ def BMICalculator(request):
 
 
             for instance in illness_instances:
+                print(instance.name)
                 if instance.name == 'diabetes'.upper():
                     glucose_type = request.POST.get('glucose_type')
                     fasting_glucose = request.POST.get('fasting_glucose')
@@ -154,18 +162,102 @@ def BMICalculator(request):
                             'ac_uric': int(ac_uric)
                         }
                         Obesity.objects.update_or_create(bmi=bmi, defaults=obesity_data)
-            
+                if instance.name == 'diabetesandobesity'.upper():
+                    print('diabetesandobesity')
+                    db_glucose = request.POST.get('db_glucose')
+                    db_h1bc = request.POST.get('db_hb1ac')
+                    db_hdl = request.POST.get('db_hdl')
+                    db_ldl = request.POST.get('db_ldl')
+                    db_triglycerides = request.POST.get('db_triglycerides')
+                    db_cholesterol = request.POST.get('db_cholesterol')
+                    db_ac_uric = request.POST.get('db_ac_uric')
+                    db_fns = request.POST.get('db_fns')
+                    db_crp = request.POST.get('db_crp')
+                    db_vitamin_d = request.POST.get('db_vitamin_d')
+                    db_b12 = request.POST.get('db_b12')
+                    db_magnesium = request.POST.get('db_magnesium')
+                    
+                    if not db_glucose:
+                        errors.append(_('Glucose is required'))
+                    if not db_h1bc:
+                        errors.append(_('HbA1c is required'))
+                    if not db_hdl:
+                        errors.append(_('HDL is required'))
+                    if not db_ldl:
+                        errors.append(_('LDL is required'))
+                    if not db_triglycerides:
+                        errors.append(_('Triglycerides is required'))
+                    if not db_cholesterol:
+                        errors.append(_('Cholesterol is required'))
+                    if not db_ac_uric:
+                        errors.append(_('AC Uric is required'))
+                    if not db_fns:
+                        errors.append(_('FNS is required'))
+                    if not db_crp:
+                        errors.append(_('CRP is required'))
+                    if not db_b12:
+                        errors.append(_('B12 is required'))
+                    if not db_magnesium:
+                        errors.append(_('Magnesium is required'))
+                    if not db_vitamin_d:
+                        errors.append(_('Vitamine D analyse is required'))
+
+                    if not errors:
+                        try:
+                            diabetes_and_obesity_data = {
+                                'bmi': bmi,
+                                'glucose': float(db_glucose),
+                                'hb1ac': float(db_h1bc),
+                                'hdl': float(db_hdl),
+                                'ldl': float(db_ldl),
+                                'triglycerides': float(db_triglycerides),
+                                'cholesterol': int(db_cholesterol),
+                                'ac_uric': int(db_ac_uric),
+                                'fns': float(db_fns),
+                                'crp': float(db_crp),
+                                'b12': float(db_b12),
+                                'magnesium': float(db_magnesium),
+                                'vitamin_d' : db_vitamin_d
+                            }
+                            print(diabetes_and_obesity_data)
+                            db_obj, db_obj_created = DiabetesAndObesity.objects.update_or_create(
+                                bmi=bmi,
+                                defaults=diabetes_and_obesity_data
+                            )
+                        except Exception as e:
+                            print(e)
+                            errors.append(str(e))
             # Create DietRequest after all instances are created
             diabetes_instance = Diabetes.objects.filter(bmi=bmi).first()
             obesity_instance = Obesity.objects.filter(bmi=bmi).first()
-            
+            diabetes_and_obesity_instance = DiabetesAndObesity.objects.filter(bmi=bmi).first()
+            print(diabetes_and_obesity_instance)
+            # Get form data with error handling
+            meals_per_day = request.POST.get('meals_per_day')
+            between_meals = request.POST.get('between_meals')
+            sweets = request.POST.get('sweets')
+                        
+            if not meals_per_day:
+                errors.append('Meals per day is required')
+            if not between_meals:
+                errors.append('Between meals selection is required')
+            if not sweets:
+                errors.append('Sweets selection is required')
+                
+            if errors:
+                return JsonResponse({'status': 'error', 'errors': errors}, status=400)
+                
             DietRequest.objects.update_or_create(
                 patient=patient,
                 defaults={
                     'bmi': bmi,
                     'diabetes': diabetes_instance,
                     'obesity': obesity_instance,
-                    'request_verified': False
+                    'request_verified': False,
+                    'diabetes_and_obesity': diabetes_and_obesity_instance,
+                    'meals_per_day': int(meals_per_day),
+                    'between_meals': between_meals == 'yes',
+                    'sweets': sweets == 'yes'
                 }
             )
             
@@ -222,6 +314,7 @@ def reset_diet_request_status(request,pk):
         try :
             diet_request = DietRequest.objects.get(pk=pk)
             diet_request.request_verified = False
+            diet_request.update_status = 'PENDING'
             diet_request.save()
             diet = dc_models.Diet.objects.get(diet_request=diet_request)
             diet.delete()
