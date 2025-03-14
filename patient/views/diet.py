@@ -9,8 +9,11 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from doctor import models as dc_models
 from dashboard.models import Notifications
+from django.contrib import messages
+import logging
 
 UserModel = get_user_model()
+logger = logging.getLogger(__name__)
 
 
 @patient_required
@@ -27,6 +30,7 @@ def request_a_diet(request):
 
 @patient_required
 def BMICalculator(request):
+    context = {}  # Initialize context at the start of the function
 
     if request.method == 'POST':
         errors = []
@@ -96,11 +100,22 @@ def BMICalculator(request):
                     'bmi_value': bmi_value
                 }
             )
+            bmi.save()
+            print(f'User ilnesses: {illness_instances}')
+
+            # Clear existing illness records if not selected
+            selected_illnesses = [illness.upper() for illness in illnesses]
+            if 'DIABETES' not in selected_illnesses:
+                Diabetes.objects.filter(bmi=bmi).delete()
+            if 'OBESITY' not in selected_illnesses:
+                Obesity.objects.filter(bmi=bmi).delete()
+            if 'DIABETESANDOBESITY' not in selected_illnesses:
+                DiabetesAndObesity.objects.filter(bmi=bmi).delete()
+
             if illness_instances:
                 bmi.sickness.clear()  # Clear existing relations
                 bmi.sickness.add(*illness_instances)  # Add new relations
                 bmi.save()
-
 
             for instance in illness_instances:
                 print(instance.name)
@@ -176,7 +191,7 @@ def BMICalculator(request):
                     db_vitamin_d = request.POST.get('db_vitamin_d')
                     db_b12 = request.POST.get('db_b12')
                     db_magnesium = request.POST.get('db_magnesium')
-                    
+
                     if not db_glucose:
                         errors.append(_('Glucose is required'))
                     if not db_h1bc:
@@ -204,46 +219,92 @@ def BMICalculator(request):
 
                     if not errors:
                         try:
-                            diabetes_and_obesity_data = {
-                                'bmi': bmi,
-                                'glucose': float(db_glucose),
-                                'hb1ac': float(db_h1bc),
-                                'hdl': float(db_hdl),
-                                'ldl': float(db_ldl),
-                                'triglycerides': float(db_triglycerides),
-                                'cholesterol': int(db_cholesterol),
-                                'ac_uric': int(db_ac_uric),
-                                'fns': float(db_fns),
-                                'crp': float(db_crp),
-                                'b12': float(db_b12),
-                                'magnesium': float(db_magnesium),
-                                'vitamin_d' : db_vitamin_d
-                            }
-                            print(diabetes_and_obesity_data)
-                            db_obj, db_obj_created = DiabetesAndObesity.objects.update_or_create(
-                                bmi=bmi,
-                                defaults=diabetes_and_obesity_data
-                            )
+                            if instance.name == 'diabetesandobesity'.upper():
+                                diabetes_and_obesity_data = {
+                                    'bmi': bmi,
+                                    'glucose': float(db_glucose),
+                                    'hb1ac': float(db_h1bc),
+                                    'hdl': float(db_hdl),
+                                    'ldl': float(db_ldl),
+                                    'triglycerides': float(db_triglycerides),
+                                    'cholesterol': int(db_cholesterol),
+                                    'ac_uric': int(db_ac_uric),
+                                    'fns': float(db_fns),
+                                    'crp': float(db_crp),
+                                    'b12': float(db_b12),
+                                    'magnesium': float(db_magnesium),
+           
+                                }
+                                print(diabetes_and_obesity_data)
+                                DiabetesAndObesity.objects.update_or_create(
+                                    bmi=bmi,
+                                    defaults=diabetes_and_obesity_data
+                                )
+                                print('created ')
                         except Exception as e:
-                            print(e)
-                            errors.append(str(e))
+                            errors.append(_('An error occurred while saving your data. Please try again.'))
+                            logger.error(f"Error saving diet data: {str(e)}")
+
+                if errors:
+                    for error in errors:
+                        messages.error(request, error)
+                    return render(request, 'patient/diet/bmi.html', context)
+
             # Create DietRequest after all instances are created
             diabetes_instance = Diabetes.objects.filter(bmi=bmi).first()
             obesity_instance = Obesity.objects.filter(bmi=bmi).first()
             diabetes_and_obesity_instance = DiabetesAndObesity.objects.filter(bmi=bmi).first()
             print(diabetes_and_obesity_instance)
             # Get form data with error handling
-            meals_per_day = request.POST.get('meals_per_day')
             between_meals = request.POST.get('between_meals')
             sweets = request.POST.get('sweets')
-                        
+            fast_food = request.POST.get('fast_food')
+            enough_water = request.POST.get('enough_water')
+            food_allergy = request.POST.get('food_allergy')
+            allergy_details = request.POST.get('allergy_details')
+            smoke = request.POST.get('smoke')
+            alcohol = request.POST.get('alcohol')
+            depression_stress = request.POST.get('depression_stress')
+            medication = request.POST.get('medication')
+            medication_details = request.POST.get('medication_details')
+            last_meal_time = request.POST.get('last_meal_time')
+            walking = request.POST.get('walking')
+            sleep = request.POST.get('sleep')
+            meals_per_day = request.POST.get('meals_per_day')
+            if not meals_per_day:
+                errors.append(_('Meals per day is required'))
+            if not between_meals:
+                errors.append(_('Between meals is required'))
+            if not sweets:
+                errors.append(_('Sweets is required'))
+            if not fast_food:
+                errors.append(_('Fast food is required'))
+            if not enough_water:
+                errors.append(_('Enough water is required'))
+            if not food_allergy:
+                errors.append(_('Food allergy is required'))
+            if not smoke:
+                errors.append(_('Smoke is required'))
+            if not alcohol:
+                errors.append(_('Alcohol is required'))
+            if not depression_stress:
+                errors.append(_('Depression stress is required'))
+            if not medication:
+                errors.append(_('Medication is required'))
+            if not last_meal_time:
+                errors.append(_('Last meal time is required'))
+            if not walking:
+                errors.append(_('Walking is required'))
+            if not sleep:
+                errors.append(_('Sleep is required'))
+
             if not meals_per_day:
                 errors.append('Meals per day is required')
             if not between_meals:
                 errors.append('Between meals selection is required')
             if not sweets:
                 errors.append('Sweets selection is required')
-                
+            
             if errors:
                 return JsonResponse({'status': 'error', 'errors': errors}, status=400)
                 
@@ -257,7 +318,19 @@ def BMICalculator(request):
                     'diabetes_and_obesity': diabetes_and_obesity_instance,
                     'meals_per_day': int(meals_per_day),
                     'between_meals': between_meals == 'yes',
-                    'sweets': sweets == 'yes'
+                    'sweets': sweets == 'yes',
+                    'fast_food': fast_food == 'yes',
+                    'enough_water': enough_water == 'yes',
+                    'food_allergy': food_allergy == 'yes',
+                    'allergy_details': allergy_details if food_allergy == 'yes' else None,
+                    'smoke': smoke == 'yes',
+                    'alcohol': alcohol == 'yes',
+                    'depression_stress': depression_stress == 'yes',
+                    'medication': medication == 'yes',
+                    'medication_details': medication_details if medication == 'yes' else None,
+                    'last_meal_time': last_meal_time,
+                    'walking': walking == 'yes',
+                    'sleep': sleep == 'yes',
                 }
             )
             
@@ -286,7 +359,6 @@ def BMICalculator(request):
             return JsonResponse({'success':False,'errors':[_(f'{str(e)}')]})
     
     else:
-        context = {}
         try:
             diet_request = DietRequest.objects.get(patient=request.user)
             context['diet_request'] = diet_request            

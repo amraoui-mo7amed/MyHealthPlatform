@@ -31,8 +31,10 @@ def home(request):
         try:
             # If patient has existing diet request, redirect to pending
             diet_request = DietRequest.objects.get(patient=request.user)
-            diet = dc_models.Diet.objects.get(diet_request=diet_request)
-            
+            try:
+                diet = dc_models.Diet.objects.get(diet_request=diet_request)
+            except dc_models.Diet.DoesNotExist:
+                pass
             if diet_request.request_verified == False and dc_models.Diet.DoesNotExist:
                 return redirect('dash:pending')
             else:

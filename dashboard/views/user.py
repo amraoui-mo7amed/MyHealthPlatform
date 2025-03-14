@@ -10,6 +10,8 @@ from django.views.decorators.http import require_POST
 from django.core.exceptions import ValidationError, PermissionDenied
 from django.core.mail import send_mail
 from django.conf import settings
+from patient import models as pt_models
+from doctor import models as dc_models
 
 from django.urls import reverse
 from dashboard.models import Notifications
@@ -116,8 +118,18 @@ def pending_view(request):
     """
     View to show pending approval page
     """
-    if request.user.is_authenticated and not request.user.profile.is_approved or request.user.profile.role == 'PATIENT':
+    if request.user.is_authenticated and not request.user.profile.is_approved:
         return render(request, 'user/pending.html')
+    
+    if request.user.profile.role == 'PATIENT':
+        try:
+            diet_request = pt_models.DietRequest.objects.get(patient=request.user)
+            if diet_request:
+                diet = dc_models.Diet.objects.get(diet_request=diet_request)
+                if diet:
+                    return redirect('dash:home')
+        except Exception:
+            pass
     return redirect('dash:home')
 
 

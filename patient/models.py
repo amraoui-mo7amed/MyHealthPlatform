@@ -10,7 +10,7 @@ UserModel = get_user_model()
 ILLNESS_CHOICES = [
     ('DIABETES', 'Diabetes'),
     ('OBESITY', 'Obesity'),
-    ('DIABETESANDOBESITY', 'diabetesandobesity'),
+    ('DIABETESANDOBESITY', 'Diabetes and Obesity'),
     
 ]
 
@@ -137,15 +137,15 @@ class DietRequest(models.Model):
         default='NONE'
     )
     
-    # fast_food = models.BooleanField()
-    # enough_water = models.BooleanField()
-    # food_allergy = models.BooleanField()
-    # allergy_details = models.CharField(max_length=255, blank=True, null=True)
-    # smoke = models.BooleanField()
-    # alcohol = models.BooleanField()
-    # depression_stress = models.BooleanField()
-    # medication = models.BooleanField()
-    # medication_details = models.CharField(max_length=255, blank=True, null=True)
-    # last_meal_time = models.TimeField()
-    # walking = models.BooleanField()
-    # sleep = models.BooleanField()
+    fast_food = models.BooleanField(default=False)
+    enough_water = models.BooleanField(default=False)
+    food_allergy = models.BooleanField(default=False)
+    allergy_details = models.CharField(max_length=255, blank=True, null=True)
+    smoke = models.BooleanField(default=False)
+    alcohol = models.BooleanField(default=False)
+    depression_stress = models.BooleanField(default=False)
+    medication = models.BooleanField(default=False)
+    medication_details = models.CharField(max_length=255, blank=True, null=True)
+    last_meal_time = models.TimeField()
+    walking = models.BooleanField(default=False)
+    sleep = models.BooleanField(default=False)

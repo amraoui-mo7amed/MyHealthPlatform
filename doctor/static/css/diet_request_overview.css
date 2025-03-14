@@ -1,0 +1,21 @@
+.card-body
+{
+    max-height: 300px;
+    overflow-y: auto;
+}
+.card-header h4
+{
+    text-overflow: ellipsis;
+}
+.card-body p 
+{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: baseline;
+}
+
+.card-body p strong 
+{
+    white-space: nowrap;
+}
