@@ -4,6 +4,11 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom;
-    background-position-y: -14rem;
-    height: 32rem;
+    background-position-y: -10rem;
+    height: 100vh;
+}
+
+.hero_area > div 
+{
+    margin-top: 10rem !important;
 }
