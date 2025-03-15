@@ -273,3 +273,30 @@ button:focus .dropdown-menu {
     font-size: 18px;
     z-index: 1;
 }
+
+
+#nt-drodown-toggel {
+    border: none;
+    background-color: transparent;
+}
+
+#nt-dropdown-list-items {
+    margin: 5px 2px 5px 18px;
+    padding: 2px;
+    border-radius: 2px;
+    list-style: none;
+    background-color: #fff;
+    width: 85%;
+}
+
+
+#nt-dropdown-list-items {
+    display: none;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+}
+
+#nt-dropdown-list-items .nav-item {
+    padding: 0.5rem 0;
+}
+

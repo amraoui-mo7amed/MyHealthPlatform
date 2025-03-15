@@ -8,7 +8,8 @@
           href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css" />
 {% endblock css %}
 
-{% block extra_css %}{% endblock extra_css %}
+{% block extra_css %}
+{% endblock extra_css %}
 
 {% block subtitle %}
     {% trans "Dashboard" %}
@@ -44,6 +45,28 @@
                         <i class="fa fa-users" aria-hidden="true"></i>
                         <a href="{% url "dash:list_users" %}" class="nav-link">{% trans "Users" %}</a>
                     </li>
+                    {% comment %} Patient Menu {% endcomment %}
+                {% elif request.user.profile.role == 'PATIENT' %}
+                    <div class="nt-dropdwon">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex align-items-center">
+                                <i class="fa fa-cutlery fs-4 mx-2" aria-hidden="true"></i>
+                                <span class="fs-5">{% trans "Nutrition" %}</span>
+
+                            </div>
+                            <button id="nt-drodown-toggel">
+                                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        <ul id="nt-dropdown-list-items">
+                            <li class="nav-item">
+                                {% comment %} <i class="fa fa-users" aria-hidden="true"></i> {% endcomment %}
+                                <a href="" class="nav-link">{% trans "Nutrition" %}</a>
+                            </li>
+
+                        </ul>
+                    </div>
+
                 {% endif %}
             </ul>
         </div>

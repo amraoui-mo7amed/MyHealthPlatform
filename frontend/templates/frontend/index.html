@@ -65,7 +65,7 @@
       <link href="{% static "css/responsive.css" %}" rel="stylesheet" />
     {% endblock css %}
     {% block extra_css %}
-      <link rel="stylesheet" href="{% static "css/landingpage_home.css" %}">
+      <link rel="stylesheet" href="{% static "css/landingpage_home.css" %}" />
     {% endblock extra_css %}
   </head>
 
@@ -132,10 +132,11 @@
       </header>
       <!-- end header section -->
       {% block slider %}
-        <div class="container-fluid px-0" >
+        <div class="container-fluid px-0">
           <div class="row g-2 align-items-center">
             <div class="col-lg-12 col-md-12 col-sm-12 pt-4">
-              <div class="header-text px-2 text-center text-white mt-2" data-aos="fade-right">
+              <div class="header-text px-2 text-center text-white mt-2"
+                   data-aos="fade-right">
                 <span class="text-bold fs-6 fw-bold">{% trans "Your Health, Our Mission" %}</span>
                 <h3 class="text-bold text-white">
                   {% trans "Empowering Your Journey to Wellness" %}
@@ -148,7 +149,8 @@
                     {% trans "Dashboard" %}
                   </a>
                 {% else %}
-                  <a href="{% url "user_auth:login" %}" class="btn btn-outline-dark btn-lg rounded w-25">
+                  <a href="{% url "user_auth:login" %}"
+                     class="btn btn-outline-dark btn-lg rounded w-25">
                     {% trans "Get started" %}
                   </a>
                 {% endif %}
@@ -156,9 +158,7 @@
             </div>
             {% comment %} <div class="col-lg-6 col-md-12 col-sm-12">
               <div class="header-image" data-aos="fade-left">
-                <img src="{% static 'images/food.png' %}"
-                     alt="My Health App Logo"
-                     class="img-fluid" />
+                <img src="{% static 'images/food.png' %}" alt="My Health App Logo" class="img-fluid" />
               </div>
             </div> {% endcomment %}
           </div>
@@ -172,11 +172,8 @@
       <section id="about" class="py-5">
         <div class="container">
           <div class="row align-items-center">
-            <div class="col-lg-4" data-aos="fade-right">
-              <img src="{% static 'images/about2.jpg' %}"
-                   alt="About Us"
-                   class="img-fluid rounded mb-2"
-                   />
+            <div class="col-lg-4"  data-aos="fade-right">
+              <img alt="About Us" class="img-fluid rounded mb-2" style='height:100%' id='about-image' />
             </div>
             <div class="col-lg-8 text-center" data-aos="fade-left">
               <h2 class="text-dark mb-4 ">
@@ -302,9 +299,9 @@
         </div>
       </section>
 
-      <section id="contact" class="py-5">
-        <div class="container">
-          <div class="row text-center mb-5">
+      <section id="contact">
+        <div class="container-fluid">
+          <div class="row text-center my-5">
             <div class="col" data-aos="fade-up">
               <h2 class="text-teal">
                 {% trans "Contact Us" %}
@@ -314,46 +311,88 @@
               </p>
             </div>
           </div>
-          <div class="row justify-content-center">
-            <div class="col-md-8" data-aos="fade-up" data-aos-delay="100">
-              <form method="post" class='form' action="{% url 'frontend:contact' %}" class="needs-validation" novalidate>
-                {% csrf_token %}
-                <div class="errorList">
+          <div class="row justify-content-center align-items-start bg-light p-4 rounded">
+            <div class="col-lg-6 col-md-12" data-aos="fade-up" data-aos-delay="100">
+              <div class="contact-info bg-light p-4 rounded">
+
+                <h4 class="mb-4">
+                  {% trans "Contact Information" %}
+                </h4>
+                <div class="mb-4">
+                  <p>
+                    <i class="fa fa-map-marker fa-2x text-teal me-3"></i>
+                    <span class="text-dark">
+                      Ali Mendjeli- nouvelle ville - constantine
+                    </span>
+                  </p>
                 </div>
-                <div class="mb-3">
-                  <label for="name" class="form-label">
-                    {% trans "Name" %}
-                  </label>
-                  <input type="text" class="form-control" id="name" name="name" required />
-                  <div class="invalid-feedback">
-                    {% trans "Please enter your name." %}
-                  </div>
+                <div class="mb-4">
+                  <p>
+                    <i class="fa fa-phone fa-2x text-teal me-3"></i>
+                    <span class="text-dark">
+                      +2137 79 87 48 89
+                    </span>
+                  </p>
                 </div>
-                <div class="mb-3">
-                  <label for="email" class="form-label">
-                    {% trans "Email address" %}
-                  </label>
-                  <input type="email" class="form-control" id="email" name="email" required />
-                  <div class="invalid-feedback">
-                    {% trans "Please enter a valid email address." %}
-                  </div>
+                <div class="mb-4">
+                  <p>
+                    <i class="fa fa-envelope fa-2x text-teal me-3"></i>
+                    <span class="text-dark">
+                      myhealthypartner0@gmail.com
+                    </span>
+                  </p>
                 </div>
-                <div class="mb-3">
-                  <label for="message" class="form-label">
-                    {% trans "Message" %}
-                  </label>
-                  <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-                  <div class="invalid-feedback">
-                    {% trans "Please enter your message." %}
-                  </div>
-                </div>
-                <div class="text-center">
-                  <button type="submit" class="btn btn-outline-dark btn-lg">
-                    {% trans "Send Message" %}
-                  </button>
-                </div>
-              </form>
+              </div>
             </div>
+            <div class="col-lg-6 col-md-12" data-aos="fade-up" data-aos-delay="100">
+              <div class='contact-info bg-light p-4 rounded'>
+                <h4 class="mb-4">
+                  {% trans "Let's talk" %}
+                </h4>
+                <form method="post"
+                      class='form'
+                      action="{% url 'frontend:contact' %}"
+                      class="needs-validation"
+                      novalidate>
+                  {% csrf_token %}
+                  <div class="errorList">
+                  </div>
+                  <div class="mb-3">
+                    <label for="name" class="form-label">
+                      {% trans "Name" %}
+                    </label>
+                    <input type="text" class="form-control" id="name" name="name" required />
+                    <div class="invalid-feedback">
+                      {% trans "Please enter your name." %}
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="email" class="form-label">
+                      {% trans "Email address" %}
+                    </label>
+                    <input type="email" class="form-control" id="email" name="email" required />
+                    <div class="invalid-feedback">
+                      {% trans "Please enter a valid email address." %}
+                    </div>
+                  </div>
+                  <div class="mb-3">
+                    <label for="message" class="form-label">
+                      {% trans "Message" %}
+                    </label>
+                    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                    <div class="invalid-feedback">
+                      {% trans "Please enter your message." %}
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn btn-outline-dark btn-lg">
+                      {% trans "Send Message" %}
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>
