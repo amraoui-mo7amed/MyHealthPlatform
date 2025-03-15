@@ -52,9 +52,6 @@ function changeBackground() {
     };
 }
 
-
-
-
 // Start the cycle
 setInterval(changeBackground, 3000);
 
