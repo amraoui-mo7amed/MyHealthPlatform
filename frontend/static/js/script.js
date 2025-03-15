@@ -84,7 +84,3 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 // Change image every 3 seconds
 setInterval(changeAboutImage, 3000);
-
-
-
-
