@@ -13,7 +13,7 @@
 {% block dash %}
     <form method='POST'
           action='{% url "dash:edit-user-profile" %}'
-          class="d-flex bg-light align-items-center"
+          class="d-flex bg-light align-items-center form"
           id='user-overview'>
         {% csrf_token %}
         <div class='m-2'>

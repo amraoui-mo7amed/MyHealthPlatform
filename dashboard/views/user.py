@@ -12,6 +12,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from patient import models as pt_models
 from doctor import models as dc_models
+from django.urls import reverse
 
 from django.urls import reverse
 from dashboard.models import Notifications
@@ -32,30 +33,36 @@ def EditUserProfile(request):
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
         thumbnail = request.FILES.get('thumbnail')
-
-        errors = {}
+        
+        print(thumbnail)
+        errors = []
         
         if not first_name:
-            errors['first_name'] = _('First name is required.')
+            errors.append(_('First name is required.'))
         if not last_name:
-            errors['last_name'] = _('Last name is required.')
+            errors.append(_('Last name is required.'))
         if not email:
-            errors['email'] = _('Email is required.')
-
+            errors.append(_('Email is required.'))
+        if not thumbnail:
+            errors.append(_('Profile image is required.'))
+            
         if errors:
             return JsonResponse({'success': False, 'errors': errors}, status=400)
 
-        # Update user profile
-        user = request.user
-        user.first_name = first_name
-        user.last_name = last_name
-        user.email = email
-        if thumbnail:
-            user.profile.image = thumbnail  # Adjust this line as per your user model
-        user.save()
-
-        return JsonResponse({'success': True, 'message': 'Profile updated successfully!'})
-
+        try:
+            # Update user profile
+            user = request.user
+            user.first_name = first_name
+            user.last_name = last_name
+            user.email = email
+            
+            if thumbnail:
+                user.profile.image = thumbnail  # Adjust this line as per your user model
+            user.save()
+            user.profile.save()
+            return JsonResponse({'success': True,'redirect_url' : reverse('dash:user-profile'), 'message': 'Profile updated successfully!'})
+        except Exception as e:
+            return JsonResponse({'success':False,'errors' : [str(e)]})
 
     return render(request, 'user/edit.html')
 

@@ -16,52 +16,52 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 // Updating the profile
-document.getElementById('user-overview').addEventListener('submit', function (e) {
-    e.preventDefault();
+// document.getElementById('user-overview').addEventListener('submit', function (e) {
+//     e.preventDefault();
 
-    const formData = new FormData(this);
-    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+//     const formData = new FormData(this);
+//     const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
-    fetch('/dashboard/user/edit/', {
-        method: 'POST',
-        headers: {
-            'X-CSRFToken': csrfToken,
-        },
-        body: formData
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: data.message,
-                    timer: 3000,
-                    showConfirmButton: false
-                }).then(() => {
-                    // Redirect after SweetAlert confirmation
-                    window.location.href = '/dashboard/user/';
-                });
-            } else {
-                const errors = data.errors;
-                let errorMessages = '';
-                for (const field in errors) {
-                    errorMessages += `${field}: ${errors[field]}<br>`;
-                }
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Validation Errors',
-                    html: errorMessages,
-                    timer: 5000,
-                    showConfirmButton: true
-                });
-            }
-        })
-        .catch(error => {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong! Please try again.',
-            });
-        });
-});
+//     fetch('/dashboard/user/edit/', {
+//         method: 'POST',
+//         headers: {
+//             'X-CSRFToken': csrfToken,
+//         },
+//         body: formData
+//     })
+//         .then(response => response.json())
+//         .then(data => {
+//             if (data.success) {
+//                 Swal.fire({
+//                     icon: 'success',
+//                     title: 'Success',
+//                     text: data.message,
+//                     timer: 3000,
+//                     showConfirmButton: false
+//                 }).then(() => {
+//                     // Redirect after SweetAlert confirmation
+//                     window.location.href = '/dashboard/user/';
+//                 });
+//             } else {
+//                 const errors = data.errors;
+//                 let errorMessages = '';
+//                 for (const field in errors) {
+//                     errorMessages += `${field}: ${errors[field]}<br>`;
+//                 }
+//                 Swal.fire({
+//                     icon: 'error',
+//                     title: 'Validation Errors',
+//                     html: errorMessages,
+//                     timer: 5000,
+//                     showConfirmButton: true
+//                 });
+//             }
+//         })
+//         .catch(error => {
+//             Swal.fire({
+//                 icon: 'error',
+//                 title: 'Oops...',
+//                 text: 'Something went wrong! Please try again.',
+//             });
+//         });
+// });

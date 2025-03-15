@@ -276,14 +276,16 @@
                     <div class="errorList">
                     </div>
 
-                    <form action="{% url "patient:reset_diet_request_status" diet.diet_request.pk %}"
-                          class='form'
-                          method='POST'>
-                        {% csrf_token %}
-                        <button type="submit" class='btn btn-sm btn-teal'>
-                            {% trans "Request an update" %}
-                        </button>
-                    </form>
+                    {% if diet %}
+                        <form action="{% url "patient:reset_diet_request_status" diet.diet_request.pk %}"
+                              class='form'
+                              method='POST'>
+                            {% csrf_token %}
+                            <button type="submit" class='btn btn-sm btn-teal'>
+                                {% trans "Request an update" %}
+                            </button>
+                        </form>
+                    {% endif %}
                 </div>
 
                 <div class="container-fluid">

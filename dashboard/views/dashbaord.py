@@ -31,15 +31,13 @@ def home(request):
         try:
             # If patient has existing diet request, redirect to pending
             diet_request = DietRequest.objects.get(patient=request.user)
-            try:
+            try :
                 diet = dc_models.Diet.objects.get(diet_request=diet_request)
-            except dc_models.Diet.DoesNotExist:
-                pass
-            if diet_request.request_verified == False and dc_models.Diet.DoesNotExist:
-                return redirect('dash:pending')
-            else:
-                
                 context['diet'] = diet
+                if diet_request.update_status == 'PENDING':
+                    return redirect('dash:pening')
+            except dc_models.Diet.DoesNotExist:        
+                pass
         except DietRequest.DoesNotExist:
             # If no diet request exists, redirect to request creation
             return redirect('patient:request_a_diet')
