@@ -142,27 +142,43 @@ def pending_view(request):
 
 @login_required
 def list_users(request):
-    if not request.user.is_superuser:
-        raise PermissionDenied
+    # Check if user is either ADMIN or DOCTOR
+    if request.user.profile.role not in ['ADMIN','DOCTOR']:
+        raise PermissionDenied  # Deny access if not authorized
     
-    context = {}
+    context = {}  # Initialize empty context dictionary
+    
     # Get all users except admins
-    users = get_user_model().objects.all().exclude(is_superuser=True)
-    context['users'] = users    
+    if request.user.profile.role == 'ADMIN':
+        # If user is ADMIN, get all users except superusers
+        users = get_user_model().objects.all().exclude(is_superuser=True)
+    
+    if request.user.profile.role == 'DOCTOR':
+        # If user is DOCTOR, get only PATIENT users and exclude superusers
+        users = get_user_model().objects.filter(profile__role='PATIENT')
+        
+    context['users'] = users  # Add users to context dictionary
 
+    # Render the user list template with the context
     return render(request, 'user/user_list.html', context=context)
     
 @login_required
 def userDetails(request, pk):
-    if not request.user.is_superuser:
+    # Check if user has proper role (ADMIN or DOCTOR)
+    if request.user.profile.role not in ['ADMIN','DOCTOR']:
         raise PermissionDenied
-    if request.user.is_superuser:
-        try:
-            user = get_user_model().objects.get(pk=pk)
-            context = {
-                'user': user
-            }
-            return render(request, 'user/user_details.html', context=context)
-        except get_user_model().DoesNotExist:
-            return JsonResponse({'success': False, 'message': 'User not found'}, status=404)
-    return redirect('dash:home')
+    
+    try:
+        # Try to get the user with the provided primary key
+        user = get_user_model().objects.get(pk=pk)
+        diets = dc_models.Diet.objects.filter(diet_request__patient=user)
+        # Create context with the user object
+        context = {
+            'user': user,
+            'diets': diets
+        }
+        # Render the user details template with the context
+        return render(request, 'user/user_details.html', context=context)
+    except get_user_model().DoesNotExist:
+        # Return JSON response if user is not found
+        return JsonResponse({'success': False, 'message': 'User not found'}, status=404)

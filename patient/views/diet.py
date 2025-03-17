@@ -360,7 +360,6 @@ def BMICalculator(request):
             pass
         return render(request,'patient/diet/bmi.html',context=context)
     
-@patient_required
 def diet_details(request,pk):
     diet = dc_models.Diet.objects.get(pk=pk)
     context = {

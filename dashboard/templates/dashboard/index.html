@@ -39,12 +39,23 @@
                     <i class="fa fa-tachometer" aria-hidden="true"></i>
                     <a href="{% url "dash:home" %}" class="nav-link">{% trans "Dashboard" %}</a>
                 </li>
-                {% comment %} admin menu {% endcomment %}
-                {% if request.user.is_superuser %}
+                <!-- Admin and doctor menu -->
+                {% if request.user.profile.role == 'ADMIN' or request.user.profile.role == 'DOCTOR' %}
                     <li class="nav-item" data-url="{% url 'dash:list_users' %}">
                         <i class="fa fa-users" aria-hidden="true"></i>
-                        <a href="{% url "dash:list_users" %}" class="nav-link">{% trans "Users" %}</a>
+
+                        <a href="{% url "dash:list_users" %}" class="nav-link">
+                            {% if request.user.profile.role == 'ADMIN' %}
+                                {% trans "Users" %}
+                            {% elif request.user.profile.role == 'DOCTOR' %}
+                                {% trans "Patients" %}
+                            {% endif %}
+                        </a>
                     </li>
+                {% endif %}
+                {% comment %} admin menu {% endcomment %}
+                {% if request.user.is_superuser %}
+
                     {% comment %} Patient Menu {% endcomment %}
                 {% elif request.user.profile.role == 'PATIENT' %}
                     <li class="nav-item" data-url="{% url 'patient:diet_history' %}">
