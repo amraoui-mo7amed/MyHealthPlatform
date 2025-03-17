@@ -34,6 +34,9 @@
             type="text/css"
             href="{% static "css/bootstrap-rtl.css" %}" />
     {% else %}
+      <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" />
+
       <!-- Roboto font -->
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -172,8 +175,9 @@
       <section id="about" class="py-5">
         <div class="container">
           <div class="row align-items-center">
-            <div class="col-lg-4"  data-aos="fade-right">
-              <img alt="About Us" class="img-fluid rounded mb-2" style='height:100%' id='about-image' />
+            <div class="col-lg-4" data-aos="fade-right">
+              <!-- Canvas for the animation -->
+              <canvas id="about-canvas"></canvas>
             </div>
             <div class="col-lg-8 text-center" data-aos="fade-left">
               <h2 class="text-dark mb-4 ">

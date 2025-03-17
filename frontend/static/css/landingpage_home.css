@@ -1,5 +1,4 @@
-.hero_area
-{
+.hero_area {
     /* background-image: url(../images/bg2_1.jpg); */
     background-repeat: no-repeat;
     background-size: cover;
@@ -8,7 +7,14 @@
     height: 100vh;
 }
 
-.hero_area > div 
-{
+.hero_area>div {
     margin-top: 10rem !important;
+}
+
+#about canvas {
+    width: 100%;
+    height: 100%;
+    /* Ensures the canvas is square */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
