@@ -1,0 +1,32 @@
+{% extends "dashboard/index.html" %}
+
+{% load static i18n %}
+
+{% block subtitle %}
+    {% trans "Diet history" %}
+{% endblock subtitle %}
+
+{% block dash %}
+    <div class="container-fluid">
+        {% if diets %}
+            <div class="row">
+                {% for diet in diets %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{% trans "Diet" %} #{{ forloop.counter }}</h5>
+                                <p class="card-text">
+                                    {% trans "Start Date" %}: {{ diet.start_date|date:"Y-m-d" }}<br>
+                                    {% trans "End Date" %}: {{ diet.end_date|date:"Y-m-d" }}
+                                </p>
+                                <a href="{% url "patient:diet_details" diet.pk %}" class="btn btn-primary">{% trans "View Details" %}</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>{% trans "No diets found" %}</p>
+        {% endif %}
+    </div>
+{% endblock dash %}

@@ -92,28 +92,26 @@ def BMICalculator(request):
                     errors.append(f'ilnness with name {illness_name} doesnt exist' )
                     continue
             # Create or update BMI record
-            bmi, created = BMI.objects.update_or_create(
+            bmi = BMI.objects.create(
                 patient=patient,
-                defaults={
-                    'height': height_float,
-                    'weight': weight_float,
-                    'bmi_value': bmi_value
-                }
+                height=height_float,
+                weight=weight_float,
+                bmi_value=bmi_value
             )
             bmi.save()
             print(f'User ilnesses: {illness_instances}')
 
             # Clear existing illness records if not selected
-            selected_illnesses = [illness.upper() for illness in illnesses]
-            if 'DIABETES' not in selected_illnesses:
-                Diabetes.objects.filter(bmi=bmi).delete()
-            if 'OBESITY' not in selected_illnesses:
-                Obesity.objects.filter(bmi=bmi).delete()
-            if 'DIABETESANDOBESITY' not in selected_illnesses:
-                DiabetesAndObesity.objects.filter(bmi=bmi).delete()
+            # selected_illnesses = [illness.upper() for illness in illnesses]
+            # if 'DIABETES' not in selected_illnesses:
+            #     Diabetes.objects.filter(bmi=bmi).delete()
+            # if 'OBESITY' not in selected_illnesses:
+            #     Obesity.objects.filter(bmi=bmi).delete()
+            # if 'DIABETESANDOBESITY' not in selected_illnesses:
+            #     DiabetesAndObesity.objects.filter(bmi=bmi).delete()
 
             if illness_instances:
-                bmi.sickness.clear()  # Clear existing relations
+                # bmi.sickness.clear()  # Clear existing relations
                 bmi.sickness.add(*illness_instances)  # Add new relations
                 bmi.save()
 
@@ -135,14 +133,14 @@ def BMICalculator(request):
                         errors.append(_('Cholesterol is required'))
                         
                     if not errors:
-                        diabetes_data = {
-                            'bmi': bmi,
-                            'glucose_type': glucose_type,
-                            'fasting_glucose': float(fasting_glucose),
-                            'hba1c': float(hba1c),
-                            'cholesterol': int(cholesterol)
-                        }
-                        Diabetes.objects.update_or_create(bmi=bmi, defaults=diabetes_data)
+                        diabetes_instance = Diabetes.objects.create(
+                            patient=patient,
+                            glucose_type=glucose_type,
+                            fasting_glucose=float(fasting_glucose),
+                            hba1c=float(hba1c),
+                            cholesterol=int(cholesterol)
+                        )
+                        diabetes_instance.save()
                         print('good work')
                     
                 if instance.name == 'OBESITY'.upper():
@@ -168,7 +166,7 @@ def BMICalculator(request):
                         
                     if not errors:
                         obesity_data = {
-                            'bmi': bmi,
+                            'patient': patient,
                             'glucose': float(glucose),
                             'hdl': float(hdl),
                             'ldl': float(ldl),
@@ -176,7 +174,8 @@ def BMICalculator(request):
                             'cholesterol': int(cholesterol),
                             'ac_uric': int(ac_uric)
                         }
-                        Obesity.objects.update_or_create(bmi=bmi, defaults=obesity_data)
+                        obesity_instance = Obesity.objects.create(**obesity_data)
+                        obesity_instance.save()
                 if instance.name == 'diabetesandobesity'.upper():
                     print('diabetesandobesity')
                     db_glucose = request.POST.get('db_glucose')
@@ -221,7 +220,7 @@ def BMICalculator(request):
                         try:
                             if instance.name == 'diabetesandobesity'.upper():
                                 diabetes_and_obesity_data = {
-                                    'bmi': bmi,
+                                    'patient': patient,
                                     'glucose': float(db_glucose),
                                     'hb1ac': float(db_h1bc),
                                     'hdl': float(db_hdl),
@@ -236,9 +235,8 @@ def BMICalculator(request):
            
                                 }
                                 print(diabetes_and_obesity_data)
-                                DiabetesAndObesity.objects.update_or_create(
-                                    bmi=bmi,
-                                    defaults=diabetes_and_obesity_data
+                                diabetes_and_obesity_instance = DiabetesAndObesity.objects.create(
+                                    **diabetes_and_obesity_data
                                 )
                                 print('created ')
                         except Exception as e:
@@ -250,11 +248,7 @@ def BMICalculator(request):
                         messages.error(request, error)
                     return render(request, 'patient/diet/bmi.html', context)
 
-            # Create DietRequest after all instances are created
-            diabetes_instance = Diabetes.objects.filter(bmi=bmi).first()
-            obesity_instance = Obesity.objects.filter(bmi=bmi).first()
-            diabetes_and_obesity_instance = DiabetesAndObesity.objects.filter(bmi=bmi).first()
-            print(diabetes_and_obesity_instance)
+
             # Get form data with error handling
             between_meals = request.POST.get('between_meals')
             sweets = request.POST.get('sweets')
@@ -308,34 +302,30 @@ def BMICalculator(request):
             if errors:
                 return JsonResponse({'status': 'error', 'errors': errors}, status=400)
                 
-            DietRequest.objects.update_or_create(
+            diet_request_instance = DietRequest.objects.create(
                 patient=patient,
-                defaults={
-                    'bmi': bmi,
-                    'diabetes': diabetes_instance,
-                    'obesity': obesity_instance,
-                    'request_verified': False,
-                    'diabetes_and_obesity': diabetes_and_obesity_instance,
-                    'meals_per_day': int(meals_per_day),
-                    'between_meals': between_meals == 'yes',
-                    'sweets': sweets == 'yes',
-                    'fast_food': fast_food == 'yes',
-                    'enough_water': enough_water == 'yes',
-                    'food_allergy': food_allergy == 'yes',
-                    'allergy_details': allergy_details if food_allergy == 'yes' else None,
-                    'smoke': smoke == 'yes',
-                    'alcohol': alcohol == 'yes',
-                    'depression_stress': depression_stress == 'yes',
-                    'medication': medication == 'yes',
-                    'medication_details': medication_details if medication == 'yes' else None,
-                    'last_meal_time': last_meal_time,
-                    'walking': walking == 'yes',
-                    'sleep': sleep == 'yes',
-                }
+                bmi=bmi,
+                diabetes=diabetes_instance if 'diabetes_instance' in locals() else None,
+                obesity=obesity_instance if 'obesity_instance' in locals() else None,
+                diabetes_and_obesity=diabetes_and_obesity_instance if 'diabetes_and_obesity_instance' in locals() else None,
+                meals_per_day=int(meals_per_day),
+                between_meals=between_meals == 'yes',
+                sweets=sweets == 'yes',
+                fast_food=fast_food == 'yes',
+                enough_water=enough_water == 'yes',
+                food_allergy=food_allergy == 'yes',
+                allergy_details=allergy_details if food_allergy == 'yes' else None,
+                smoke=smoke == 'yes',
+                alcohol=alcohol == 'yes',
+                depression_stress=depression_stress == 'yes',
+                medication=medication == 'yes',
+                medication_details=medication_details if medication == 'yes' else None,
+                last_meal_time=last_meal_time,
+                walking=walking == 'yes',
+                sleep=sleep == 'yes',
+                update_status = 'PENDING'
             )
-            
-            # Get the diet_request after creation
-            diet_request = DietRequest.objects.get(patient=patient)
+            diet_request_instance.save()
             
             if errors:
                 return JsonResponse({'success':False,'errors':errors})
@@ -345,7 +335,7 @@ def BMICalculator(request):
                 Notifications.objects.create(
                     user = dc, 
                     title='A new Diet request has been created',
-                    text=f'New diet request created, view it at <a href="{reverse_lazy("doctor:diet-request-details", kwargs={"pk": diet_request.pk})}">View Request</a>'
+                    text=f'New diet request created, view it at <a href="{reverse_lazy("doctor:diet-request-details", kwargs={"pk": diet_request_instance.pk})}">View Request</a>'
                 )
                 dc.profile.notifications_count += 1
                 dc.profile.save()
@@ -360,7 +350,7 @@ def BMICalculator(request):
     
     else:
         try:
-            diet_request = DietRequest.objects.get(patient=request.user)
+            diet_request = DietRequest.objects.filter(patient=request.user).last()
             context['diet_request'] = diet_request            
             try:
                 diet = dc_models.Diet.objects.get(diet_request=diet_request)
@@ -371,9 +361,8 @@ def BMICalculator(request):
         return render(request,'patient/diet/bmi.html',context=context)
     
 @patient_required
-def diet_details(request,diet_request_pk):
-    diet_request = DietRequest.objects.get(pk=diet_request_pk)
-    diet = dc_models.Diet.objects.get(diet_request=diet_request)
+def diet_details(request,pk):
+    diet = dc_models.Diet.objects.get(pk=pk)
     context = {
         'diet' : diet
     }
@@ -384,12 +373,6 @@ def reset_diet_request_status(request,pk):
     errors = []
     if request.method == 'POST':
         try :
-            diet_request = DietRequest.objects.get(pk=pk)
-            diet_request.request_verified = False
-            diet_request.update_status = 'PENDING'
-            diet_request.save()
-            diet = dc_models.Diet.objects.get(diet_request=diet_request)
-            diet.delete()
 
             return JsonResponse({
                 'success':True,
@@ -405,4 +388,10 @@ def reset_diet_request_status(request,pk):
                 'success':False,
                 'errors' : errors
             })
-        
+@patient_required
+def diet_history(request):
+    diets = dc_models.Diet.objects.filter(diet_request__patient=request.user)
+    context = {
+        'diets': diets
+    }
+    return render(request, 'patient/diet/diet_history.html', context=context)

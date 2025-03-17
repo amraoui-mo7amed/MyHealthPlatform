@@ -35,16 +35,6 @@
                                 {% trans "Verified Requests" %}
                             </button>
                             <button class="nav-link"
-                                    id="nav-unverified-tab"
-                                    data-bs-toggle="tab"
-                                    data-bs-target="#nav-unverified"
-                                    type="button"
-                                    role="tab"
-                                    aria-controls="nav-unverified"
-                                    aria-selected="false">
-                                {% trans "Unverified Requests" %}
-                            </button>
-                            <button class="nav-link"
                                     id="nav-updates-tab"
                                     data-bs-toggle="tab"
                                     data-bs-target="#nav-updates"
@@ -52,7 +42,7 @@
                                     role="tab"
                                     aria-controls="nav-updates"
                                     aria-selected="false">
-                                {% trans "Request Updates" %}
+                                {% trans "Verified" %}
                             </button>
                         </div>
                     </div>
@@ -86,7 +76,7 @@
                                         </thead>
                                         <tbody>
                                             {% for request in diet_requests %}
-                                                {% if request.request_verified %}
+                                                {% if request.update_status == 'NONE' %}
                                                     <tr>
                                                         <td>
                                                             {{ request.patient.get_full_name }}
@@ -125,74 +115,7 @@
                                 </div>
                             </div>
 
-                            <!-- Unverified Requests Pane -->
-                            <div class="tab-pane fade"
-                                 id="nav-unverified"
-                                 role="tabpanel"
-                                 aria-labelledby="nav-unverified-tab">
-                                <div class="table-responsive">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>
-                                                    {% trans "Patient Name" %}
-                                                </th>
-                                                <th>
-                                                    {% trans "Date Created" %}
-                                                </th>
-                                                <th>
-                                                    {% trans "BMI Value" %}
-                                                </th>
-                                                <th>
-                                                    {% trans "Status" %}
-                                                </th>
-                                                <th>
-                                                    {% trans "Actions" %}
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {% for request in diet_requests %}
-                                                {% if not request.request_verified and request.update_status == 'NONE' %}
-                                                    <tr>
-                                                        <td>
-                                                            {{ request.patient.get_full_name }}
-                                                        </td>
-                                                        <td>
-                                                            {{ request.date_created }}
-                                                        </td>
-                                                        <td>
-                                                            {{ request.bmi.bmi_value }}
-                                                        </td>
-                                                        <td>
-                                                            <span class="text-danger">
-                                                                <i class="fa fa-times" aria-hidden="true"></i>
-                                                                {% trans "Unverified" %}
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <div class="d-flex align-items-center ">
-                                                                <a href="{% url "doctor:diet-request-details" request.pk %}"
-                                                                   class="btn btn-teal btn-sm">
-                                                                    {% trans "Details" %}
-                                                                </a>
-                                                                <button class="btn btn-sm btn-danger delete-button d-block w-100 ms-1"
-                                                                        data-delete-url="{% url "doctor:diet-request-delete" request.pk %}"
-                                                                        data-csrf-token="{{ csrf_token }}"
-                                                                        data-url="{% url 'doctor:diet-request-delete' request.pk %}">
-                                                                    {% trans "Delete" %}
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                {% endif %}
-                                            {% endfor %}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-                            <!-- Request Updates Pane -->
+                            <!-- Unvefied Pane -->
                             <div class="tab-pane fade"
                                  id="nav-updates"
                                  role="tabpanel"
@@ -234,7 +157,8 @@
                                                         <td>
                                                             <span class="text-warning">
                                                                 <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
-                                                                {% trans "Update Requested" %}
+                                                                {% comment %} {% trans "Update Requested" %} {% endcomment %}
+                                                                {{ request.update_status }}
                                                             </span>
                                                         </td>
                                                         <td>
@@ -266,73 +190,111 @@
     {% elif role == 'PATIENT' %}
         <!-- Patient Section: Placeholder for patient-specific content -->
         <div class="container-fluid">
-
             <div id="dietDetails">
-                <div class="d-flex align-items-center justify-content-between mb-3">
-                    <h3 class="text-teal mb-0">
-                        {{ diet.diet_request.patient.get_full_name }}
-                        {% trans "Diet" %}
-                    </h3>
-                    <div class="errorList">
+                {% if patient_diet_request.update_status == 'NONE' and diet %}
+                    <div class="d-flex align-items-center justify-content-between mb-3">
+                        <h3 class="text-teal mb-0">
+                            {{ diet.diet_request.patient.get_full_name }}
+                            {% trans "Diet" %}
+                        </h3>
+                        <div class="errorList">
+                        </div>
+
+                        {% if diet %}
+                            <form action="{% url "patient:reset_diet_request_status" diet.diet_request.pk %}"
+                                  class='form'
+                                  method='POST'>
+                                {% csrf_token %}
+                                <button type="submit" class='btn btn-sm btn-teal'>
+                                    {% trans "Request an update" %}
+                                </button>
+                            </form>
+                        {% endif %}
                     </div>
 
-                    {% if diet %}
-                        <form action="{% url "patient:reset_diet_request_status" diet.diet_request.pk %}"
-                              class='form'
-                              method='POST'>
-                            {% csrf_token %}
-                            <button type="submit" class='btn btn-sm btn-teal'>
-                                {% trans "Request an update" %}
-                            </button>
-                        </form>
-                    {% endif %}
-                </div>
+                    <div class="container-fluid">
+                        {% if diet.notes %}
+                            <h3 class='fs-bold text-light bg-teal p-2'>
+                                {% trans "Additional Notes" %}
+                            </h3>
+                            <p>
+                                {{ diet.notes|linebreaks }}
+                            </p>
+                        {% endif %}
 
-                <div class="container-fluid">
-                    <div class="row g-4">
-                        {% for daily_plan in diet.daily_plans.all %}
+                        <h3 class='fs-bold text-light bg-teal p-2'>
+                            {% trans "Diet Plan" %}
+                        </h3>
+                        <div class="row g-4">
+                            {% for daily_plan in diet.daily_plans.all %}
 
-                            <div class="col-lg-12 col-md-12 col-sm-12 mb-4 p-0">
-                                <div class="h-100 m-1 diet-card">
-                                    <div class="card-header text-light">
-                                        <h4 class="mb-0 text-center">
-                                            {{ daily_plan.get_day_display }}
-                                        </h4>
-                                    </div>
-                                    <div class="card-body">
-                                        {% for meal in daily_plan.meals.all %}
-                                            <div class="mb-3">
-                                                <div class="d-flex flex-column mb-2">
-                                                    <h5 class="text-teal mb-0">
-                                                        {{ meal.get_meal_type_display }}
-                                                    </h5>
-                                                    <small class="text-muted">
-                                                        {% if meal.meal_type == 'BREAKFAST' %}
-                                                            8:00 AM
-                                                        {% elif meal.meal_type == 'LUNCH' %}
-                                                            12:00 PM
-                                                        {% elif meal.meal_type == 'SNACK' %}
-                                                            4:00 PM
-                                                        {% elif meal.meal_type == 'DINNER' %}
-                                                            8:00 PM
-                                                        {% endif %}
-                                                    </small>
+                                <div class="col-lg-12 col-md-12 col-sm-12 mb-4 p-0">
+                                    <div class="h-100 m-1 diet-card">
+                                        <div class="card-header text-light">
+                                            <h4 class="mb-0 text-center">
+                                                {{ daily_plan.get_day_display }}
+                                            </h4>
+                                        </div>
+                                        <div class="card-body">
+                                            {% for meal in daily_plan.meals.all %}
+                                                <div class="mb-3">
+                                                    <div class="d-flex flex-column mb-2">
+                                                        <h5 class="text-teal mb-0">
+                                                            {{ meal.get_meal_type_display }}
+                                                        </h5>
+                                                        <small class="text-muted">
+                                                            {% if meal.meal_type == 'BREAKFAST' %}
+                                                                8:00 AM
+                                                            {% elif meal.meal_type == 'LUNCH' %}
+                                                                12:00 PM
+                                                            {% elif meal.meal_type == 'SNACK' %}
+                                                                4:00 PM
+                                                            {% elif meal.meal_type == 'DINNER' %}
+                                                                8:00 PM
+                                                            {% endif %}
+                                                        </small>
+                                                    </div>
+                                                    <p>
+                                                        {{ meal.description }}
+                                                    </p>
                                                 </div>
-                                                <p>
-                                                    {{ meal.description }}
-                                                </p>
-                                            </div>
-                                            {% if not forloop.last %}
-                                                <hr />
-                                            {% endif %}
-                                        {% endfor %}
+                                                {% if not forloop.last %}
+                                                    <hr />
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        {% endfor %}
+                            {% endfor %}
+                        </div>
+
                     </div>
                 </div>
-            </div>
+            {% elif patient_diet_request.update_status == 'PENDING' %}
+                <div class="text-center py-4">
+                    <i class="fa fa-clock-o fa-3x text-muted mb-3" aria-hidden="true"></i>
+                    <h4 class="mb-3">
+                        {% trans "Your Diet Plan is Being Prepared" %}
+                    </h4>
+                    <p class="text-muted small">
+                        {% trans "Our nutrition experts are working on your personalized diet plan. Please check back soon." %}
+                    </p>
+                </div>
+            {% elif not patient_diet_request %}
+                <div class="text-center py-4">
+                    <i class="fa fa-cutlery fa-3x text-teal mb-3" aria-hidden="true"></i>
+                    <h4 class="mb-3">
+                        {% trans "No Diet Plan Found" %}
+                    </h4>
+                    <p class="text-muted small mb-4">
+                        {% trans "You haven't created a diet plan yet. Start your journey to better health today!" %}
+                    </p>
+                    <a href="{% url 'patient:bmi_calculator' %}" class="btn btn-teal btn-lg">
+                        <i class="fa fa-plus me-2"></i>
+                        {% trans "Create Diet Request" %}
+                    </a>
+                </div>
+            {% endif %}
         </div>
     {% elif role == 'ADMIN' %}
         <!-- Admin Section: Shows dashboard with statistics and user management -->

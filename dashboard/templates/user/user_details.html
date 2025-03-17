@@ -100,48 +100,50 @@
                                             {{ user.profile.get_role_display }}
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <th>
-                                            {% trans "User Documents" %}
-                                        </th>
-                                        <td>
-                                            {% if user.profile.main_diploma %}
-                                                <div class="d-flex flex-column">
-                                                    <span>{% trans "Main Diploma:" %}</span>
-                                                    <a href="{{ user.profile.main_diploma.url }}"
-                                                       target="_blank"
-                                                       class="text-decoration-none ps-2">
-                                                        <i class="fa fa-download"></i>
-                                                        {% trans "Diploma" %}
-                                                    </a>
-                                                </div>
-                                            {% endif %}
+                                    {% if user.profile.role == 'DOCTOR' %}
+                                        <tr>
+                                            <th>
+                                                {% trans "User Documents" %}
+                                            </th>
+                                            <td>
+                                                {% if user.profile.main_diploma %}
+                                                    <div class="d-flex flex-column">
+                                                        <span>{% trans "Main Diploma:" %}</span>
+                                                        <a href="{{ user.profile.main_diploma.url }}"
+                                                           target="_blank"
+                                                           class="text-decoration-none ps-2">
+                                                            <i class="fa fa-download"></i>
+                                                            {% trans "Diploma" %}
+                                                        </a>
+                                                    </div>
+                                                {% endif %}
 
-                                            {% if user.profile.additional_diplomas %}
-                                                <div class="d-flex flex-column">
-                                                    <span>{% trans "Additional diplomas:" %}</span>
+                                                {% if user.profile.additional_diplomas %}
+                                                    <div class="d-flex flex-column">
+                                                        <span>{% trans "Additional diplomas:" %}</span>
 
-                                                    {% if user.profile.additional_diplomas.all %}
-                                                        <ul class="list-unstyled">
-                                                            {% for diploma in user.profile.additional_diplomas.all %}
-                                                                <li>
-                                                                    <a href="{{ diploma.diploma_file.url }}"
-                                                                       target="_blank"
-                                                                       class="text-decoration-none ps-2">
-                                                                        <i class="fa fa-download"></i>
+                                                        {% if user.profile.additional_diplomas.all %}
+                                                            <ul class="list-unstyled">
+                                                                {% for diploma in user.profile.additional_diplomas.all %}
+                                                                    <li>
+                                                                        <a href="{{ diploma.diploma_file.url }}"
+                                                                           target="_blank"
+                                                                           class="text-decoration-none ps-2">
+                                                                            <i class="fa fa-download"></i>
 
-                                                                        {% trans "Diploma" %} 
-                                                                    </a>
-                                                                </li>
-                                                            {% endfor %}
-                                                        </ul>
-                                                    {% else %}
-                                                        <span class="text-muted">{% trans "No diplomas uploaded" %}</span>
-                                                    {% endif %}
-                                                </div>
-                                            {% endif %}
-                                        </td>
-                                    </tr>
+                                                                            {% trans "Diploma" %}
+                                                                        </a>
+                                                                    </li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        {% else %}
+                                                            <span class="text-muted">{% trans "No diplomas uploaded" %}</span>
+                                                        {% endif %}
+                                                    </div>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    {% endif %}
                                 </tbody>
                             </table>
                         </div>

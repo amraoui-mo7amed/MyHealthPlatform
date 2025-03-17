@@ -24,7 +24,7 @@ class Illness(models.Model):
 
 class BMI(models.Model):
     # One-to-one relationship with Patient model, deleting BMI if patient is deleted
-    patient = models.OneToOneField(UserModel, on_delete=models.CASCADE, related_name='bmi_records')
+    patient = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='bmi_records')
     # Height field in meters with validation for realistic human height range
     height = models.FloatField(validators=[MinValueValidator(0.5), MaxValueValidator(3.0)])  # in meters
     # Weight field in kilograms with validation for realistic human weight range
@@ -59,7 +59,7 @@ class BMI(models.Model):
             super().save(*args, **kwargs)
 
 class Diabetes(models.Model):
-    bmi = models.OneToOneField(BMI, on_delete=models.CASCADE, related_name='diabetes')
+    patient = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='diabetes')
     glucose_type = models.CharField(max_length=10, choices=[('mg/dl', 'mg/dl'), ('mmol/l', 'mmol/l')])
     fasting_glucose = models.FloatField()
     hba1c = models.FloatField()
@@ -73,7 +73,7 @@ class Diabetes(models.Model):
         verbose_name_plural = "Diabetes Records"
 
 class Obesity(models.Model):
-    bmi = models.OneToOneField(BMI, on_delete=models.CASCADE, related_name='obesity')
+    patient = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='obesity')
     glucose = models.FloatField()
     hdl = models.FloatField()
     ldl = models.FloatField()
@@ -91,7 +91,7 @@ class Obesity(models.Model):
 
 
 class DiabetesAndObesity(models.Model):
-    bmi = models.OneToOneField(BMI, on_delete=models.CASCADE, related_name='diabetes_and_obesity')
+    patient = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='diabetes_and_obesity')
     glucose = models.FloatField()
     hb1ac = models.FloatField()
     hdl = models.FloatField()
@@ -115,13 +115,12 @@ class DiabetesAndObesity(models.Model):
 
 
 class DietRequest(models.Model):
-    patient = models.OneToOneField(UserModel, on_delete=models.CASCADE, related_name='diet_request')
+    patient = models.ForeignKey(UserModel, on_delete=models.CASCADE, related_name='diet_request')
     bmi = models.OneToOneField(BMI, on_delete=models.CASCADE)
     diabetes = models.OneToOneField(Diabetes, on_delete=models.CASCADE, null=True, blank=True)
     obesity = models.OneToOneField(Obesity, on_delete=models.CASCADE, null=True, blank=True)
     diabetes_and_obesity = models.OneToOneField(DiabetesAndObesity, on_delete=models.CASCADE, null=True, blank=True)
     date_created = models.DateTimeField(auto_now_add=True)
-    request_verified = models.BooleanField(default=False)
     meals_per_day = models.PositiveSmallIntegerField(choices=[(1, 'Once a day'), (2, 'Twice a day'), (3, 'Three times a day'), (4, 'Four times a day')], default=1)
     between_meals = models.BooleanField(default=False)
     sweets = models.BooleanField(default=False)
@@ -130,9 +129,9 @@ class DietRequest(models.Model):
     update_status = models.CharField(
         max_length=20,
         choices=[
-            ('PENDING', 'Pending Update'),
-            ('UPDATED', 'Successfully Updated'),
-            ('NONE', 'No Update Needed')
+            ('PENDING', 'Pending'),
+            ('REVISED', 'REVISED'),
+            ('NONE', 'NONE')
         ],
         default='NONE'
     )

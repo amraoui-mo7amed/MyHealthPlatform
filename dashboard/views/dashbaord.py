@@ -30,7 +30,10 @@ def home(request):
     if request.user.profile.role == 'PATIENT':
         try:
             # If patient has existing diet request, redirect to pending
-            diet_request = DietRequest.objects.get(patient=request.user)
+            diet_request = DietRequest.objects.filter(patient=request.user).last()
+            if diet_request:
+                print(diet_request.update_status)
+            context['patient_diet_request'] = diet_request
             try :
                 diet = dc_models.Diet.objects.get(diet_request=diet_request)
                 context['diet'] = diet

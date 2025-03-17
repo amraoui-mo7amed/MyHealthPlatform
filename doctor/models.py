@@ -20,10 +20,10 @@ MEAL_TYPES = [
 ]
 
 class Diet(models.Model):
-    diet_request = models.OneToOneField(p_models.DietRequest, on_delete=models.CASCADE, related_name="diet")
+    diet_request = models.ForeignKey(p_models.DietRequest, on_delete=models.CASCADE, related_name="diet")
     start_date = models.DateField()
     end_date = models.DateField()
-
+    notes = models.TextField(null=True,blank=True)
     def __str__(self):
         return f"Diet for {self.diet_request.patient}"
 

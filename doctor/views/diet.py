@@ -19,24 +19,23 @@ def create(request, diet_request_pk:int):
     if request.method == 'POST':
         try:
             diet_request = DietRequest.objects.get(pk=diet_request_pk)
-            diet_request.request_verified = True
+            diet_request.update_status = 'NONE'
             diet_request.save()
-            
             # Calculate dates
             start_date = datetime.now().date()
             end_date = start_date + timedelta(days=7)
+            notes = request.POST.get('notes')
             
-            # Get or create diet with start and end dates
-            diet, created = Diet.objects.get_or_create(
+            # Create diet with start and end dates
+            diet = Diet.objects.create(
                 diet_request=diet_request,
-                defaults={
-                    'start_date': start_date,
-                    'end_date': end_date
-                }
+                start_date=start_date,
+                end_date=end_date,
+                notes=notes if notes else None,
             )
-            
+            diet.save()
             # If diet was just created, create daily meal plans and meals
-            if created:
+            if diet:
                 for day, _ in WEEK_DAYS:
                     daily_plan = DailyMealPlan.objects.create(diet=diet, day=day)
                     for meal_type, _ in MEAL_TYPES:
@@ -70,7 +69,7 @@ def create(request, diet_request_pk:int):
             
     else:
         try:
-            diet_request = DietRequest.objects.get(pk=diet_request_pk)
+            diet_request = DietRequest.objects.filter(pk=diet_request_pk).last()
             context['diet_request'] = diet_request
             context['WEEK_DAYS'] = WEEK_DAYS
             context['MEAL_TYPES'] = MEAL_TYPES
@@ -78,7 +77,7 @@ def create(request, diet_request_pk:int):
             
             # Add existing diet to context
             try:
-                diet = Diet.objects.get(diet_request=diet_request)
+                diet = Diet.objects.filter(diet_request=diet_request).last()
                 context['diet'] = diet
             except Diet.DoesNotExist:
                 errors.append('No existing diet found')

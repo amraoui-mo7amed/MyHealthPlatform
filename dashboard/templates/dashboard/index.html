@@ -47,6 +47,10 @@
                     </li>
                     {% comment %} Patient Menu {% endcomment %}
                 {% elif request.user.profile.role == 'PATIENT' %}
+                    <li class="nav-item" data-url="{% url 'patient:diet_history' %}">
+                        <i class="fa fa-archive" aria-hidden="true"></i>
+                        <a href="{% url "patient:diet_history" %}" class="nav-link">{% trans "Diet history" %}</a>
+                    </li>
                     <div class="nt-dropdwon">
                         <div class="d-flex justify-content-between">
                             <div class="d-flex align-items-center">

@@ -14,16 +14,17 @@
 
             </div>
             <div id="dietDetails">
-                <div class="d-flex align-items-center justify-content-between">
-                    <h3 class="text-teal mb-0">
-                        {% trans "Patient Diet" %}
+                <div class="d-flex align-items-center justify-content-between bg-teal text-light p-2">
+                    <h3 class='m-0'>
+                        {% trans "Diet Plan" %}
                     </h3>
-                    <button id="updateDietBtn" class="btn btn-teal btn-sm">
+                    <button id="updateDietBtn" class="btn btn-outline-light btn-sm">
                         {% trans "Update Diet" %}
                     </button>
                 </div>
 
                 <div class="container-fluid">
+
                     <div class="row">
                         {% for daily_plan in diet.daily_plans.all %}
                             <div class="col mb-4 p-0">
@@ -65,14 +66,23 @@
                             </div>
                         {% endfor %}
                     </div>
+                    <div class="col">
+                        <h3 class='bg-teal text-light p-2'>
+                            {% trans "Additional Notes" %}
+                        </h3>
+                        <textarea class='form-control' name="notes" id="notes" disabled>{{ diet.notes }}</textarea>
+                    </div>
                 </div>
             </div>
+            {% comment %} updating existing diet {% endcomment %}
             <div id="updateForm" style="display: none;">
                 <form method="post"
                       class='form'
                       action="{% url "doctor:diet-create" diet_request.pk %}">
                     {% csrf_token %}
-
+                    <h3 class='bg-teal text-light p-2'>
+                        {% trans "Diet Plan" %}
+                    </h3>
                     <div class="row">
                         {% for day, day_name in WEEK_DAYS %}
                             <div class="col mb-4 p-0">
@@ -104,12 +114,19 @@
                                                 <textarea class="form-control" name="{{ day }}_{{ meal }}" rows="3"></textarea>
                                             </div>
                                         {% endfor %}
+
                                     </div>
                                 </div>
                             </div>
                         {% endfor %}
                     </div>
+                    <div class="col">
+                        <h3 class='bg-teal text-light p-2'>
 
+                            {% trans "Additional Notes:" %}
+                        </h3>
+                        <textarea class='form-control' name="notes" id="notes" >{{ diet.notes }}</textarea>
+                    </div>
                     <div class="text-center mt-4">
                         <button type="submit" class="btn btn-primary">
                             {% trans "Submit" %}
@@ -123,7 +140,6 @@
                       class='form'
                       action="{% url "doctor:diet-create" diet_request.pk %}">
                     {% csrf_token %}
-
                     <div class="row">
                         {% for day, day_name in WEEK_DAYS %}
                             <div class="col mb-4 p-0">
@@ -145,10 +161,15 @@
                             </div>
                         {% endfor %}
                     </div>
-
+                    <div class="col">
+                        <h3>
+                            {% trans "Additional Notes:" %}
+                        </h3>
+                        <textarea class='form-control' name="notes" id="notes" disabled>{{ diet.notes }}</textarea>
+                    </div>
                     <div class="text-center mt-4">
                         <button type="submit" class="btn btn-primary">
-                            Create Diet Plan
+                            Submit
                         </button>
                     </div>
                 </form>
@@ -156,7 +177,7 @@
         {% endif %}
     </div>
 
-    
+
 {% endblock dash %}
 
 {% block js %}
