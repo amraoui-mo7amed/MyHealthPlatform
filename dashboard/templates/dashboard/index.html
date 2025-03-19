@@ -81,12 +81,13 @@
 
                         </ul>
                     </div>
-                {% elif request.user.profile.role == 'DOCTOR' %}
-                    <!-- Doctor Menu -->
                     <li class="nav-item">
                         <i class="fa fa-heartbeat"></i>
                         <a class="nav-link">{% trans "Coaching" %}</a>
                     </li>
+                {% elif request.user.profile.role == 'DOCTOR' %}
+                    <!-- Doctor Menu -->
+
                 {% endif %}
             </ul>
         </div>

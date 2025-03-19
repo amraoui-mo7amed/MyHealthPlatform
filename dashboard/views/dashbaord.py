@@ -35,7 +35,7 @@ def home(request):
                 print(diet_request.update_status)
             context['patient_diet_request'] = diet_request
             try :
-                diet = dc_models.Diet.objects.get(diet_request=diet_request)
+                diet = dc_models.Diet.objects.filter(diet_request=diet_request).last()
                 context['diet'] = diet
                 if diet_request.update_status == 'PENDING':
                     return redirect('dash:pening')
