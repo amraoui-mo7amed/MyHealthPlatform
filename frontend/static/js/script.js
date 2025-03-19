@@ -24,9 +24,12 @@ function myMap() {
 
 const heroArea = document.querySelector('.hero_area');
 const images = [
-    'static/images/animated_bg2.jpg',  // Add your other image paths here
-    'static/images/bg2_1.jpg',
-    // Add more images as needed
+    // 'static/images/animated_bg2.jpg',  // Add your other image paths here
+    // 'static/images/bg2_1.jpg',
+     'static/images/header_1.jpg',
+     'static/images/header_2.jpg',
+     'static/images/header_3.jpg',
+
 ];
 
 let currentIndex = 0;
@@ -62,7 +65,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 // about canvas animation 
-
 
 // Select the canvas and set its dimensions
 const canvas = document.getElementById('about-canvas');
@@ -130,7 +132,7 @@ function animateTransition(outgoingImage, incomingImage, onComplete) {
 
     // Animation variables for incoming image
     const positionsIncoming = Array(numPieces).fill(-scaledHeightIncoming); // Start above the canvas
-    const speedsIncoming = Array(numPieces).fill(5); // Fixed speed for simplicity
+    const speedsIncoming = Array(numPieces).fill(10); // Increased speed (from 5 to 10)
     const isFallingIncoming = Array(numPieces).fill(false); // Tracks if a piece is falling
 
     let lastTime = 0;
