@@ -51,15 +51,18 @@ def login_view(request):
                 # Redirect based on user role
                 if user.profile.role == 'PATIENT':
                     try:
-                        diet_request = pt_models.DietRequest.objects.get(patient=user)
-                        if diet_request.request_verified == False:
-                            return JsonResponse({'success':True,'redirect_url' : reverse('dash:pending')})
+                        diet_request = pt_models.DietRequest.objects.filter(patient=user).last()
+                        if diet_request:
+                            if diet_request.update_status == 'PENDING':
+                                return JsonResponse({'success':True,'redirect_url' : reverse('dash:pending')})
+                            else:
+                                # return JsonResponse({'success':True,'redirect_url' : reverse('patient:diet_details',args=[diet_request.pk])})
+                                return JsonResponse({'success':True,'redirect_url' : reverse('dash:home')})
                         else:
-                            # return JsonResponse({'success':True,'redirect_url' : reverse('patient:diet_details',args=[diet_request.pk])})
-                            return JsonResponse({'success':True,'redirect_url' : reverse('dash:home')})
-                            
-                    except pt_models.DietRequest.DoesNotExist:
                             return JsonResponse({'success':True,'redirect_url' : reverse('patient:request_a_diet')})
+                    except Exception as e:
+                        print(f"Error checking diet request: {e}")
+                        return JsonResponse({'success':True,'redirect_url' : reverse('patient:request_a_diet')})
                 else:
                     return JsonResponse({'success':True,'redirect_url' : reverse('dash:home')})
             else:

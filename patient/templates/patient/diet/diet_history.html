@@ -26,7 +26,11 @@
                 {% endfor %}
             </div>
         {% else %}
-            <p>{% trans "No diets found" %}</p>
+            <div class="text-center mt-5">
+                <div class="alert alert-info fs-4" role="alert">
+                    {% trans "No diets found" %}
+                </div>
+            </div>
         {% endif %}
     </div>
 {% endblock dash %}
