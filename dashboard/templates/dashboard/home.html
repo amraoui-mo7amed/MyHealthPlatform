@@ -4,6 +4,8 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/home.css' %}?v={% now 'U' %}" />
+    <link rel="stylesheet"
+          href="{% static 'css/admin_dashboard.css' %}?v={% now 'U' %}" />
 {% endblock extra_css %}
 
 {% block subtitle %}
@@ -297,159 +299,195 @@
             {% endif %}
         </div>
     {% elif role == 'ADMIN' %}
-        <!-- Admin Section: Shows dashboard with statistics and user management -->
-        <div class="container-fluid">
-            <div class="row gx-2 mb-2">
-                <!-- Card 1: Total Users -->
-                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                    <div class="card bg-primary text-white rounded shadow">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-start align-items-center">
-                                <div class='me-2'>
-                                    <i class="fa fa-users fs-1"></i> <!-- FontAwesome v4 icon -->
+        <!-- Admin Section: Enhanced design -->
+        <div class="container-fluid admin-dashboard">
+            <!-- Modern Stats Cards -->
+            <div class="row gx-2 mb-4 equal-height-cards">
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                    <div class="card stats-card-v2 bg-white border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex flex-column h-100">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="icon-wrapper bg-primary">
+                                        <i class="fa fa-users"></i>
+                                    </div>
+                                    <h6 class="text-muted mb-0 ms-3">{% trans "Total Users" %}</h6>
                                 </div>
-                                <div>
-                                    <h5 class="card-title m-0">
-                                        {% trans "Total Users" %}
-                                    </h5>
-                                    <p class="card-text fs-6">
-                                        {{ users.count }}
-                                    </p>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 2: Total Categories -->
-                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                    <div class="card bg-teal text-white rounded shadow">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-start align-items-center">
-                                <div class='me-2'>
-                                    <i class="fa fa-heartbeat fs-1"></i> <!-- FontAwesome v4 icon -->
-                                </div>
-                                <div>
-                                    <h5 class="card-title m-0">
-                                        {% trans "Total Patients" %}
-                                    </h5>
-                                    <p class="card-text fs-6">
-                                        {{ patients.count }}
-                                    </p>
+                                <h3 class="mb-3">1,234</h3>
+                                <div class="mt-auto">
+                                    <div class="progress bg-light" style="height: 6px;">
+                                        <div class="progress-bar bg-primary" style="width: 75%"></div>
+                                    </div>
+                                    <small class="text-muted d-block mt-2">+5% from last month</small>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Card 3: Total Doctors -->
-                <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
-                    <div class="card bg-success text-white rounded shadow">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-start align-items-center">
-                                <div class='me-2'>
-                                    <i class="fa fa-heart fs-1"></i> <!-- FontAwesome v4 icon -->
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                    <div class="card stats-card-v2 bg-white border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex flex-column h-100">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="icon-wrapper bg-teal">
+                                        <i class="fa fa-heartbeat"></i>
+                                    </div>
+                                    <h6 class="text-muted mb-0 ms-3">{% trans "Total Patients" %}</h6>
                                 </div>
-                                <div>
-                                    <h5 class="card-title m-0">
-                                        {% trans "Total Doctors" %}
-                                    </h5>
-                                    <p class="card-text fs-6">
-                                        {{ doctors.count }}
-                                    </p>
+                                <h3 class="mb-3">987</h3>
+                                <div class="mt-auto">
+                                    <div class="progress bg-light" style="height: 6px;">
+                                        <div class="progress-bar bg-teal" style="width: 60%"></div>
+                                    </div>
+                                    <small class="text-muted d-block mt-2">+12% from last month</small>
                                 </div>
-
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- users section to display username/name/email/role/date_joined -->
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title text-primary">
-                                {% trans "Users List" %}
-                            </h4>
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                    <div class="card stats-card-v2 bg-white border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex flex-column h-100">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="icon-wrapper bg-success">
+                                        <i class="fa fa-heart"></i>
+                                    </div>
+                                    <h6 class="text-muted mb-0 ms-3">{% trans "Total Doctors" %}</h6>
+                                </div>
+                                <h3 class="mb-3">56</h3>
+                                <div class="mt-auto">
+                                    <div class="progress bg-light" style="height: 6px;">
+                                        <div class="progress-bar bg-success" style="width: 85%"></div>
+                                    </div>
+                                    <small class="text-muted d-block mt-2">+8% from last month</small>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped datatable">
-                                    <thead>
-                                        <tr>
-                                            <th>
-                                                {% trans "Username" %}
-                                            </th>
-                                            <th>
-                                                {% trans "Name" %}
-                                            </th>
-                                            <th>
-                                                {% trans "Email" %}
-                                            </th>
-                                            <th>
-                                                {% trans "Role" %}
-                                            </th>
-                                            <th>
-                                                {% trans "Status" %}
-                                            </th>
-                                            <th>
-                                                {% trans "Date Joined" %}
-                                            </th>
-                                            <th>
-                                                {% trans "Actions" %}
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for user in users %}
-                                            <tr>
-                                                <td>
-                                                    {{ user.username }}
-                                                </td>
-                                                <td>
-                                                    {{ user.get_full_name }}
-                                                </td>
-                                                <td>
-                                                    {{ user.email }}
-                                                </td>
-                                                <td>
-                                                    {{ user.profile.get_role_display }}
-                                                </td>
-                                                <td>
-                                                    {% if user.profile.is_approved %}
-                                                        <span class="bg-success text-white text-center p-1 rounded w-100 d-block">
-                                                            {% trans "Approved" %}
-                                                        </span>
-                                                    {% else %}
-                                                        <span class="bg-warning text-white text-center p-1 rounded w-100 d-block">
-                                                            {% trans "Disapproved" %}
-                                                        </span>
-                                                    {% endif %}
-                                                </td>
-                                                <td>
-                                                    {{ user.date_joined|date:"Y-m-d" }}
-                                                </td>
-                                                <td>
-                                                    <button class="btn btn-sm btn-danger delete-button d-block w-100"
-                                                            data-delete-url="{% url "dash:delete_user" user.pk %}"
-                                                            data-csrf-token="{{ csrf_token }}"
-                                                            data-url="{% url 'dash:delete_user' user.pk %}">
-                                                        {% trans "Delete" %}
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
+                    <div class="card stats-card-v2 bg-white border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="d-flex flex-column h-100">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="icon-wrapper bg-warning">
+                                        <i class="fa fa-clipboard"></i>
+                                    </div>
+                                    <h6 class="text-muted mb-0 ms-3">{% trans "Active Plans" %}</h6>
+                                </div>
+                                <h3 class="mb-3">234</h3>
+                                <div class="mt-auto">
+                                    <div class="progress bg-light" style="height: 6px;">
+                                        <div class="progress-bar bg-warning" style="width: 45%"></div>
+                                    </div>
+                                    <small class="text-muted d-block mt-2">+15% from last month</small>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Charts Section -->
+            <div class="row mb-4">
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="card chart-card fade-in">
+                        <div class="card-header bg-white">
+                            <h5 class="card-title">{% trans "User Growth" %}</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="userGrowthChart" style="height: 300px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="card chart-card fade-in">
+                        <div class="card-header bg-white">
+                            <h5 class="card-title">{% trans "User Distribution" %}</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="userDistributionChart" style="height: 300px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-12 mb-4">
+                    <div class="card chart-card fade-in">
+                        <div class="card-header bg-white">
+                            <h5 class="card-title">{% trans "Activity Overview" %}</h5>
+                        </div>
+                        <div class="card-body">
+                            <canvas id="activityOverviewChart" style="height: 300px;"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Users Section -->
+            <div class="users-section bg-white rounded">
+                <div class="section-header">
+                    <h2 class="section-title">User Management</h2>
+                    <div class="header-actions">
+                        <div class="search-box">
+                            <input type="text" placeholder="Search users..." class="search-input">
+                            <i class="fas fa-search"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="users-grid">
+                    {% for user in users %}
+                    <div class="user-card bg-light">
+                        <div class="user-avatar">
+                            <img src="{{ user.profile.image.url }}" alt="{{ user.username }}">
+                        </div>
+                        <div class="user-info">
+                            <h3 class="username">{{ user.username }}</h3>
+                            <p class="user-email">{{ user.email }}</p>
+                            <div class="user-meta">
+                                <span class="user-role">{{ user.profile.get_role_display }}</span>
+                                <span class="user-status {% if user.is_active %}active{% else %}inactive{% endif %}">
+                                    {{ user.is_active|yesno:"Active,Inactive" }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="user-actions">
+                            <button class="btn-action edit-btn" title="Edit User">
+                                <i class="fa fa-edit"></i>
+                            </button>
+                            <button class="btn-action delete-btn delete-button" title="Delete User" data-delete-url="{% url "dash:delete_user" user.pk %}"
+                            data-csrf-token="{{ csrf_token }}"
+                            data-url="{% url 'dash:delete_user' user.pk %}">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                            <button class="btn-action view-btn" title="View Profile">
+                                <i class="fa fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="pagination-controls">
+                    <button class="btn-pagination prev-btn" disabled>
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <span class="page-indicator">Page 1 of 5</span>
+                    <button class="btn-pagination next-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
         </div>
     {% endif %}
 {% endblock dash %}
+
+{% block extra_js %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{% static 'js/admin_dashboard.js' %}?v={% now 'U' %}"></script>
+{% endblock extra_js %}
