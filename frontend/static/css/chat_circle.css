@@ -1,0 +1,52 @@
+.ai-message {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+.ai-message code {
+    background-color: #e8e8e8;
+    padding: 2px 4px;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+.ai-message pre {
+    background-color: #e8e8e8;
+    padding: 10px;
+    border-radius: 4px;
+    overflow-x: auto;
+}
+
+.ai-message ul, .ai-message ol {
+    padding-left: 20px;
+    margin: 10px 0;
+}
+
+.ai-message p {
+    margin: 8px 0;
+}
+
+.ai-message a {
+    color: #4A90E2;
+    text-decoration: none;
+}
+
+.ai-message a:hover {
+    text-decoration: underline;
+}
+
+.ai-message table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 10px 0;
+}
+
+.ai-message th, .ai-message td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+.ai-message th {
+    background-color: #e8e8e8;
+} 

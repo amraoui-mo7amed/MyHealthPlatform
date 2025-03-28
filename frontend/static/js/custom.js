@@ -254,3 +254,166 @@ if (mobileMenu && navMenu) {
         navMenu.classList.toggle('active');
     });
 }
+
+
+class AIChat {
+    constructor() {
+        this.chatCircle = document.getElementById('aiChatCircle');
+        this.chatContainer = document.getElementById('chatContainer');
+        this.closeChatBtn = document.getElementById('closeChatBtn');
+        this.sendMessageBtn = document.getElementById('sendMessageBtn');
+        this.userInput = document.getElementById('userInput');
+        this.chatMessages = document.getElementById('chatMessages');
+        this.isChatOpen = false;
+        this.apiKey = null;
+        this.hasShownWelcome = false;
+
+        this.initializeEventListeners();
+        this.getApiToken();
+    }
+
+    async getApiToken() {
+        try {
+            const response = await fetch('/api/chat-token/');
+            const data = await response.json();
+            if (data.token) {
+                this.apiKey = data.token;
+            }
+        } catch (error) {
+            console.error('Error fetching API token:', error);
+        }
+    }
+
+    initializeEventListeners() {
+        this.chatCircle.addEventListener('click', () => this.toggleChat());
+        this.closeChatBtn.addEventListener('click', () => this.toggleChat());
+        this.sendMessageBtn.addEventListener('click', () => this.sendMessage());
+        this.userInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                this.sendMessage();
+            }
+        });
+    }
+
+    toggleChat() {
+        this.isChatOpen = !this.isChatOpen;
+        this.chatContainer.style.display = this.isChatOpen ? 'flex' : 'none';
+        
+        // Show welcome message if this is the first time opening
+        if (this.isChatOpen && !this.hasShownWelcome) {
+            this.showWelcomeMessage();
+            this.hasShownWelcome = true;
+        }
+    }
+
+    showWelcomeMessage() {
+        const welcomeMessage = `Hi, how can I assist you today?`;
+
+        const formattedWelcome = marked.parse(welcomeMessage, {
+            breaks: true,
+            sanitize: true
+        });
+        this.addMessage(formattedWelcome, false);
+    }
+
+    addMessage(text, isUser = true) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', isUser ? 'user-message' : 'ai-message');
+        if (isUser) {
+            messageDiv.textContent = text;
+        } else {
+            messageDiv.innerHTML = text;
+        }
+        this.chatMessages.appendChild(messageDiv);
+        this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+    }
+
+    async sendMessage() {
+        const message = this.userInput.value.trim();
+        if (!message || !this.apiKey) return;
+
+        // Add user message immediately
+        this.addMessage(message, true);
+        this.userInput.value = '';
+
+        // Add loading message with dancing dots
+        const loadingMessage = this.createLoadingMessage();
+        this.chatMessages.appendChild(loadingMessage);
+        this.chatMessages.scrollTop = this.chatMessages.scrollHeight;
+
+        try {
+            const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${this.apiKey}`,
+                },
+                body: JSON.stringify({
+                    model: 'deepseek/deepseek-chat-v3-0324:free',
+                    messages: [
+                        {
+                            role: 'system',
+                            content: `you are a dietitian, your name is Boo. Here are your core instructions:
+
+                            1. You are a specialized health and diet assistant
+                            2. Only answer questions related to:
+                               - Diet and nutrition
+                               - Healthy eating habits
+                               - Meal planning
+                               - Food-related health concerns
+                               - Dietary restrictions and requirements
+                            3. For any questions outside your expertise, politely respond with: "I apologize, but I can only assist with diet and nutrition-related questions. Please consult with appropriate healthcare professionals for other medical concerns."
+                            4. Keep responses focused on scientifically-backed dietary information
+                            5. Always encourage users to consult with healthcare providers for specific medical advice
+                            6. answer briefly except if user want explanation`
+                        },
+                        {
+                            role: 'user',
+                            content: message
+                        }
+                    ]
+                })
+            });
+
+            const data = await response.json();
+            const aiResponse = data.choices[0].message.content;
+            const formattedResponse = marked.parse(aiResponse, {
+                breaks: true,
+                sanitize: true
+            });
+
+            // Remove loading message and add AI response
+            this.chatMessages.removeChild(loadingMessage);
+            this.addMessage(formattedResponse, false);
+        } catch (error) {
+            console.error('Error:', error);
+            // Remove loading message and show error
+            this.chatMessages.removeChild(loadingMessage);
+            this.addMessage('Sorry, I encountered an error. Please try again.', false);
+        }
+    }
+
+    createLoadingMessage() {
+        const loadingDiv = document.createElement('div');
+        loadingDiv.classList.add('message', 'ai-message');
+        
+        const dotContainer = document.createElement('div');
+        dotContainer.classList.add('dot-container');
+        
+        for (let i = 0; i < 3; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            dot.style.animationDelay = `${i * 0.2}s`;
+            dotContainer.appendChild(dot);
+        }
+        
+        loadingDiv.appendChild(dotContainer);
+        return loadingDiv;
+    }
+}
+
+// Initialize the chat when the document is ready
+document.addEventListener('DOMContentLoaded', () => {
+    new AIChat();
+});
