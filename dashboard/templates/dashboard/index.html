@@ -108,6 +108,7 @@
                     </button>
                 </div>
                 <div class="right">
+                    <input type="hidden" name="user_role" id="user_role" value={{ request.user.profile.role }}>
                     <button class="notification-btn">
 
                         <span class="bg-teal text-white">
@@ -202,5 +203,5 @@
 {% block js %}
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
-
+    <script src="{% static "js/notifications.js" %}?v={% now "U" %}"></script>
 {% endblock js %}
