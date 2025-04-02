@@ -1,6 +1,6 @@
 {% extends "dashboard/index.html" %}
 
-{% load static i18n %}
+{% load static i18n tags %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'css/home.css' %}?v={% now 'U' %}" />
@@ -195,7 +195,7 @@
             <div id="dietDetails">
                 {% if patient_diet_request.update_status == 'NONE' and diet %}
                     <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h3 class="text-teal mb-0">
+                        <h3 class="text-primary mb-0 text-center">
                             {{ diet.diet_request.patient.get_full_name }}
                             {% trans "Diet" %}
                         </h3>
@@ -207,7 +207,7 @@
                                   class='form'
                                   method='POST'>
                                 {% csrf_token %}
-                                <button type="submit" class='btn btn-sm btn-teal'>
+                                <button type="submit" class='btn btn-sm btn text-light' style="background-color:var(--bs-gray)">
                                     {% trans "Request an update" %}
                                 </button>
                             </form>
@@ -216,15 +216,15 @@
 
                     <div class="container-fluid">
                         {% if diet.notes %}
-                            <h3 class='fs-bold text-light bg-teal p-2'>
+                            <h3 class='fs-bold text-light bg-primary p-2 text-center'>
                                 {% trans "Additional Notes" %}
                             </h3>
-                            <p>
-                                {{ diet.notes|linebreaks }}
-                            </p>
+                            <div style="margin-left:5.5rem">
+                                {{ diet.notes|prepend_hyphen|linebreaks }}
+                            </div>
                         {% endif %}
 
-                        <h3 class='fs-bold text-light bg-teal p-2'>
+                        <h3 class='fs-bold text-light bg-primary p-2 text-center'>
                             {% trans "Diet Plan" %}
                         </h3>
                         <div class="row g-4">

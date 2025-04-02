@@ -24,10 +24,10 @@ function myMap() {
 
 const heroArea = document.querySelector('.hero_area');
 const images = [
-    // 'static/images/animated_bg2.jpg',  // Add your other image paths here
+    'static/images/animated_bg2.jpg',  // Add your other image paths here
     // 'static/images/bg2_1.jpg',
      'static/images/header_1.jpg',
-     'static/images/header_2.jpg',
+    //  'static/images/header_2.jpg',
      'static/images/header_3.jpg',
 
 ];
@@ -78,7 +78,7 @@ canvas.height = canvasSize;
 // Array of image URLs
 const aboutImages = [
     'static/images/sport.jpg',
-    'static/images/about2.jpg',
+    // 'static/images/about2.jpg',
     'static/images/about.jpg',
 ];
 
