@@ -126,7 +126,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
-// ... existing code ...
 
 // Nutrition dropdown toggle
 document.getElementById('nt-drodown-toggel').addEventListener('click', function () {
@@ -144,4 +143,116 @@ document.getElementById('nt-drodown-toggel').addEventListener('click', function 
     }
 });
 
-// ... existing code ...
+// Digital Watch
+function updateDigitalWatch() {
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const seconds = String(now.getSeconds()).padStart(2, '0');
+    document.getElementById('digitalWatch').textContent = `${hours}:${minutes}:${seconds}`;
+    
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
+}
+
+// Calendar
+let currentDate = new Date();
+
+function renderCalendar() {
+    const monthYear = document.getElementById('currentMonthYear');
+    const calendarGrid = document.getElementById('calendarGrid');
+    
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    
+    // Set month and year
+    monthYear.textContent = new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric' }).format(currentDate);
+    
+    // Get first and last day of month
+    const firstDay = new Date(year, month, 1);
+    const lastDay = new Date(year, month + 1, 0);
+    
+    // Clear previous calendar
+    calendarGrid.innerHTML = '';
+    
+    // Add empty cells for days before first day
+    for (let i = 0; i < firstDay.getDay(); i++) {
+        calendarGrid.innerHTML += `<div class="calendar-day"></div>`;
+    }
+    
+    // Add days of the month
+    for (let day = 1; day <= lastDay.getDate(); day++) {
+        const date = new Date(year, month, day);
+        const isToday = date.toDateString() === new Date().toDateString();
+        calendarGrid.innerHTML += `
+            <div class="calendar-day ${isToday ? 'today' : ''}">
+                ${day}
+            </div>`;
+    }
+}
+
+// Event Handling
+document.getElementById('prevMonth').addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    renderCalendar();
+});
+
+document.getElementById('nextMonth').addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    renderCalendar();
+});
+
+// Upcoming Events
+function updateUpcomingEvents() {
+    // Get today's date in YYYY-MM-DD format
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+    const day = String(today.getDate()).padStart(2, '0');
+    const todayFormatted = `${year}-${month}-${day}`;
+
+    const events = [
+        { date: todayFormatted, time: '08:00', title: 'Breakfast', status: 'Upcoming' },
+        { date: todayFormatted, time: '12:00', title: 'Lunch', status: 'Upcoming' },
+        { date: todayFormatted, time: '16:00', title: 'Snacks', status: 'Upcoming' },
+        { date: todayFormatted, time: '20:00', title: 'Dinner', status: 'Upcoming' }
+    ];
+
+    const tableBody = document.getElementById('upcomingEventsTable');
+    tableBody.innerHTML = '';
+
+    const now = new Date();
+    const todayDate = new Date(now.getFullYear(), now.getMonth(), now.getDate()); // Set time to midnight
+
+    events.forEach(event => {
+        const eventDateTime = new Date(`${event.date}T${event.time}:00`);
+        let status = event.status;
+
+        // Check if the event is in the past
+        if (eventDateTime < now) {
+            status = 'Completed'; // Change status for past events
+        }
+
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${event.date}</td>
+            <td>${event.time}</td>
+            <td>${event.title}</td>
+            <td><span class="badge ${status === 'Upcoming' ? 'bg-primary' : 'bg-success'}">${status}</span></td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    // Digital Watch
+    setInterval(updateDigitalWatch, 1000);
+    updateDigitalWatch();
+
+    // Calendar
+    renderCalendar();
+
+    // Upcoming Events
+    updateUpcomingEvents();
+});

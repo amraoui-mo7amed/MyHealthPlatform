@@ -94,3 +94,55 @@
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 
 }
+
+/* Digital Watch */
+.digital-watch {
+    background: linear-gradient(145deg, #4A90E2, #357ABD);
+    padding: 20px;
+    border-radius: 12px;
+    color: white;
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+}
+#currentDate 
+{
+    color: #fff !important;
+}
+/* Calendar */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.calendar-day {
+    padding: 8px;
+    text-align: center;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.calendar-day:hover {
+    background-color: #4A90E2;
+    color: white;
+}
+
+.calendar-day.today {
+    background-color: #4A90E2;
+    color: white;
+    font-weight: bold;
+}
+
+.calendar-day.selected {
+    background-color: #357ABD;
+    color: white;
+}
+
+/* Upcoming Events */
+#upcomingEventsTable tr {
+    transition: all 0.2s ease;
+}
+
+#upcomingEventsTable tr:hover {
+    background-color: #f8f9fa;
+}

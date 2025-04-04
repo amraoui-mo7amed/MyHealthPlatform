@@ -192,6 +192,71 @@
     {% elif role == 'PATIENT' %}
         <!-- Patient Section: Placeholder for patient-specific content -->
         <div class="container-fluid">
+            <div class="container-fluid p-3">
+                <div class="row g-4">
+                    <!-- Watch and Calendar Section -->
+                    <div class="col-lg-4">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body text-center">
+                                <!-- Digital Watch -->
+                                <div class="digital-watch mb-4">
+                                    <div class="display-3 fw-bold" id="digitalWatch">
+                                        00:00:00
+                                    </div>
+                                    <div class="text-muted" id="currentDate">
+                                        Loading date...
+                                    </div>
+                                </div>
+
+                                <!-- Calendar -->
+                                <div class="calendar mb-4">
+                                    <div class="d-flex justify-content-between align-items-center mb-3">
+                                        <button class="btn btn-outline-secondary btn-sm" id="prevMonth">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </button>
+                                        <h5 class="mb-0" id="currentMonthYear">
+                                            Month Year
+                                        </h5>
+                                        <button class="btn btn-outline-secondary btn-sm" id="nextMonth">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                    <div class="calendar-grid" id="calendarGrid">
+                                        <!-- Calendar days will be populated here -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Events Section -->
+                    <div class="col-lg-8">
+                        <div class="card shadow-sm h-100">
+                            <div class="card-body">
+                                <h3 class="card-title mb-4">
+                                    <i class="fas fa-calendar-alt me-2"></i>
+                                    Upcoming Events
+                                </h3>
+                                <div class="table-responsive" style="max-height:unset;">
+                                    <table class="table table-hover align-middle">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>Time</th>
+                                                <th>Event</th>
+                                                <th>Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="upcomingEventsTable">
+                                            <!-- Events will be populated here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div id="dietDetails">
                 {% if patient_diet_request.update_status == 'NONE' and diet %}
                     <div class="d-flex align-items-center justify-content-between mb-3">
@@ -207,7 +272,9 @@
                                   class='form'
                                   method='POST'>
                                 {% csrf_token %}
-                                <button type="submit" class='btn btn-sm btn text-light' style="background-color:var(--bs-gray)">
+                                <button type="submit"
+                                        class='btn btn-sm btn text-light'
+                                        style="background-color:var(--bs-gray)">
                                     {% trans "Request an update" %}
                                 </button>
                             </form>
@@ -311,12 +378,17 @@
                                     <div class="icon-wrapper bg-primary">
                                         <i class="fa fa-users"></i>
                                     </div>
-                                    <h6 class="text-muted mb-0 ms-3">{% trans "Total Users" %}</h6>
+                                    <h6 class="text-muted mb-0 ms-3">
+                                        {% trans "Total Users" %}
+                                    </h6>
                                 </div>
-                                <h3 class="mb-3">1,234</h3>
+                                <h3 class="mb-3">
+                                    1,234
+                                </h3>
                                 <div class="mt-auto">
                                     <div class="progress bg-light" style="height: 6px;">
-                                        <div class="progress-bar bg-primary" style="width: 75%"></div>
+                                        <div class="progress-bar bg-primary" style="width: 75%">
+                                        </div>
                                     </div>
                                     <small class="text-muted d-block mt-2">+5% from last month</small>
                                 </div>
@@ -333,12 +405,17 @@
                                     <div class="icon-wrapper bg-teal">
                                         <i class="fa fa-heartbeat"></i>
                                     </div>
-                                    <h6 class="text-muted mb-0 ms-3">{% trans "Total Patients" %}</h6>
+                                    <h6 class="text-muted mb-0 ms-3">
+                                        {% trans "Total Patients" %}
+                                    </h6>
                                 </div>
-                                <h3 class="mb-3">987</h3>
+                                <h3 class="mb-3">
+                                    987
+                                </h3>
                                 <div class="mt-auto">
                                     <div class="progress bg-light" style="height: 6px;">
-                                        <div class="progress-bar bg-teal" style="width: 60%"></div>
+                                        <div class="progress-bar bg-teal" style="width: 60%">
+                                        </div>
                                     </div>
                                     <small class="text-muted d-block mt-2">+12% from last month</small>
                                 </div>
@@ -355,12 +432,17 @@
                                     <div class="icon-wrapper bg-success">
                                         <i class="fa fa-heart"></i>
                                     </div>
-                                    <h6 class="text-muted mb-0 ms-3">{% trans "Total Doctors" %}</h6>
+                                    <h6 class="text-muted mb-0 ms-3">
+                                        {% trans "Total Doctors" %}
+                                    </h6>
                                 </div>
-                                <h3 class="mb-3">56</h3>
+                                <h3 class="mb-3">
+                                    56
+                                </h3>
                                 <div class="mt-auto">
                                     <div class="progress bg-light" style="height: 6px;">
-                                        <div class="progress-bar bg-success" style="width: 85%"></div>
+                                        <div class="progress-bar bg-success" style="width: 85%">
+                                        </div>
                                     </div>
                                     <small class="text-muted d-block mt-2">+8% from last month</small>
                                 </div>
@@ -377,12 +459,17 @@
                                     <div class="icon-wrapper bg-warning">
                                         <i class="fa fa-clipboard"></i>
                                     </div>
-                                    <h6 class="text-muted mb-0 ms-3">{% trans "Active Plans" %}</h6>
+                                    <h6 class="text-muted mb-0 ms-3">
+                                        {% trans "Active Plans" %}
+                                    </h6>
                                 </div>
-                                <h3 class="mb-3">234</h3>
+                                <h3 class="mb-3">
+                                    234
+                                </h3>
                                 <div class="mt-auto">
                                     <div class="progress bg-light" style="height: 6px;">
-                                        <div class="progress-bar bg-warning" style="width: 45%"></div>
+                                        <div class="progress-bar bg-warning" style="width: 45%">
+                                        </div>
                                     </div>
                                     <small class="text-muted d-block mt-2">+15% from last month</small>
                                 </div>
@@ -397,7 +484,9 @@
                 <div class="col-lg-4 col-md-12 mb-4">
                     <div class="card chart-card fade-in">
                         <div class="card-header bg-white">
-                            <h5 class="card-title">{% trans "User Growth" %}</h5>
+                            <h5 class="card-title">
+                                {% trans "User Growth" %}
+                            </h5>
                         </div>
                         <div class="card-body">
                             <canvas id="userGrowthChart" style="height: 300px;"></canvas>
@@ -408,7 +497,9 @@
                 <div class="col-lg-4 col-md-12 mb-4">
                     <div class="card chart-card fade-in">
                         <div class="card-header bg-white">
-                            <h5 class="card-title">{% trans "User Distribution" %}</h5>
+                            <h5 class="card-title">
+                                {% trans "User Distribution" %}
+                            </h5>
                         </div>
                         <div class="card-body">
                             <canvas id="userDistributionChart" style="height: 300px;"></canvas>
@@ -419,7 +510,9 @@
                 <div class="col-lg-4 col-md-12 mb-4">
                     <div class="card chart-card fade-in">
                         <div class="card-header bg-white">
-                            <h5 class="card-title">{% trans "Activity Overview" %}</h5>
+                            <h5 class="card-title">
+                                {% trans "Activity Overview" %}
+                            </h5>
                         </div>
                         <div class="card-body">
                             <canvas id="activityOverviewChart" style="height: 300px;"></canvas>
@@ -431,10 +524,12 @@
             <!-- Users Section -->
             <div class="users-section bg-white rounded">
                 <div class="section-header">
-                    <h2 class="section-title">User Management</h2>
+                    <h2 class="section-title">
+                        User Management
+                    </h2>
                     <div class="header-actions">
                         <div class="search-box">
-                            <input type="text" placeholder="Search users..." class="search-input">
+                            <input type="text" placeholder="Search users..." class="search-input" />
                             <i class="fas fa-search"></i>
                         </div>
                     </div>
@@ -442,34 +537,40 @@
 
                 <div class="users-grid">
                     {% for user in users %}
-                    <div class="user-card bg-light">
-                        <div class="user-avatar">
-                            <img src="{{ user.profile.image.url }}" alt="{{ user.username }}">
-                        </div>
-                        <div class="user-info">
-                            <h3 class="username">{{ user.username }}</h3>
-                            <p class="user-email">{{ user.email }}</p>
-                            <div class="user-meta">
-                                <span class="user-role">{{ user.profile.get_role_display }}</span>
-                                <span class="user-status {% if user.is_active %}active{% else %}inactive{% endif %}">
-                                    {{ user.is_active|yesno:"Active,Inactive" }}
-                                </span>
+                        <div class="user-card bg-light">
+                            <div class="user-avatar">
+                                <img src="{{ user.profile.image.url }}" alt="{{ user.username }}" />
+                            </div>
+                            <div class="user-info">
+                                <h3 class="username">
+                                    {{ user.username }}
+                                </h3>
+                                <p class="user-email">
+                                    {{ user.email }}
+                                </p>
+                                <div class="user-meta">
+                                    <span class="user-role">{{ user.profile.get_role_display }}</span>
+                                    <span class="user-status {% if user.is_active %}active{% else %}inactive{% endif %}">
+                                        {{ user.is_active|yesno:"Active,Inactive" }}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="user-actions">
+                                <button class="btn-action edit-btn" title="Edit User">
+                                    <i class="fa fa-edit"></i>
+                                </button>
+                                <button class="btn-action delete-btn delete-button"
+                                        title="Delete User"
+                                        data-delete-url="{% url "dash:delete_user" user.pk %}"
+                                        data-csrf-token="{{ csrf_token }}"
+                                        data-url="{% url 'dash:delete_user' user.pk %}">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                <button class="btn-action view-btn" title="View Profile">
+                                    <i class="fa fa-eye"></i>
+                                </button>
                             </div>
                         </div>
-                        <div class="user-actions">
-                            <button class="btn-action edit-btn" title="Edit User">
-                                <i class="fa fa-edit"></i>
-                            </button>
-                            <button class="btn-action delete-btn delete-button" title="Delete User" data-delete-url="{% url "dash:delete_user" user.pk %}"
-                            data-csrf-token="{{ csrf_token }}"
-                            data-url="{% url 'dash:delete_user' user.pk %}">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                            <button class="btn-action view-btn" title="View Profile">
-                                <i class="fa fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
                     {% endfor %}
                 </div>
 
@@ -485,6 +586,8 @@
             </div>
         </div>
     {% endif %}
+
+
 {% endblock dash %}
 
 {% block extra_js %}
