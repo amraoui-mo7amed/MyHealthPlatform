@@ -19,7 +19,7 @@ def diet_request_details(request,pk):
     }
     try :
         diets = Diet.objects.filter(diet_request__patient=diet_request.patient)
-        context['previous_diet' ] = diets.last()
+        context['diets' ] = diets
     except:
         pass
     try :

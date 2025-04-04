@@ -556,9 +556,6 @@
                                 </div>
                             </div>
                             <div class="user-actions">
-                                <button class="btn-action edit-btn" title="Edit User">
-                                    <i class="fa fa-edit"></i>
-                                </button>
                                 <button class="btn-action delete-btn delete-button"
                                         title="Delete User"
                                         data-delete-url="{% url "dash:delete_user" user.pk %}"
@@ -566,9 +563,9 @@
                                         data-url="{% url 'dash:delete_user' user.pk %}">
                                     <i class="fa fa-trash"></i>
                                 </button>
-                                <button class="btn-action view-btn" title="View Profile">
+                                <a class="btn-action view-btn" title="View Profile" href="{% url "dash:user-details" user.pk %}">
                                     <i class="fa fa-eye"></i>
-                                </button>
+                                </a>
                             </div>
                         </div>
                     {% endfor %}
