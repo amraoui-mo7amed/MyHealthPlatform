@@ -71,3 +71,9 @@ form #section3 .form-group label {
     width: fit-content ;
 }
 
+ form #section4 svg 
+ {
+    width: 120px ;
+    height: 130px;
+    margin: 1rem;
+ }

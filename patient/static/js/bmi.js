@@ -110,6 +110,10 @@ function showSection(sectionNumber) {
     }
     else if (sectionNumber === 3) {
         title = 'Lifestyle'
+
+    }
+    else if (sectionNumber === 4) {
+        title = 'Get your diet from'
         submitDiv.classList.remove('d-none')
         submitDiv.classList.add('d-block')
     }
@@ -125,11 +129,11 @@ function updateBMIProgress(bmiValue) {
     const bmiStatus = document.getElementById('bmiStatus');
     let status = '';
     let color = '#76e5b1';
-    
+
     bmiValue = parseFloat(bmiValue);
     const circumference = 565.48; // 2 * π * r (where r = 90)
     const progress = (bmiValue / 40) * circumference; // Assuming 40 as max BMI
-    
+
     if (bmiValue < 18.5) {
         status = 'Underweight';
         color = '#17a2b8'; // Blue
@@ -143,11 +147,11 @@ function updateBMIProgress(bmiValue) {
         status = 'Obese';
         color = '#dc3545'; // Red
     }
-    
+
     // Update progress bar
     progressBar.style.stroke = color;
     progressBar.style.strokeDashoffset = circumference - progress;
-    
+
     // Update status text
     bmiStatus.textContent = bmiValue.toFixed(1) + ' : ' + status;
     bmiStatus.style.fill = color;
