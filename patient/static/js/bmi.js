@@ -157,3 +157,127 @@ function updateBMIProgress(bmiValue) {
     bmiStatus.style.fill = color;
 }
 
+
+
+// dealing with the form 
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("bmi_form");
+    const errorListContainer = document.getElementsByClassName('errorList')[0];
+    const loader = document.getElementById("loader");
+    const dietPlanSection = document.getElementById("section5");
+    const dietPlanContent = document.getElementById("diet_plan_content");
+    const dietPlanDiv = document.getElementById("diet_plan");
+    const formTitle = document.getElementsByClassName('form_title')[0]
+
+    if (form) {
+        form.addEventListener("submit", function (e) {
+            e.preventDefault(); // Prevent normal form submission
+
+            // Show loader and hide previous content
+            loader.style.display = "block";
+            dietPlanDiv.style.display = "none";
+            dietPlanSection.style.display = "block";
+
+            // Create a new FormData object
+            const formData = new FormData(form);
+            form.style.display = "none"; // Hide the form
+            formTitle.innerText = 'Generating your diet plan...'
+            // Send the form data via AJAX
+            fetch(form.action, {
+                method: form.method,
+                body: formData,
+                headers: {
+                    "X-Requested-With": "XMLHttpRequest",
+                    "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    loader.style.display = "none"; // Hide loader
+
+                    if (data.success) {
+                        if (data.type === 'ai_generated') {
+                            // Display the diet plan                            
+                            dietPlanDiv.style.display = "block";
+                            const dietPlan = JSON.parse(data.message.diet_plan);
+                            dietPlanContent.innerHTML = generateDietPlanTable(dietPlan);
+                        } else {
+                            window.location.href = data.redirect_url;
+                            return;
+                        }
+
+                    } else {
+                        // Handle errors
+                        if (errorListContainer) {
+                            errorListContainer.classList.add('w-100');
+                            errorListContainer.innerHTML = ""; // Clear previous errors
+                            data.errors.forEach(errorMessage => {
+                                const errorItem = document.createElement('li');
+                                errorItem.className = 'alert alert-danger';
+                                errorItem.setAttribute('role', 'alert');
+                                errorItem.innerText = errorMessage;
+                                errorListContainer.appendChild(errorItem);
+                            });
+                        }
+                        showSection(4); // Go back to the previous section
+                    }
+                })
+                .catch(error => {
+                    loader.style.display = "none"; // Hide loader
+                    console.error("There was a problem with the fetch operation:", error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error!',
+                        text: 'An unexpected error occurred. Please try again later.',
+                        confirmButtonText: 'OK',
+                    });
+                });
+        });
+    }
+});
+
+
+function generateDietPlanTable(dietPlan) {
+    let dietContainer = "";
+    // deifining the container fluid 
+    dietContainer += `<div class="contianer-fluid">`;
+    // defining the row
+    dietContainer += `<div class="row g-3">`;
+    for (const [day, meals] of Object.entries(dietPlan)) {
+        // defining the column 
+        dietContainer += `<div class="col-lg-4 col-md-6 col-sm-12 flex-grow-1 ">`;
+        // defining the week day container
+        dietContainer += `<div id="week_day" class="border rounded p-2">`
+        dietContainer += `<h3 class='text-center mb-2'>${day}</h3>`;
+        console.log(meals);
+        // Iterating over meals
+        for (const [meal, description] of Object.entries(meals)) {
+            dietContainer += `
+                <div class="meal mb-2">
+                    <span class="d-flex align-items-center">
+                        <h5 class="meal-title">${meal}</h5>
+                        <hr style="flex-grow: 1; margin-left: 10px; height: 2px; background: var(--bs-primary);">
+                    </span>
+                    <p class="meal-description">${description}</p>
+                </div>
+            `;
+        }
+
+
+
+        // closing the week day container
+        dietContainer += `</div>`
+        // closing the column
+        dietContainer += `</div>`
+    }
+    // closing the row
+    dietContainer += `</div>`;
+    // closing the container fluid
+    dietContainer += "</div>";
+    return dietContainer;
+}

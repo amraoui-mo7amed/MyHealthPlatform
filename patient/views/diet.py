@@ -11,6 +11,7 @@ from doctor import models as dc_models
 from dashboard.models import Notifications
 from django.contrib import messages
 import logging
+from patient import utils
 
 UserModel = get_user_model()
 logger = logging.getLogger(__name__)
@@ -41,6 +42,9 @@ def BMICalculator(request):
             height = request.POST.get('height')
             weight = request.POST.get('weight')
             illnesses = request.POST.getlist('illnesses')
+            
+            diet_type = request.POST.get('diet_type')
+
             # Validate height and weight
             if not height or not height.strip():
                 errors.append(_('height is required'))
@@ -327,23 +331,52 @@ def BMICalculator(request):
             )
             diet_request_instance.save()
             
+            # get the diet diet errors :
+            if diet_type not in ['ai','doctor']:
+                errors.append(_('Diet type is required'))
+
             if errors:
                 return JsonResponse({'success':False,'errors':errors})
             
-            doctors = UserModel.objects.filter(profile__role='DOCTOR')
-            for dc in doctors:
-                Notifications.objects.create(
-                    user = dc, 
-                    title='A new Diet request has been created',
-                    text=f'New diet request created, view it at <a href="{reverse_lazy("doctor:diet-request-details", kwargs={"pk": diet_request_instance.pk})}">View Request</a>'
+            # handle the diet type selection
+            if diet_type == 'ai':
+                # Call the AI processing function
+                print('user chosed ai')
+                ai_response = utils.process_ai_diet_request(
+                    patient=patient,
+                    bmi=bmi,
+                    diabetes=diabetes_instance if 'diabetes_instance' in locals() else None,
+                    obesity=obesity_instance if 'obesity_instance' in locals() else None,
+                    diabetes_and_obesity=diabetes_and_obesity_instance if 'diabetes_and_obesity_instance' in locals() else None,
+                    provider='mistral'
                 )
-                dc.profile.notifications_count += 1
-                dc.profile.save()
-            return JsonResponse({
-                'success' : True,
-                'messages': _('BMI has been created '),
-                'redirect_url' : reverse_lazy('dash:pending')
-            })
+
+                if ai_response:
+                    # Save the AI-generated diet plan to the database or display it to the user
+                    diet_plan = ai_response
+                    return JsonResponse({
+                        'success': True, 
+                        'type' : 'ai_generated',
+                        'message' : diet_plan,
+                    })
+                else:
+                    errors.append(ai_response.get("error"))
+            elif diet_type == 'doctor':
+                doctors = UserModel.objects.filter(profile__role='DOCTOR')
+                for dc in doctors:
+                    Notifications.objects.create(
+                        user = dc, 
+                        title='A new Diet request has been created',
+                        text=f'New diet request created, view it at <a href="{reverse_lazy("doctor:diet-request-details", kwargs={"pk": diet_request_instance.pk})}">View Request</a>'
+                    )
+                    dc.profile.notifications_count += 1
+                    dc.profile.save()
+                return JsonResponse({
+                    'success' : True,
+                    'type' : 'doctor_generated',
+                    'messages': _('BMI has been created '),
+                    'redirect_url' : reverse_lazy('dash:pending')
+                })
 
         except Exception as e:
             return JsonResponse({'success':False,'errors':[_(f'{str(e)}')]})
