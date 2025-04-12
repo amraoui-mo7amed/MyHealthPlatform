@@ -353,7 +353,9 @@ def BMICalculator(request):
 
                 if ai_response:
                     # Save the AI-generated diet plan to the database or display it to the user
+
                     diet_plan = ai_response
+                    utils.createDietPlan(diet_plan)
                     return JsonResponse({
                         'success': True, 
                         'type' : 'ai_generated',

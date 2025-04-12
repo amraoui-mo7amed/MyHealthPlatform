@@ -250,7 +250,7 @@ function generateDietPlanTable(dietPlan) {
     dietContainer += `<div class="row g-3">`;
     for (const [day, meals] of Object.entries(dietPlan)) {
         // defining the column 
-        dietContainer += `<div class="col-lg-4 col-md-6 col-sm-12 flex-grow-1 ">`;
+        dietContainer += `<div class="col-lg-12 col-md-12 col-sm-12 flex-grow-1 ">`;
         // defining the week day container
         dietContainer += `<div id="week_day" class="border rounded p-2">`
         dietContainer += `<h3 class='text-center mb-2'>${day}</h3>`;

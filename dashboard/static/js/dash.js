@@ -212,10 +212,10 @@ function updateUpcomingEvents() {
     const todayFormatted = `${year}-${month}-${day}`;
 
     const events = [
-        { date: todayFormatted, time: '08:00', title: 'Breakfast', status: 'Upcoming' },
-        { date: todayFormatted, time: '12:00', title: 'Lunch', status: 'Upcoming' },
-        { date: todayFormatted, time: '16:00', title: 'Snacks', status: 'Upcoming' },
-        { date: todayFormatted, time: '20:00', title: 'Dinner', status: 'Upcoming' }
+        { date: todayFormatted, time: '08:00', title: '🍞 Breakfast', status: 'Upcoming' },
+        { date: todayFormatted, time: '12:00', title: '🥗 Lunch', status: 'Upcoming' },
+        { date: todayFormatted, time: '16:00', title: '🍫 Snacks', status: 'Upcoming' },
+        { date: todayFormatted, time: '20:00', title: '🍚 Dinner', status: 'Upcoming' }
     ];
 
     const tableBody = document.getElementById('upcomingEventsTable');

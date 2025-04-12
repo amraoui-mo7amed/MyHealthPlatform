@@ -4,7 +4,7 @@ import os
 import json
 import os
 from mistralai import Mistral
-
+from doctor import models as dc_models 
 
 from decouple import config
 
@@ -126,6 +126,15 @@ def process_ai_diet_request(  patient,  bmi, diabetes=None, obesity=None, diabet
                             - the week starts from saturday 
                             - just send the diet plan without any other text
                             - return the diet plan as a json format
+                            - example response:
+                                {
+                                    "saturday": 
+                                        {
+                                            "breakfast": "Oatmeal with fruits",
+                                            "lunch": "Grilled chicken salad",
+                                               
+                                        }
+                                }
                             """
                 },
                 {
@@ -152,3 +161,13 @@ def process_ai_diet_request(  patient,  bmi, diabetes=None, obesity=None, diabet
             "success": False,
             "error": _("Failed to generate AI diet. Please try again.")
         }
+    
+
+def createDietPlan(data):
+    
+    jsonDiet = json.loads(data['diet_plan'])
+    print( 'Diet as json:', jsonDiet)
+    # Dealing with week days 
+    for item in jsonDiet:
+        for day, meals in jsonDiet[item].items():
+            dc_models
