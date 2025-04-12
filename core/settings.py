@@ -40,8 +40,6 @@ LOGOUT_REDIRECT_URL = 'user_auth:login'  # Redirect to homepage or any other pag
 # Application definition
 
 INSTALLED_APPS = [
-    'grappelli',
-    'filebrowser',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,12 +48,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_deep_translator',
     'user_auth',
-    'tinymce',
     'frontend',
     'dashboard',
     'patient',
     'doctor'
 ]
+
 # TinyMCE CONFIG
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

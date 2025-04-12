@@ -32,6 +32,7 @@ def create_user_profile(sender,instance,created,**kwargs):
             email_confirmed=True,  # Mark email as confirmed
         )
 
+
 @receiver(post_save, sender=get_user_model())
 def send_otp_on_user_creation(sender, instance, created, **kwargs):
     """
