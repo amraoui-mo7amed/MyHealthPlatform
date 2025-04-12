@@ -55,7 +55,10 @@
                 {% endif %}
                 {% comment %} admin menu {% endcomment %}
                 {% if request.user.is_superuser %}
-
+                    <li class="nav-item" data-url="{% url 'dash:contacts-list' %}">
+                        <i class="fa fa-comment" aria-hidden="true"></i>
+                        <a href="{% url "dash:contacts-list" %}" class="nav-link">{% trans "Contact Requests" %}</a>
+                    </li>
                     {% comment %} Patient Menu {% endcomment %}
                 {% elif request.user.profile.role == 'PATIENT' %}
                     <li class="nav-item" data-url="{% url 'patient:diet_history' %}">
@@ -108,7 +111,10 @@
                     </button>
                 </div>
                 <div class="right">
-                    <input type="hidden" name="user_role" id="user_role" value={{ request.user.profile.role }}>
+                    <input type="hidden"
+                           name="user_role"
+                           id="user_role"
+                           value="{{ request.user.profile.role }}" />
                     <button class="notification-btn">
 
                         <span class="bg-teal text-white">

@@ -1,0 +1,60 @@
+{% extends 'dashboard/index.html' %}
+
+{% load static i18n %}
+
+{% block subtite %}
+    {% trans "Contacts" %}
+{% endblock subtite %}
+
+{% block dashtitle %}
+    {% trans "Contact Requests" %}
+{% endblock dashtitle %}
+
+{% block dash %}
+    <div class="container-fluid">
+        <div class="row g-3 p-3">
+            {% for contact in contacts %}
+
+                <div class="col-lg-4 col-md-6 col-sm-12">
+
+                    <div class="card shadow-sm border-0 rounded">  
+                        <div class="card-body">
+                            <h5 class="card-title text-primary text-truncate">
+                                {{ contact.name }}
+                            </h5>
+                            <h6 class="card-subtitle mb-2 text-muted text-truncate">
+                                {{ contact.email }}
+                            </h6>
+                            <p class="card-text">
+                                <span class="message-preview">
+                                    {{ contact.message|slice:":500" }}
+                                    {% if contact.message|length > 500 %}
+                                        <span class="collapse" id="collapseMessage{{ forloop.counter }}">
+                                            {{ contact.message|slice:"500:" }}
+                                        </span>
+                                        <a href="#collapseMessage{{ forloop.counter }}"
+                                           class="text-primary"
+                                           data-bs-toggle="collapse"
+                                           aria-expanded="false"
+                                           aria-controls="collapseMessage{{ forloop.counter }}">
+                                            {% trans "Show more" %}
+                                        </a>
+                                    {% endif %}
+                                </span>
+                            </p>
+                            <p class="text-muted small mb-0">
+                                {% trans "Received on" %}: {{ contact.created_at|date:"F j, Y, g:i a" }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <div class="alert alert-info text-center">
+                        {% trans "No contact requests found." %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock dash %}

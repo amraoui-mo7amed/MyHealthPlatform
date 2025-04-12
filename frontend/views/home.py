@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 import json 
+from frontend.models.contact import Contact
 
 def home(request):
     context = {}
@@ -34,13 +35,19 @@ def contact(request):
             })
 
         try:
-            send_mail(
-                'Contact Form Submission',
-                f"Name: {name}\nEmail: {email}\nMessage: {message}",
-                email,
-                ['myhealthypartner0@gmail.com'],
-                fail_silently=False,
+            contact = Contact.objects.create(
+                name=name,
+                email=email,
+                message=message
             )
+            contact.save()
+            # send_mail(
+            #     'Contact Form Submission',
+            #     f"Name: {name}\nEmail: {email}\nMessage: {message}",
+            #     email,
+            #     ['myhealthypartner0@gmail.com'],
+            #     fail_silently=False,
+            # )
             return JsonResponse({
                 'success': True,
                 'message': 'Your message has been sent successfully!'

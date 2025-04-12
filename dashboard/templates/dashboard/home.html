@@ -309,7 +309,17 @@
                                                 <div class="mb-3">
                                                     <div class="d-flex flex-column mb-2">
                                                         <h5 class="text-teal mb-0">
-                                                            {{ meal.get_meal_type_display }}
+                                                            {% if meal.meal_type == 'BREAKFAST' %}
+                                                                🍳 {{ meal.get_meal_type_display }}
+                                                            {% elif meal.meal_type == 'LUNCH' %}
+                                                                🥗 {{ meal.get_meal_type_display }}
+                                                            {% elif meal.meal_type == 'SNACK' %}
+                                                                🍎 {{ meal.get_meal_type_display }}
+                                                            {% elif meal.meal_type == 'DINNER' %}
+                                                                🍽️ {{ meal.get_meal_type_display }}
+                                                            {% else %}
+                                                                {{ meal.get_meal_type_display }}
+                                                            {% endif %}
                                                         </h5>
                                                         <small class="text-muted">
                                                             {% if meal.meal_type == 'BREAKFAST' %}

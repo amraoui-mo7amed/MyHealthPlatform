@@ -1,6 +1,6 @@
 
 from django.urls import path,include
-from .views import dashbaord, user, notifications
+from .views import dashbaord, user, notifications, contact
 app_name = 'dash'
 
 urlpatterns = [
@@ -14,6 +14,8 @@ urlpatterns = [
     path('users/delete/<int:pk>', user.delete_user, name='delete_user'),
     path('users/approve-user/<int:pk>/', user.approve_user, name='approve_user'),
     path('pending/', user.pending_view, name='pending'),
+    # Contacts 
+    path('contacts/', contact.contact_list_view, name='contacts-list'),
     # notifications
     path('reset-notifications/',notifications.reset_notifications_count,name='reset-notifications'),
 ]
