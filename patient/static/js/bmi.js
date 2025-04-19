@@ -206,6 +206,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             dietPlanDiv.style.display = "block";
                             const dietPlan = JSON.parse(data.message.diet_plan);
                             dietPlanContent.innerHTML = generateDietPlanTable(dietPlan);
+                            
                         } else {
                             window.location.href = data.redirect_url;
                             return;

@@ -5,8 +5,9 @@ import json
 import os
 from mistralai import Mistral
 from doctor import models as dc_models 
-
 from decouple import config
+from datetime import datetime, timedelta
+from doctor.models import WEEK_DAYS, MEAL_TYPES
 
 logger = logging.getLogger(__name__)
 
@@ -163,11 +164,26 @@ def process_ai_diet_request(  patient,  bmi, diabetes=None, obesity=None, diabet
         }
     
 
-def createDietPlan(data):
+def createDietPlan(data, dietRequest):
     
     jsonDiet = json.loads(data['diet_plan'])
-    print( 'Diet as json:', jsonDiet)
+    diet_request = dietRequest
+    diet_request.update_status = 'NONE'
+    diet_request.save()
+    # Calculate dates
+    start_date = datetime.now().date()
+    end_date = start_date + timedelta(days=7)
+            
+            # Create diet with start and end dates
+    diet = dc_models.Diet.objects.create(
+                diet_request=diet_request,
+                start_date=start_date,
+                end_date=end_date,
+            )
+    diet.save()
     # Dealing with week days 
     for item in jsonDiet:
-        for day, meals in jsonDiet[item].items():
-            dc_models
+        daily_plan = dc_models.DailyMealPlan.objects.create(diet=diet, day=item)
+        for meal_type, meals in jsonDiet[item].items():
+            dc_models.Meal.objects.create(daily_plan=daily_plan, meal_type=meal_type,description=meals)
+            
