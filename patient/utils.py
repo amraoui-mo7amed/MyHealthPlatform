@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 from django.utils.translation import gettext as _
 def process_ai_diet_request(  patient,  bmi, diabetes=None, obesity=None, diabetes_and_obesity=None, provider = None):
     """
-    Sends user details to an AI service (e.g., OpenRouter) to generate a diet plan.
+        Sends user details to an AI service (e.g., OpenRouter or Mistral) to generate a diet plan.
     """
     try:
         # Construct the prompt with user details
@@ -90,7 +90,8 @@ def process_ai_diet_request(  patient,  bmi, diabetes=None, obesity=None, diabet
                                             "lunch": "Grilled chicken salad",
                                             
                                         }
-                                }
+                                }, 
+
                             """
                     },
                     {
@@ -165,6 +166,9 @@ def process_ai_diet_request(  patient,  bmi, diabetes=None, obesity=None, diabet
     
 
 def createDietPlan(data, dietRequest):
+    """
+       Save the diet into the database
+    """
     
     jsonDiet = json.loads(data['diet_plan'])
     diet_request = dietRequest

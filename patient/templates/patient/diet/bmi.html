@@ -898,10 +898,10 @@
             <div id="diet_plan" class="mt-4 w-100" style="display: none;">
                 <div id="diet_plan_content">
                     {% trans "Your personalized diet plan will appear here." %}
-                    <a href="{% url "dash:home" %}">{% trans "Go Home" %}</a>
                 </div>
 
             </div>
+            <a href="{% url "dash:home" %}" class="d-none" id="home_url">{% trans "Go Home" %}</a>
 
         </div>
     </div>

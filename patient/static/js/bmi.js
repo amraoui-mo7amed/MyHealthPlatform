@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const dietPlanContent = document.getElementById("diet_plan_content");
     const dietPlanDiv = document.getElementById("diet_plan");
     const formTitle = document.getElementsByClassName('form_title')[0]
-
+    const homeButton = document.getElementById('home_url')
     if (form) {
         form.addEventListener("submit", function (e) {
             e.preventDefault(); // Prevent normal form submission
@@ -206,6 +206,11 @@ document.addEventListener("DOMContentLoaded", function () {
                             dietPlanDiv.style.display = "block";
                             const dietPlan = JSON.parse(data.message.diet_plan);
                             dietPlanContent.innerHTML = generateDietPlanTable(dietPlan);
+                            if (homeButton)
+                            {
+                                homeButton.classList.remove('d-none');
+                                homeButton.classList.add('d-block');
+                            }
                             
                         } else {
                             window.location.href = data.redirect_url;
