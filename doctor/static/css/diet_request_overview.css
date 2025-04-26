@@ -194,3 +194,10 @@
         background-position: 0% 50%;
     }
 }
+
+
+p span 
+{
+    width: 120px;
+    text-align: center;
+}

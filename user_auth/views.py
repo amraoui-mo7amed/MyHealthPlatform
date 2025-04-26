@@ -7,12 +7,17 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.core.exceptions import ValidationError
 from patient import models as pt_models
-
+import uuid
 from django.urls import reverse
 from dashboard.models import Notifications
-
+from django.utils.timezone import now
+from datetime import timedelta
 from user_auth.models import UserProfile
 from user_auth.models import AdditionalDiploma
+from django.template.loader import render_to_string
+from django.core.mail import send_mail
+from django.utils.html import strip_tags
+from django.core.mail import EmailMessage
 
 from django.contrib.auth import get_user_model
 from user_auth.models import OTP
@@ -80,9 +85,114 @@ def logout_view(request):
 def password_reset_request(request):
     if request.method == "POST":
         email = request.POST.get('email')
-        if email:
-            return JsonResponse({'success': True,'message':email})
+        if not email:
+            return JsonResponse({'success': False, 'errors': [_('E-mail must be provided')]})
+
+        try:
+            # Check if the email exists in the database
+            user = userModel.objects.filter(email=email).first()
+            if user:
+                # Generate a unique code and create or update the OTP
+                code = str(uuid.uuid4())
+                OTP.objects.update_or_create(
+                    user=user,
+                    defaults={
+                        'code': code,
+                        'expires_at': now() + timedelta(minutes=15)  # Set expiration time to 15 minutes
+                    }
+                )
+
+                # Generate the reset link
+                reset_link = request.build_absolute_uri(reverse('user_auth:password_reset_confirm', args=[code]))
+
+                # Render the email content using an HTML template
+                email_body = render_to_string('emails/password_reset_email.html', {
+                    'user': user,
+                    'reset_link': reset_link,
+                })
+                plaintext_body = f"""
+                Hello {user.first_name},
+
+                You requested to reset your password. Please visit this link to reset it:
+                {reset_link}
+
+                If you didn't request this, please ignore this email.
+
+                Thank you,
+                The Team
+                """
+                # Send the email
+                send_mail(
+                    _("Password Reset Request"),
+                    plaintext_body,  # Plain text version
+                    'myhealthypartner0@gmail.com',
+                    [user.email],
+                    html_message=email_body,  # HTML version
+                )
+
+                return JsonResponse({'success': True, 'message': _('Password reset email sent successfully.')})
+            else:
+                return JsonResponse({'success': False, 'errors': [_('No user found with this email address.')]})
+        except Exception as e:
+            return JsonResponse({'success': False, 'errors': [_(f'An error occurred: {str(e)}')]})
+
     return render(request, 'auth/password_reset.html')
+
+def password_reset_confirmation(request, token):
+    try:
+        # Check if the OTP exists and is valid
+        otp = OTP.objects.filter(code=token).first()
+        if not otp or not otp.is_valid():
+            return render(request, 'auth/password_reset_confirmation.html', {
+                'success': False,
+                'message': _('The reset link is invalid or has expired. Please request a new one.')
+            })
+
+        if request.method == 'POST':
+            password1 = request.POST.get('password1')
+            password2 = request.POST.get('password2')
+
+            # Validate passwords
+            if not password1 or not password2:
+                return render(request, 'auth/password_reset_confirmation.html', {
+                    'success': False,
+                    'message': _('Both password fields are required.')
+                })
+            if password1 != password2:
+                return render(request, 'auth/password_reset_confirmation.html', {
+                    'success': False,
+                    'message': _('Passwords do not match.')
+                })
+            if len(password1) < 4:
+                return render(request, 'auth/password_reset_confirmation.html', {
+                    'success': False,
+                    'message': _('Password must be at least 4 characters long.')
+                })
+
+            # Update the user's password
+            user = otp.user
+            user.set_password(password1)
+            user.save()
+
+            # Delete the OTP after successful password reset
+            otp.delete()
+
+            return render(request, 'auth/password_reset_confirmation.html', {
+                'success': True,
+                'message': _('Your password has been reset successfully. You can now log in.')
+            })
+
+        return render(request, 'auth/password_reset_confirmation.html', {
+            'success': None,
+            'message': None
+        })
+
+    except Exception as e:
+        return render(request, 'auth/password_reset_confirmation.html', {
+            'success': False,
+            'message': _(f'An error occurred. Please try again later. {e}'), 
+            "token" : token
+        })
 
 def register_view(request):
     if request.method == 'POST':

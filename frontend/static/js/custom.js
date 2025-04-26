@@ -268,7 +268,9 @@ class AIChat {
         this.apiKey = null;
         this.hasShownWelcome = false;
 
-        this.initializeEventListeners();
+        if (this.chatCircle) {
+            this.initializeEventListeners();
+        }
         this.getApiToken();
     }
 
@@ -299,7 +301,7 @@ class AIChat {
     toggleChat() {
         this.isChatOpen = !this.isChatOpen;
         this.chatContainer.style.display = this.isChatOpen ? 'flex' : 'none';
-        
+
         // Show welcome message if this is the first time opening
         if (this.isChatOpen && !this.hasShownWelcome) {
             this.showWelcomeMessage();
@@ -397,17 +399,17 @@ class AIChat {
     createLoadingMessage() {
         const loadingDiv = document.createElement('div');
         loadingDiv.classList.add('message', 'ai-message');
-        
+
         const dotContainer = document.createElement('div');
         dotContainer.classList.add('dot-container');
-        
+
         for (let i = 0; i < 3; i++) {
             const dot = document.createElement('div');
             dot.classList.add('dot');
             dot.style.animationDelay = `${i * 0.2}s`;
             dotContainer.appendChild(dot);
         }
-        
+
         loadingDiv.appendChild(dotContainer);
         return loadingDiv;
     }

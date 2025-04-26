@@ -7,7 +7,9 @@
 {% endblock extra_css %}
 
 {% block dashtitle %}
-    {{ user.username }}'s Profile
+    <span class="d-flex align-items-center">
+        <strong class="mx-2">{{ user.username }}</strong> {% trans "Profile" %}
+    </span>
 {% endblock dashtitle %}
 
 {% block dash %}
@@ -16,12 +18,18 @@
             <div class="profile-header">
                 <div class="profile-image">
                     <img src="{{ user_profile.image.url }}" alt="{{ user.username }}" />
-                    <div class="profile-badge">Active</div>
+                    <div class="profile-badge">
+                        Active
+                    </div>
                 </div>
-                <h2 class="profile-username">{{ user.username }}</h2>
-                <p class="profile-tagline">Member since {{ user.date_joined|date:"M Y" }}</p>
+                <h2 class="profile-username">
+                    {{ user.username }}
+                </h2>
+                <p class="profile-tagline">
+                    Member since {{ user.date_joined|date:"M Y" }}
+                </p>
             </div>
-            
+
             <div class="profile-details">
                 <div class="detail-section">
                     <div class="detail-item">
@@ -33,14 +41,14 @@
                         <span class="detail-value">{{ user.last_name }}</span>
                     </div>
                 </div>
-                
+
                 <div class="detail-section">
                     <div class="detail-item">
                         <span class="detail-label">{% trans "Email" %}</span>
                         <span class="detail-value">{{ user.email }}</span>
                     </div>
                 </div>
-                
+
                 <div class="detail-section">
                     <div class="detail-item">
                         <span class="detail-label">{% trans "Last Seen" %}</span>
@@ -48,7 +56,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="profile-actions">
                 <a href="{% url "dash:edit-user-profile" %}" class="edit-profile-btn">
                     Edit Profile

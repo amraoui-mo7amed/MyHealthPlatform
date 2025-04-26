@@ -8,7 +8,7 @@
 
 /* Sidebar */
 #sidebar {
-    max-width: 180px;
+    width: 280px;
     height: 100vh;
 }
 
@@ -163,6 +163,7 @@
 .dash-navbar .right {
     display: flex;
     align-items: center;
+    gap: 5px;
 }
 
 .dash-navbar .right button {
@@ -173,6 +174,7 @@
     font-size: 2rem;
     color: var(--bs-dark);
     position: relative;
+    padding: 0;
 }
 
 .dash-navbar .right button span {
@@ -237,10 +239,14 @@
 button:focus .dropdown-menu {
     display: flex;
 }
-
-.dash-navbar svg {
+.dash-navbar .notification-btn svg {
     width: 32px;
     height: 32px;
+}
+
+.dash-navbar svg {
+    width: 36px;
+    height: 36px;
 }
 
 /* Content */

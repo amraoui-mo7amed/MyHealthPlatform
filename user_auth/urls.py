@@ -10,5 +10,7 @@ urlpatterns = [
     path('password-reset/', views.password_reset_request, name='password_reset'),
     path('register/', views.register_view, name='register'),
     path('activate-email/', views.activate_email, name='activate_email'),
+    path('password-reset-confirmation/<str:token>', views.password_reset_confirmation, name='password_reset_confirm'),
+
 
 ]

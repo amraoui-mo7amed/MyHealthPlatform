@@ -149,12 +149,12 @@
                   {% trans "Discover personalized health solutions and expert guidance tailored to your unique needs." %}
                 </p>
                 {% if request.user.is_authenticated %}
-                  <a href="{% url "dash:home" %}" class="btn btn-outline-dark  rounded">
+                  <a href="{% url "dash:home" %}" class="btn btn-dark  rounded">
                     {% trans "Dashboard" %}
                   </a>
                 {% else %}
                   <a href="{% url "user_auth:login" %}"
-                     class="btn btn-outline-dark btn-lg rounded w-25">
+                     class="btn btn-dark btn-lg rounded w-25">
                     {% trans "Get started" %}
                   </a>
                 {% endif %}
