@@ -261,7 +261,7 @@ def BMICalculator(request):
             food_allergy = request.POST.get('food_allergy')
             allergy_details = request.POST.get('allergy_details')
             smoke = request.POST.get('smoke')
-            alcohol = request.POST.get('alcohol')
+            weight_loss = request.POST.get('weight_loss')
             depression_stress = request.POST.get('depression_stress')
             medication = request.POST.get('medication')
             medication_details = request.POST.get('medication_details')
@@ -283,8 +283,8 @@ def BMICalculator(request):
                 errors.append(_('Food allergy is required'))
             if not smoke:
                 errors.append(_('Smoke is required'))
-            if not alcohol:
-                errors.append(_('Alcohol is required'))
+            if not weight_loss:
+                errors.append(_("weight loss is required"))
             if not depression_stress:
                 errors.append(_('Depression stress is required'))
             if not medication:
@@ -320,7 +320,7 @@ def BMICalculator(request):
                 food_allergy=food_allergy == 'yes',
                 allergy_details=allergy_details if food_allergy == 'yes' else None,
                 smoke=smoke == 'yes',
-                alcohol=alcohol == 'yes',
+                weight_loss=weight_loss == 'yes',
                 depression_stress=depression_stress == 'yes',
                 medication=medication == 'yes',
                 medication_details=medication_details if medication == 'yes' else None,

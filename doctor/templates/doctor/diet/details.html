@@ -271,9 +271,9 @@
                                 </span>
                             </p>
                             <p>
-                                <strong>{% trans "Alcohol Consumption" %}:</strong>
-                                <span class="btn btn-sm {% if diet_request.alcohol %}btn-danger{% else %}btn-success{% endif %}">
-                                    {{ diet_request.alcohol|yesno:_("Yes,No") }}
+                                <strong>{% trans "Weight Loss" %}:</strong>
+                                <span class="btn btn-sm {% if diet_request.weight_loss %}btn-danger{% else %}btn-success{% endif %}">
+                                    {{ diet_request.weight_loss|yesno:_("Yes,No") }}
                                 </span>
                             </p>
                             <p>

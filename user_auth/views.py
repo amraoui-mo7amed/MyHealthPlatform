@@ -139,6 +139,7 @@ def password_reset_request(request):
     return render(request, 'auth/password_reset.html')
 
 def password_reset_confirmation(request, token):
+    errors = []
     try:
         # Check if the OTP exists and is valid
         otp = OTP.objects.filter(code=token).first()
@@ -154,37 +155,35 @@ def password_reset_confirmation(request, token):
 
             # Validate passwords
             if not password1 or not password2:
-                return render(request, 'auth/password_reset_confirmation.html', {
-                    'success': False,
-                    'message': _('Both password fields are required.')
-                })
+
+                errors.append( _('Both password fields are required.') )
+                
             if password1 != password2:
-                return render(request, 'auth/password_reset_confirmation.html', {
-                    'success': False,
-                    'message': _('Passwords do not match.')
-                })
+                errors.append(_('Passwords do not match.'))
             if len(password1) < 4:
-                return render(request, 'auth/password_reset_confirmation.html', {
-                    'success': False,
-                    'message': _('Password must be at least 4 characters long.')
+                errors.append(_('Password must be at least 4 characters.'))
+
+            if errors:  
+                return JsonResponse({'success': False, 'errors': errors})
+            else:
+                # Update the user's password
+                user = otp.user
+                user.set_password(password1)
+                user.save()
+
+                # Delete the OTP after successful password reset
+                otp.delete()
+
+                return JsonResponse({
+                    'success': True,
+                    'message': _('Your password has been reset successfully. You can now log in.'),
+                    'redirect_url': reverse('user_auth:login')
                 })
-
-            # Update the user's password
-            user = otp.user
-            user.set_password(password1)
-            user.save()
-
-            # Delete the OTP after successful password reset
-            otp.delete()
-
-            return render(request, 'auth/password_reset_confirmation.html', {
-                'success': True,
-                'message': _('Your password has been reset successfully. You can now log in.')
-            })
 
         return render(request, 'auth/password_reset_confirmation.html', {
             'success': None,
-            'message': None
+            'message': None,
+            'token': token
         })
 
     except Exception as e:

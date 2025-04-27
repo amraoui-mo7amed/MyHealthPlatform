@@ -384,6 +384,35 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="form-group my-3 d-flex justify-content-between">
+                                        <label class="form-label">
+                                            {% trans "Are you willing to lose weight?" %}
+                                        </label>
+                                        <div class="btn-group" role="group" aria-label="weight_loss">
+                                            <input type="radio"
+                                                   class="btn-check"
+                                                   name="weight_loss"
+                                                   id="weight_loss_yes"
+                                                   value="yes"
+                                                   {% if diet_request and diet_request.weight_loss %}checked{% endif %}
+                                                   autocomplete="off" />
+                                            <label class="btn btn-outline-primary" for="weight_loss_yes">
+                                                {% trans "Yes" %}
+                                            </label>
+                                            <input type="radio"
+                                                   class="btn-check"
+                                                   name="weight_loss"
+                                                   id="weight_loss_no"
+                                                   value="no"
+                                                   {% if diet_request and not diet_request.weight_loss %}checked{% endif %}
+                                                   autocomplete="off" />
+                                            <label class="btn btn-outline-primary" for="weight_loss_no">
+                                                {% trans "No" %}
+                                            </label>
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <div class="d-flex justify-content-end">
                                     <button type="button" class="btn btn-secondary" onclick="showSection(1)">
@@ -597,34 +626,6 @@
                                                {% if diet_request and not diet_request.smoke %}checked{% endif %}
                                                autocomplete="off" />
                                         <label class="btn btn-outline-primary" for="smoke_no">
-                                            {% trans "No" %}
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div class="form-group mb-3">
-                                    <label class="form-label">
-                                        {% trans "Do you drink alcohol?" %}
-                                    </label>
-                                    <div class="btn-group" role="group" aria-label="Alcohol">
-                                        <input type="radio"
-                                               class="btn-check"
-                                               name="alcohol"
-                                               id="alcohol_yes"
-                                               value="yes"
-                                               {% if diet_request and diet_request.alcohol %}checked{% endif %}
-                                               autocomplete="off" />
-                                        <label class="btn btn-outline-primary" for="alcohol_yes">
-                                            {% trans "Yes" %}
-                                        </label>
-                                        <input type="radio"
-                                               class="btn-check"
-                                               name="alcohol"
-                                               id="alcohol_no"
-                                               value="no"
-                                               {% if diet_request and not diet_request.alcohol %}checked{% endif %}
-                                               autocomplete="off" />
-                                        <label class="btn btn-outline-primary" for="alcohol_no">
                                             {% trans "No" %}
                                         </label>
                                     </div>

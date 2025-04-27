@@ -141,7 +141,7 @@ class DietRequest(models.Model):
     food_allergy = models.BooleanField(default=False)
     allergy_details = models.CharField(max_length=255, blank=True, null=True)
     smoke = models.BooleanField(default=False)
-    alcohol = models.BooleanField(default=False)
+    weight_loss = models.BooleanField(default=False)
     depression_stress = models.BooleanField(default=False)
     medication = models.BooleanField(default=False)
     medication_details = models.CharField(max_length=255, blank=True, null=True)
