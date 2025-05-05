@@ -125,6 +125,7 @@ def process_ai_diet_request(  patient,  bmi, diabetes=None, obesity=None, diabet
                         You are a helpful assistant that generates personalized diet plans using the provided patient details.
                         Rules: 
                             - provide a daily diet plan with breakfast, lunch, snaks, and dinner
+                            - meals must be from everdyday life food
                             - the week starts from saturday 
                             - just send the diet plan without any other text
                             - return the diet plan as a json format

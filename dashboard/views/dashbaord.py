@@ -4,6 +4,8 @@ from django.contrib.auth import get_user_model
 from dashboard.decorators import role_or_admin_required
 from patient.models import DietRequest
 from doctor import models as dc_models
+from datetime import datetime, timedelta
+from django.http import JsonResponse
 
 UserModel = get_user_model()
 
@@ -50,9 +52,44 @@ def home(request):
         # context['doctors'] = UserModel.objects.filter(profile__role='DOCTOR')
         # context['patients'] = UserModel.objects.filter(profile__role='PATIENT')
         context['users'] = UserModel.objects.all().exclude(is_superuser=True)
+        context['users_count'] = UserModel.objects.all().exclude(is_superuser=True).count()
+        context['patients_count'] = UserModel.objects.filter(profile__role="PATIENT").count()
+        context['doctors_count'] = UserModel.objects.filter(profile__role="DOCTOR").count()
+        context['diet_requests_count'] = DietRequest.objects.all().count()
+
         
     # Doctors get list of all diet requests
     if request.user.profile.role == 'DOCTOR':
         context['diet_requests'] = DietRequest.objects.all().order_by('-date_created')
         
     return render(request, template_name='dashboard/home.html', context=context)
+
+
+
+
+
+def get_chart_data(request):
+    # Example data for user growth
+    user_growth = [
+        {"date": (datetime.now() - timedelta(days=i)).strftime("%Y-%m-%d"), "count": UserModel.objects.filter(date_joined__date=datetime.now().date() - timedelta(days=i)).count()}
+        for i in range(7)
+    ]
+
+    # Example data for user distribution
+    user_distribution = {
+        "doctors": UserModel.objects.filter(profile__role="DOCTOR").count(),
+        "patients": UserModel.objects.filter(profile__role="PATIENT").count(),
+        "admins": UserModel.objects.filter(profile__role="ADMIN").count(),
+    }
+
+    # Example data for activity overview
+    activity_overview = {
+        "active_users": UserModel.objects.filter(is_active=True).count(),
+        "inactive_users": UserModel.objects.filter(is_active=False).count(),
+    }
+
+    return JsonResponse({
+        "user_growth": user_growth,
+        "user_distribution": user_distribution,
+        "activity_overview": activity_overview,
+    })

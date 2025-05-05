@@ -79,15 +79,16 @@
                         <ul id="nt-dropdown-list-items">
                             <li class="nav-item">
                                 {% comment %} <i class="fa fa-users" aria-hidden="true"></i> {% endcomment %}
-                                <a href="" class="nav-link">{% trans "Nutrition" %}</a>
+                                <a href="{% url "dash:nutritions-list" %}" class="nav-link">{% trans "Nutrition" %}</a>
                             </li>
 
                         </ul>
                     </div>
-                    <li class="nav-item">
+                    <!-- Uncomment this to activate Coaching -->
+                    {% comment %} <li class="nav-item">
                         <i class="fa fa-heartbeat"></i>
                         <a class="nav-link">{% trans "Coaching" %}</a>
-                    </li>
+                    </li> {% endcomment %}
                 {% elif request.user.profile.role == 'DOCTOR' %}
                     <!-- Doctor Menu -->
 

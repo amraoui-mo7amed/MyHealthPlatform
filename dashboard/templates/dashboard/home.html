@@ -393,14 +393,16 @@
                                     </h6>
                                 </div>
                                 <h3 class="mb-3">
-                                    1,234
+                                    {{ users_count|default:"0" }}
                                 </h3>
                                 <div class="mt-auto">
                                     <div class="progress bg-light" style="height: 6px;">
                                         <div class="progress-bar bg-primary" style="width: 75%">
                                         </div>
                                     </div>
-                                    <small class="text-muted d-block mt-2">+5% from last month</small>
+                                    <small class="text-muted d-block mt-2">
+                                        {% comment %} +5% from last month {% endcomment %}
+                                    </small>
                                 </div>
                             </div>
                         </div>
@@ -420,14 +422,16 @@
                                     </h6>
                                 </div>
                                 <h3 class="mb-3">
-                                    987
+                                    {{ patients_count|default:"0" }}
                                 </h3>
                                 <div class="mt-auto">
                                     <div class="progress bg-light" style="height: 6px;">
                                         <div class="progress-bar bg-teal" style="width: 60%">
                                         </div>
                                     </div>
-                                    <small class="text-muted d-block mt-2">+12% from last month</small>
+                                    <small class="text-muted d-block mt-2">
+                                        {% comment %} +12% from last month {% endcomment %}
+                                    </small>
                                 </div>
                             </div>
                         </div>
@@ -447,14 +451,17 @@
                                     </h6>
                                 </div>
                                 <h3 class="mb-3">
-                                    56
+                                    {{ doctors_count|default:"0" }}
                                 </h3>
                                 <div class="mt-auto">
                                     <div class="progress bg-light" style="height: 6px;">
                                         <div class="progress-bar bg-success" style="width: 85%">
                                         </div>
                                     </div>
-                                    <small class="text-muted d-block mt-2">+8% from last month</small>
+                                    <small class="text-muted d-block mt-2">
+                                        {% comment %} +8% from last month {% endcomment %}
+
+                                    </small>
                                 </div>
                             </div>
                         </div>
@@ -470,11 +477,11 @@
                                         <i class="fa fa-clipboard"></i>
                                     </div>
                                     <h6 class="text-muted mb-0 ms-3">
-                                        {% trans "Active Plans" %}
+                                        {% trans "Diet Requests" %}
                                     </h6>
                                 </div>
                                 <h3 class="mb-3">
-                                    234
+                                    {{ diet_requests_count|default:"0" }}
                                 </h3>
                                 <div class="mt-auto">
                                     <div class="progress bg-light" style="height: 6px;">
