@@ -262,6 +262,7 @@ def BMICalculator(request):
             allergy_details = request.POST.get('allergy_details')
             smoke = request.POST.get('smoke')
             weight_loss = request.POST.get('weight_loss')
+            print(weight_loss)
             depression_stress = request.POST.get('depression_stress')
             medication = request.POST.get('medication')
             medication_details = request.POST.get('medication_details')
