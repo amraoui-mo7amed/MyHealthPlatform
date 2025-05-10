@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             data.user_distribution.patients,
                             data.user_distribution.admins,
                         ],
-                        backgroundColor: ["#28a745", "#ffc107", "#17a2b8"],
+                        backgroundColor: ["#DFAEB4", "#5F6DE7", "#9EBDB4"],
                     }],
                 },
                 options: {

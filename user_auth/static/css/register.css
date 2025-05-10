@@ -1,0 +1,47 @@
+    .custom-select {
+        position: relative;
+        width: 100%;
+        font-family: Arial, sans-serif;
+    }
+
+    .select-header {
+        padding: 0.375rem 0.75rem;
+        border: 1px solid #ced4da;
+        border-radius: 0.375rem;
+        cursor: pointer;
+        background-color: #fff;
+        height: calc(1.5em + 0.75rem + 2px);
+        line-height: 1.5;
+    }
+
+    .select-header:hover {
+        border-color: #86b7fe;
+    }
+
+    .select-options {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        max-height: 150px;
+        overflow-y: auto;
+        border: 1px solid #ced4da;
+        border-radius: 0.375rem;
+        background-color: white;
+        z-index: 1000;
+    }
+
+    .select-option {
+        padding: 0.375rem 0.75rem;
+        cursor: pointer;
+    }
+
+    .select-option:hover {
+        background-color: #f8f9fa;
+    }
+
+    .select-option.selected {
+        background-color: #e9ecef;
+        font-weight: bold;
+    }
