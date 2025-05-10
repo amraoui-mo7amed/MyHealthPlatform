@@ -128,20 +128,20 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Nutrition dropdown toggle
-document.getElementById('nt-drodown-toggel').addEventListener('click', function () {
-    const dropdownList = document.getElementById('nt-dropdown-list-items');
-    const chevron = this.querySelector('i');
+// document.getElementById('nt-drodown-toggel').addEventListener('click', function () {
+//     const dropdownList = document.getElementById('nt-dropdown-list-items');
+//     const chevron = this.querySelector('i');
 
-    if (dropdownList.style.display === 'none' || !dropdownList.style.display) {
-        dropdownList.style.display = 'block';
-        chevron.classList.remove('fa-chevron-down');
-        chevron.classList.add('fa-chevron-up');
-    } else {
-        dropdownList.style.display = 'none';
-        chevron.classList.remove('fa-chevron-up');
-        chevron.classList.add('fa-chevron-down');
-    }
-});
+//     if (dropdownList.style.display === 'none' || !dropdownList.style.display) {
+//         dropdownList.style.display = 'block';
+//         chevron.classList.remove('fa-chevron-down');
+//         chevron.classList.add('fa-chevron-up');
+//     } else {
+//         dropdownList.style.display = 'none';
+//         chevron.classList.remove('fa-chevron-up');
+//         chevron.classList.add('fa-chevron-down');
+//     }
+// });
 
 // Digital Watch
 function updateDigitalWatch() {
