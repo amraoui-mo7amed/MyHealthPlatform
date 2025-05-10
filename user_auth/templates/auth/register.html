@@ -5,7 +5,9 @@
 {% block subtitle %}
     {% trans "Create an account" %}
 {% endblock subtitle %}
-{% block extra_css %}{% endblock extra_css %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static "css/register.css" %}">
+{% endblock extra_css %}
 
 
 
@@ -161,9 +163,9 @@
                 <!-- Wilaya Field -->
                 <div class="mb-3">
                     <label for="wilaya" class="form-label">
-                        {% trans "Wilaya" %}
+                        {% trans "Province" %}
                     </label>
-                    <select class="form-select" id="wilaya" name="wilaya" size="10" required>
+                    <select class="form-select" id="wilaya" name="wilaya" size="1" required>
                         <option value="01">
                             Adrar
                         </option>

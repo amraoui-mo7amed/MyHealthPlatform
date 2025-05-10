@@ -4,27 +4,50 @@
 
 {% block subtitle %}
 
-{% trans "Request a diet" %}
+    {% trans "Request a diet" %}
 {% endblock subtitle %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static "css/request_a_diet.css" %}" />
+{% endblock extra_css %}
+
+
 {% block content %}
-    <div class="container ">
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-8 col-lg-6">
-                <div class="card shadow-sm border rounded mt-5">
+    <div class="container h-100">        
+        <div class="row justify-content-center align-items-center" style="margin-top:9%">
+            <h1 class='text-center fw-bold mb-1' style="font-size: 5rem;color:#5CA4A9">
+                {% trans "Welcome to better health" %}
+            </h1>
+            <div class="col-lg-3 col-md-4 col-sm-12">
+                <div>
+                    <dotlottie-player src="https://lottie.host/418e7d46-2cf9-4cb3-93d8-89b1d3e531e2/229FB4AwgR.lottie" background="transparent" speed="1" style="width: 100%; height: 100%" loop autoplay></dotlottie-player>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-8 col-sm-12">
+                <div class=" align-items-center card shadow-sm border rounded mt-5">
                     <div class="card-body p-4">
-                        <h3 class='text-center text-primary fw-bold mb-4'>
-                            {% trans "Welcome to better health" %}
-                        </h3>
-                        <p class="text-center lead">
+
+                        <p class="text-center lead fw-bold"> 
                             {% trans "If you're ready to transform your body and mind, let's start this journey together with a personalized diet plan. It's not just about losing weight; it's about building healthy habits for life. Let me guide you every step of the way to becoming healthier and stronger." %}
                         </p>
-                        <a href="{% url "patient:bmi_calculator" %}" class="btn btn-primary d-block mx-auto text-uppercase">
+                        <a href="{% url "patient:bmi_calculator" %}"
+                           class="btn d-block mx-auto text-uppercase"
+                           style="background-color: #5CA4A9; color: white; width: 50%; font-size: 1.2rem;">
                             {% trans "request a diet" %}
                         </a>
                     </div>
                 </div>
             </div>
+            <div class="col-lg-3 col-md-4 col-sm-12">
+                <div>
+                    <dotlottie-player src="https://lottie.host/418e7d46-2cf9-4cb3-93d8-89b1d3e531e2/229FB4AwgR.lottie" background="transparent" speed="1" style="width: 100%; height: 100%" loop autoplay></dotlottie-player>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock content %}
+
+{% block extra_js %}
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+            type="module"></script>
+{% endblock extra_js %}

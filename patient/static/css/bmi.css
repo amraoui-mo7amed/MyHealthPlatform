@@ -6,7 +6,7 @@ body {
 }
 
 .container .row {
-    max-width: 55vw;
+    max-width: 70vw;
     margin: auto;
     min-width: 360px;
 }
@@ -69,8 +69,12 @@ form #section3 .form-group {
 form #section3 .form-group label {
     margin-right: 8px;
     width: fit-content ;
+    border-color: var(--bs-teal) !important;
+    color: var(--bs-dark) !important;
 }
-
+form #section3 .form-group label:hover:not(:first-child) {
+    background-color: var(--bs-teal) !important;
+}
  form #section4 svg 
  {
     width: 120px ;

@@ -429,3 +429,5 @@ def diet_history(request):
         'diets': diets
     }
     return render(request, 'patient/diet/diet_history.html', context=context)
+
+

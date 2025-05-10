@@ -65,7 +65,7 @@
                         <i class="fa fa-archive" aria-hidden="true"></i>
                         <a href="{% url "patient:diet_history" %}" class="nav-link">{% trans "Diet history" %}</a>
                     </li>
-                    <div class="nt-dropdwon">
+                    {% comment %} <div class="nt-dropdwon">
                         <div class="d-flex justify-content-between">
                             <div class="d-flex align-items-center">
                                 <i class="fa fa-cutlery fs-4 mx-2" aria-hidden="true"></i>
@@ -78,17 +78,17 @@
                         </div>
                         <ul id="nt-dropdown-list-items">
                             <li class="nav-item">
-                                {% comment %} <i class="fa fa-users" aria-hidden="true"></i> {% endcomment %}
+                                <i class="fa fa-users" aria-hidden="true"></i> 
                                 <a href="{% url "dash:nutritions-list" %}" class="nav-link">{% trans "Nutrition" %}</a>
                             </li>
 
                         </ul>
-                    </div>
+                    </div> {% endcomment %}
                     <!-- Uncomment this to activate Coaching -->
-                    {% comment %} <li class="nav-item">
+                    <li class="nav-item">
                         <i class="fa fa-heartbeat"></i>
-                        <a class="nav-link">{% trans "Coaching" %}</a>
-                    </li> {% endcomment %}
+                        <a class="nav-link" href="{% url "dash:nutritions-list" %}">{% trans "Coaching" %}</a>
+                    </li> 
                 {% elif request.user.profile.role == 'DOCTOR' %}
                     <!-- Doctor Menu -->
 

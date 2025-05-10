@@ -1,5 +1,9 @@
+body 
+{
+    background-color: #9BC1BC;
+}
 #login-container {
-    max-width: 35%;
+    max-width: 55%;
     min-width: 340px;
     width: 100%;
     border-radius: 5px;
@@ -8,6 +12,7 @@
     position: relative;
     padding-top: 5rem;
     text-align: center;
+    background-color: #fff;
 }
 
 #login-container img {
@@ -63,4 +68,10 @@ body.rtl #login-container #password-visibility
     top: 50%;
     transform: translateY(-50%);
     border: none;
+}
+
+form #registerBtn:hover
+{
+    background-color: var(--bs-teal);
+    border-color: var(--bs-teal);
 }
