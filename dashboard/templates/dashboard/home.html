@@ -260,10 +260,10 @@
             <div id="dietDetails">
                 {% if patient_diet_request.update_status == 'NONE' and diet %}
                     <div class="d-flex align-items-center justify-content-between mb-3">
-                        <h3 class="text-primary mb-0 text-center">
+                        <h2 class="text-primary mb-0 text-center" style="color:#80158c !important">
                             {{ diet.diet_request.patient.get_full_name }}
                             {% trans "Diet" %}
-                        </h3>
+                        </h2>
                         <div class="errorList">
                         </div>
 
@@ -291,7 +291,7 @@
                             </div>
                         {% endif %}
 
-                        <h3 class='fs-bold text-light bg-primary p-2 text-center'>
+                        <h3 class='fs-bold text-dark p-2 text-center' style="background-color:#dca5e7">
                             {% trans "Diet Plan" %}
                         </h3>
                         <div class="row g-4">

@@ -238,7 +238,7 @@ function updateUpcomingEvents() {
             <td>${event.date}</td>
             <td>${event.time}</td>
             <td>${event.title}</td>
-            <td><span class="badge ${status === 'Upcoming' ? 'bg-primary' : 'bg-success'}">${status}</span></td>
+            <td><span class="badge ${status === 'Upcoming' ? '' : 'active'}">${status}</span></td>
         `;
         tableBody.appendChild(row);
     });

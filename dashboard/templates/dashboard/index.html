@@ -28,6 +28,18 @@
     <div class="d-flex">
         <!-- Sidebar -->
         <div id="sidebar" class='d-flex flex-column shadow hide-sidebar'>
+            <div class="row align-items-center my-2">
+                <div class="col-md-12 px-3">
+                    <div id="site-logo ">
+                        <img src="{% static "images/logo2.png" %}" class="w-100" />
+                    </div>
+                </div>
+                {% comment %} <div class="col-md-9">
+                    <span  class="fw-bold">
+                        {% trans "My Healthy Partner" %}
+                    </span>
+                </div> {% endcomment %}
+            </div>
             <div class="user-overview d-flex flex-column">
                 <img src="{{ user_profile.image.url }}" alt="" />
                 <h3>
@@ -88,7 +100,7 @@
                     <li class="nav-item">
                         <i class="fa fa-heartbeat"></i>
                         <a class="nav-link" href="{% url "dash:nutritions-list" %}">{% trans "Coaching" %}</a>
-                    </li> 
+                    </li>
                 {% elif request.user.profile.role == 'DOCTOR' %}
                     <!-- Doctor Menu -->
 

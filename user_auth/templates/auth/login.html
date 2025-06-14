@@ -5,7 +5,8 @@
 {% block css %}
     <link rel="stylesheet" href="{% static 'css/login.css' %}?v={% now "U" %}" />
 {% endblock css %}
-{% block extra_css %}{% endblock extra_css %}
+{% block extra_css %}
+{% endblock extra_css %}
 {% block subtitle %}
     {% trans "login" %}
 {% endblock subtitle %}
@@ -18,55 +19,70 @@
 
 {% block content %}
     <div id="login-container" class="d-flex flex-column shadow">
-        <img src="{% static 'images/user-teal.png' %}" alt="User icon" />
-        <div id="error-messages" class="alert alert-danger d-none my-3">
-        </div>
-        <form action="{% url 'user_auth:login' %}"
-              method="POST"
-              class="d-flex flex-column form"
-              id='login-form'>
-            {% csrf_token %}
-            <!-- Email Field -->
-            <div class="mb-3">
-                <label for="floatingInput" class="form-label">
-                    {% trans "Username" %}
-                </label>
-                <input type="text" class="form-control" id="floatingInput" name="username" />
-            </div>
-            <!-- Password Field -->
-            <div class="mb-3 position-relative">
-                <label for="floatingPassword" class="form-label">
-                    {% trans "Password" %}
-                </label>
-                <div class="d-flex flex-column">
-                    <div class="password-input">
-                        <input type="password"
-                               class="form-control"
-                               id="floatingPassword"
-                               name="password" />
-                        <!-- Password Visibility Toggle -->
-                        <button id="password-visibility" class='btn-teal text-light' type="button">
-                            <i class="fa fa-eye"></i>
-                        </button>
+        <img src="{% static 'images/logo.jpg' %}"
+             alt="User icon"
+             class="border rounded-circle" />
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-lg-5 col-md-6">
+                    <dotlottie-player src="https://lottie.host/6db5942a-1687-41cf-8237-278f1e5fbd2a/RqzO1oK6FY.lottie" background="transparent" speed="1" style="width: 350px; height: 350px" loop autoplay></dotlottie-player>
+                </div>
+                <div class="col-lg-7 col-md-6">
+                    <div id="error-messages" class="alert alert-danger d-none my-3">
                     </div>
-                    <a href="{% url 'user_auth:password_reset' %}"
-                       class="text-decoration-none text-teal ms-auto">
-                        {% trans "Forgot Password?" %}
-                    </a>
+                    <form action="{% url 'user_auth:login' %}"
+                          method="POST"
+                          class="d-flex flex-column form"
+                          id='login-form'>
+                        {% csrf_token %}
+                        <!-- Email Field -->
+                        <div class="mb-3">
+                            <label for="floatingInput" class="form-label">
+                                {% trans "Username" %}
+                            </label>
+                            <input type="text" class="form-control" id="floatingInput" name="username" />
+                        </div>
+                        <!-- Password Field -->
+                        <div class="mb-3 position-relative">
+                            <label for="floatingPassword" class="form-label">
+                                {% trans "Password" %}
+                            </label>
+                            <div class="d-flex flex-column">
+                                <div class="password-input">
+                                    <input type="password"
+                                           class="form-control"
+                                           id="floatingPassword"
+                                           name="password" />
+                                    <!-- Password Visibility Toggle -->
+                                    <button id="password-visibility" class='btn-teal text-light' type="button">
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                </div>
+                                <a href="{% url 'user_auth:password_reset' %}"
+                                   class="text-decoration-none  ms-auto"
+                                   style="color:#c814ec">
+                                    {% trans "Forgot Password?" %}
+                                </a>
+                            </div>
+                        </div>
+                        <!-- Submit Button -->
+                        <div class="d-flex align-items-center justify-content-between">
+                            <button type="submit" class="btn btn-teal d-block w-50 me-2">
+                                {% trans "Login" %}
+                            </button>
+                            <span>{% trans "or" %}</span>
+                            <a href="{% url "user_auth:register" %}"
+                               class="btn btn-outline-purple w-75 ms-2"
+                               id="registerBtn"
+                               style="color:var(--bs-dark) !important">
+                                {% trans "Sign up" %}
+                            </a>
+                        </div>
+
+                    </form>
                 </div>
             </div>
-            <!-- Submit Button -->
-            <div class="d-flex align-items-center justify-content-between">
-                <button type="submit" class="btn btn-teal d-block w-50 me-2">
-                    {% trans "Login" %}
-                </button>
-                <span>{% trans "or" %}</span>
-                <a href="{% url "user_auth:register" %}" class="btn btn-outline-primary w-75 ms-2" id="registerBtn">
-                    {% trans "Sign up" %}
-                </a>
-            </div>
-
-        </form>
+        </div>
     </div>
 {% endblock content %}
 
@@ -75,4 +91,8 @@
 
 {% block js %}
     <script src="{% static "js/login.js" %}"></script>
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs"
+            type="module"></script>
+
+
 {% endblock js %}

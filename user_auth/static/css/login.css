@@ -1,7 +1,4 @@
-body 
-{
-    background-color: #935cb7;
-}
+
 #login-container {
     max-width: 55%;
     min-width: 340px;
@@ -16,9 +13,9 @@ body
 }
 
 #login-container img {
-    max-width: 220px;
+    max-width: 260px;
     position: absolute;
-    top: -8rem;
+    top: -11rem;
     left: 50%;
     transform: translate(-50%);
 }

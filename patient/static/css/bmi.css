@@ -26,6 +26,7 @@ body {
 .form_title 
 {
     color: var(--bs-white);
+    background-color: #935cb7 !important;
     text-transform: uppercase;
     text-align: center;
     margin-bottom: .5rem;
@@ -41,7 +42,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(107, 183, 190,.9) !important;
+    background-color: #dca5e7;
     backdrop-filter: blur(2px);
     z-index: -1;
     border-radius: 3px;
@@ -71,6 +72,15 @@ form #section3 .form-group label {
     width: fit-content ;
     border-color: var(--bs-teal) !important;
     color: var(--bs-dark) !important;
+}
+form #section2 .form-group label:not(:first-child) 
+{
+    background-color: #f0dcf7;
+    color: var(--bs-dark) !important;
+    border-color: var(--bs-dark) !important;
+}
+form #section3 .form-group label:not(:first-child) {
+    background-color: #d6b8e0;
 }
 form #section3 .form-group label:hover:not(:first-child) {
     background-color: var(--bs-teal) !important;

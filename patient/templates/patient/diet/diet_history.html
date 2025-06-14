@@ -19,7 +19,7 @@
                                     {% trans "Start Date" %}: {{ diet.start_date|date:"Y-m-d" }}<br>
                                     {% trans "End Date" %}: {{ diet.end_date|date:"Y-m-d" }}
                                 </p>
-                                <a href="{% url "patient:diet_details" diet.pk %}" class="btn btn-primary">{% trans "View Details" %}</a>
+                                <a href="{% url "patient:diet_details" diet.pk %}" class="btn" style="background-color: #a407a1; color: white;">{% trans "View Details" %}</a>
                             </div>
                         </div>
                     </div>

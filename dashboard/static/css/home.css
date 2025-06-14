@@ -2,6 +2,15 @@
     margin: 0 0 5px 0;
 }
 
+.badge {
+    background-color: #c8b0cb;
+    color: var(--bs-dark);
+}
+.badge.active {
+    background-color: #c615db;
+    color: #fff;
+}
+
 .request_meta i {
     font-size: 1.2rem;
     margin: 0 7px 0 7px;
@@ -11,6 +20,8 @@
 #dietDetails .row>div * {
     color: var(--bs-dark) !important;
 }
+
+
 
 #dietDetails .diet-card {
     display: flex !important;
@@ -97,16 +108,17 @@
 
 /* Digital Watch */
 .digital-watch {
-    background: linear-gradient(145deg, #4A90E2, #357ABD);
+    background: #dca5e7;
     padding: 20px;
     border-radius: 12px;
-    color: white;
+    color: var(--bs-dark);
     box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
 }
-#currentDate 
-{
+
+#currentDate {
     color: #fff !important;
 }
+
 /* Calendar */
 .calendar-grid {
     display: grid;
@@ -128,8 +140,8 @@
 }
 
 .calendar-day.today {
-    background-color: #4A90E2;
-    color: white;
+    background-color: #f1dbf5;
+    color: var(--bs-dark);
     font-weight: bold;
 }
 
