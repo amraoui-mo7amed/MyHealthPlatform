@@ -22,12 +22,13 @@
          style="min-height: 100vh">
         <div class="card shadow-lg p-4"
              style="width: 100%;
-                    max-width: 550px;
-                    height:80vh;
-                    overflow-y:auto">
+                    max-width: 70vw;
+                    height: 80vh;
+                    overflow-y: auto;
+                    ">
             <div class="errorList">
             </div>
-            <h2 class="text-primary text-center mb-4">
+            <h2 class="text-purple text-center mb-4">
                 {% trans "Sign up" %}
             </h2>
             <form method="post"
@@ -60,21 +61,23 @@
                 </div>
 
                 <!-- Username and Email -->
-                <div class="mb-3">
-                    <label for="username" class="form-label">
-                        {% trans "Username" %}
-                    </label>
-                    <input type="text"
-                           class="form-control"
-                           id="username"
-                           name="username"
-                           required />
-                </div>
-                <div class="mb-3">
-                    <label for="email" class="form-label">
-                        {% trans "Email" %}
-                    </label>
-                    <input type="email" class="form-control" id="email" name="email" required />
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="username" class="form-label">
+                            {% trans "Username" %}
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               id="username"
+                               name="username"
+                               required />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">
+                            {% trans "Email" %}
+                        </label>
+                        <input type="email" class="form-control" id="email" name="email" required />
+                    </div>
                 </div>
 
                 <!-- Password Fields -->
@@ -91,7 +94,7 @@
                                        name="password1"
                                        required />
                                 <button type="button"
-                                        class="btn btn-primary position-absolute end-0 top-50 translate-middle-y"
+                                        class="btn btn-purple position-absolute end-0 top-50 translate-middle-y"
                                         style="cursor: pointer"
                                         onclick="togglePassword('password1')">
                                     <i class="fa fa-eye "></i>
@@ -111,7 +114,7 @@
                                        name="password2"
                                        required />
                                 <button type="button"
-                                        class="btn btn-primary position-absolute end-0 top-50 translate-middle-y"
+                                        class="btn btn-purple position-absolute end-0 top-50 translate-middle-y"
                                         style="cursor: pointer"
                                         onclick="togglePassword('password2')">
                                     <i class="fa fa-eye "></i>
@@ -121,135 +124,142 @@
                     </div>
                 </div>
 
-                <!-- Personal Details -->
-                <div class="mb-3">
-                    <label for="birthdate" class="form-label">
-                        {% trans "Birthdate" %}
-                    </label>
-                    <input type="date"
-                           class="form-control"
-                           id="birthdate"
-                           name="birthdate"
-                           required />
-                </div>
-
-                <!-- Gender Field -->
-                <div class="mb-3">
-                    <label for="gender" class="form-label">
-                        {% trans "Gender" %}
-                    </label>
-                    <select class="form-select" id="gender" name="gender" required>
-                        <option value="male">
-                            {% trans "Male" %}
-                        </option>
-                        <option value="female">
-                            {% trans "Female" %}
-                        </option>
-                    </select>
-                </div>
-
-                <!-- Contact Information -->
-                <div class="mb-3">
-                    <label for="phone_number" class="form-label">
-                        {% trans "Phone Number" %}
-                    </label>
-                    <input type="text"
-                           class="form-control"
-                           id="phone_number"
-                           name="phone_number"
-                           required />
-                </div>
-
-                <!-- Wilaya Field -->
-                <div class="mb-3">
-                    <label for="wilaya" class="form-label">
-                        {% trans "Province" %}
-                    </label>
-                    <div class="custom-select">
-                        <div class="select-header">
-                            Select a province...
-                        </div>
-                        <div class="select-options" id="wilaya-options">
-                            <!-- Options will be populated by JavaScript -->
-                        </div>
-                        <select id="wilaya" name="wilaya" style="display: none;" required>
-                            <!-- Hidden select for form submission -->
+                <!-- Birthdate Field -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="birthdate" class="form-label">
+                            {% trans "Birthdate" %}
+                        </label>
+                        <input type="date"
+                               class="form-control"
+                               id="birthdate"
+                               name="birthdate"
+                               required />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="gender" class="form-label">
+                            {% trans "Gender" %}
+                        </label>
+                        <select class="form-select" id="gender" name="gender" required>
+                            <option value="male">
+                                {% trans "Male" %}
+                            </option>
+                            <option value="female">
+                                {% trans "Female" %}
+                            </option>
                         </select>
                     </div>
                 </div>
+
+                <!-- Contact Information -->
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="phone_number" class="form-label">
+                            {% trans "Phone Number" %}
+                        </label>
+                        <input type="text"
+                               class="form-control"
+                               id="phone_number"
+                               name="phone_number"
+                               required />
+                    </div>
+                    <div class="col-md-6">
+                        <label for="wilaya" class="form-label">
+                            {% trans "Province" %}
+                        </label>
+                        <div class="custom-select">
+                            <div class="select-header">
+                                Select a province...
+                            </div>
+                            <div class="select-options" id="wilaya-options">
+                                <!-- Options will be populated by JavaScript -->
+                            </div>
+                            <select id="wilaya" name="wilaya" style="display: none;" required>
+                                <!-- Hidden select for form submission -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Role Selection -->
-                <div class="mb-3">
-                    <label for="role" class="form-label">
-                        {% trans "Role" %}
-                    </label>
-                    <select class="form-select" id="role" name="role" required>
-                        <option value="PATIENT">
-                            {% trans "Patient" %}
-                        </option>
-                        <option value="DOCTOR">
-                            {% trans "Doctor" %}
-                        </option>
-                    </select>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="role" class="form-label">
+                            {% trans "Role" %}
+                        </label>
+                        <select class="form-select" id="role" name="role" required>
+                            <option value="PATIENT">
+                                {% trans "Patient" %}
+                            </option>
+                            <option value="DOCTOR">
+                                {% trans "Doctor" %}
+                            </option>
+                        </select>
+                    </div>
                 </div>
 
                 <!-- Doctor Specific Fields (Conditional) -->
                 <div id="doctorFields" class="d-none">
-                    <div class="mb-3">
-                        <label for="main_diploma" class="form-label">
-                            {% trans "Main Diploma" %} *
-                        </label>
-                        <input type="file"
-                               class="form-control"
-                               id="main_diploma"
-                               name="main_diploma"
-                               accept="application/pdf"
-                               required />
-                        <small class="form-text text-muted">
-                            {% trans "Upload your main diploma as a PDF file" %}
-                        </small>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="main_diploma" class="form-label">
+                                {% trans "Main Diploma" %} *
+                            </label>
+                            <input type="file"
+                                   class="form-control"
+                                   id="main_diploma"
+                                   name="main_diploma"
+                                   accept="application/pdf"
+                                   required />
+                            <small class="form-text text-muted">
+                                {% trans "Upload your main diploma as a PDF file" %}
+                            </small>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="certificate_serial" class="form-label">
+                                {% trans "Certificate Serial" %} *
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="certificate_serial"
+                                   name="certificate_serial"
+                                   required />
+                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label for="certificate_serial" class="form-label">
-                            {% trans "Certificate Serial" %} *
-                        </label>
-                        <input type="text"
-                               class="form-control"
-                               id="certificate_serial"
-                               name="certificate_serial"
-                               required />
-                    </div>
-                    <div class="mb-3">
-                        <label for="speciality" class="form-label">
-                            {% trans "Speciality" %} *
-                        </label>
-                        <input type="text"
-                               class="form-control"
-                               id="speciality"
-                               name="speciality"
-                               required />
-                    </div>
-                    <div class="mb-3">
-                        <label for="additional_diplomas" class="form-label">
-                            {% trans "Additional Diplomas" %}
-                        </label>
-                        <input type="file"
-                               class="form-control"
-                               id="additional_diplomas"
-                               name="additional_diplomas"
-                               accept="application/pdf"
-                               multiple />
-                        <small class="form-text text-muted">
-                            {% trans "Upload PDF files of additional diplomas (optional)" %}
-                        </small>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="speciality" class="form-label">
+                                {% trans "Speciality" %} *
+                            </label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="speciality"
+                                   name="speciality"
+                                   required />
+                        </div>
+                        <div class="col-md-6">
+                            <label for="additional_diplomas" class="form-label">
+                                {% trans "Additional Diplomas" %}
+                            </label>
+                            <input type="file"
+                                   class="form-control"
+                                   id="additional_diplomas"
+                                   name="additional_diplomas"
+                                   accept="application/pdf"
+                                   multiple />
+                            <small class="form-text text-muted">
+                                {% trans "Upload PDF files of additional diplomas (optional)" %}
+                            </small>
+                        </div>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100 mb-3">
+                <button type="submit" class="btn btn-purple w-100 mb-3">
                     {% trans "Register" %}
                 </button>
             </form>
-            <p class="mt-3 text-center">
-                {% trans "Already have an account?" %} <a href="{% url 'user_auth:login' %}">{% trans "Login" %}</a>
+            <p class="mt-3 text-center ">
+                {% trans "Already have an account?" %} <a href="{% url 'user_auth:login' %}" class="text-purple">{% trans "Login" %}</a>
             </p>
         </div>
     </div>

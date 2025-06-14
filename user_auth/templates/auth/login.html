@@ -3,7 +3,7 @@
 {% load static i18n %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static 'css/login.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/login.css' %}?v={% now "U" %}" />
 {% endblock css %}
 {% block extra_css %}{% endblock extra_css %}
 {% block subtitle %}

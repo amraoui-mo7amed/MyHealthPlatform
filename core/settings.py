@@ -100,20 +100,20 @@ DATABASES = {
     },
     'prod':{
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.getenv('PROD_DB_NAME'),
-            'USER': os.getenv('PROD_DB_USER'),
-            'PASSWORD': os.getenv('PROD_DB_PASSWORD'),
-            'HOST': os.getenv('PROD_DB_HOST'),
-            'PORT': os.getenv('PROD_DB_PORT', ''),
-    },
+            'NAME': "postgres",
+            'USER': "postgres",
+            'PASSWORD':"1234",
+            'HOST': "localhost",
+            'PORT': ""
+    }
 }
 
 # if config('ENV') == 'dev':
-    # DATABASES['default'] = DATABASES['dev']
-# elif config('ENV') == 'prod':
-    # DATABASES['default'] = DATABASES['dev']
+#     DATABASES['default'] = DATABASES['dev']
+if config('ENV') == 'dev':
+    DATABASES['default'] = DATABASES['dev']
 
-DATABASES['default'] = DATABASES['dev']
+# DATABASES['default'] = DATABASES['dev']
 
 
 # Password validation

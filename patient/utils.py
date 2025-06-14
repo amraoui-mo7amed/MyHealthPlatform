@@ -115,7 +115,7 @@ def process_ai_diet_request(  patient,  bmi, diabetes=None, obesity=None, diabet
         if provider == 'mistral': 
             print('using mistral')
             api_key = config('MISTRALAI_API_KEY')
-
+            
             model = "mistral-large-latest"
             client = Mistral(api_key=api_key)
             messages = [

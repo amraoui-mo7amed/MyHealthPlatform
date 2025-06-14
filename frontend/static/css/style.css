@@ -1,6 +1,72 @@
 :root 
 {
-  --bs-teal : #6bb7be !important;
+  /* --bs-teal : #6bb7be !important; */
+  --bs-teal:#935cb7 !important;
+  --bs-teal-hover: #bf8ce0 !important;
+}
+/* ----- Base Purple (#935cb7) ----- */
+.bg-purple { background-color: #935cb7 !important; }
+.text-purple { color: #935cb7 !important; }
+.border-purple { border-color: #935cb7 !important; }
+
+/* ----- Light Purple Hover/Active Effects (#bf8ce0) ----- */
+.bg-purple-hover:hover { background-color: #bf8ce0 !important; }
+.text-purple-hover:hover { color: #bf8ce0 !important; }
+.border-purple-hover:hover { border-color: #bf8ce0 !important; }
+
+/* ----- Buttons (Primary = Purple, Hover = Light Purple) ----- */
+.btn-purple {
+  background-color: #935cb7;
+  border-color: #935cb7;
+  color: white;
+}
+.btn-purple:hover,
+.btn-purple:active {
+  background-color: #bf8ce0;
+  border-color: #bf8ce0;
+  color: #fff;
+}
+
+/* ----- Outline Button (Purple Border, Light Purple Hover Fill) ----- */
+.btn-outline-purple {
+  color: #935cb7;
+  border-color: #935cb7;
+}
+.btn-outline-purple:hover {
+  background-color: #bf8ce0;
+  border-color: #bf8ce0;
+  color: white;
+}
+
+/* Light Purple Button (#bf8ce0) */
+.btn-lightpurple {
+  background-color: #bf8ce0;
+  color: white;
+  border-color: #bf8ce0;
+}
+.btn-lightpurple:hover {
+  background-color: #ae7bcf;
+  border-color: #ae7bcf;
+}
+
+/* Outline Purple Button */
+.btn-outline-purple {
+  color: #935cb7;
+  border-color: #935cb7;
+}
+.btn-outline-purple:hover {
+  background-color: #935cb7;
+  color: white;
+}
+
+/* Outline Light Purple Button */
+.btn-outline-lightpurple {
+  color: #bf8ce0;
+  border-color: #bf8ce0;
+}
+.btn-outline-lightpurple:hover {
+  background-color: #bf8ce0;
+  color: white;
 }
 /* fonts import */
 @import url("../fonts/octin_sports_rg.ttf");
@@ -883,15 +949,16 @@ a:focus {
 /* Button Style */
 .btn-teal {
   color: #fff;
-  background-color: #6bb7be;
-  border-color: #6bb7be;
+  /* background-color: #6bb7be; */
+  background-color: var(--bs-teal);
+  border-color: var(--bs-teal);
 }
 
 .btn-teal:hover {
   color: #fff;
-  background-color: #5aa2a7;
+  background-color: var(--bs-teal-hover);
   /* Slightly darker shade */
-  border-color: #5aa2a7;
+  border-color: var(--bs-teal-hover);
 }
 
 .btn-teal:focus,
