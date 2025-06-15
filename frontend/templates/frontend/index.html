@@ -84,450 +84,472 @@
         {% block nav %}
           <nav class="navbar navbar-expand-lg navbar-light align-items-center">
             <div class="container-fluid d-flex align-items-center">
-              <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="{% static 'images/logo2.png' %}"
-                     alt="My Health App Logo"
-                     width="90"
-                     height="90"
-                     class="d-inline-block align-text-top me-2 border rounded" />
-              </a>
+               {% comment %} <a class="navbar-brand d-flex align-items-center" href="#">
+               <img src="{% static 'images/logo2.png' %}" alt="My Health App Logo" width="90" height="90" class="d-inline-block align-text-top me-2 border rounded" />
+                </a> {% endcomment %}
 
-              <button class="navbar-toggler"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#navbarNav"
-                      aria-controls="navbarNav"
-                      aria-expanded="false"
-                      aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
+                <button class="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarNav"
+                        aria-controls="navbarNav"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
 
-              <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">{% trans "Home" %}</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url "frontend:home" %}#about">{% trans "About" %}</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url "frontend:home" %}#services">{% trans "Services" %}</a>
-                  </li>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                  <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="#">{% trans "Home" %}</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url "frontend:home" %}#about">{% trans "About" %}</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url "frontend:home" %}#services">{% trans "Services" %}</a>
+                    </li>
 
-                  <li class="nav-item">
-                    <a class="nav-link" href="{% url "frontend:home" %}#contact">{% trans "Contact" %}</a>
-                  </li>
-                  <div class="d-flex flex-grow-1">
-                    {% if request.user.is_authenticated %}
-                      <a href="{% url "dash:home" %}"
-                         class="btn btn-outline-dark  rounded ms-auto flex-grow-1">
-                        {% trans "Dashboard" %}
-                      </a>
-                    {% else %}
-                      <a href="{% url "user_auth:login" %}"
-                         class="btn btn-outline-dark rounded ms-auto flex-grow-1">
-                        {% trans "Get started" %}
-                      </a>
-                    {% endif %}
-                  </div>
-                </ul>
+                    <li class="nav-item">
+                      <a class="nav-link" href="{% url "frontend:home" %}#contact">{% trans "Contact" %}</a>
+                    </li>
+                    <div class="d-flex flex-grow-1">
+                      {% if request.user.is_authenticated %}
+                        <a href="{% url "dash:home" %}"
+                           class="btn btn-outline-dark  rounded ms-auto flex-grow-1">
+                          {% trans "Dashboard" %}
+                        </a>
+                      {% else %}
+                        <a href="{% url "user_auth:login" %}"
+                           class="btn btn-outline-dark rounded ms-auto flex-grow-1">
+                          {% trans "Get started" %}
+                        </a>
+                      {% endif %}
+                    </div>
+                  </ul>
+                </div>
               </div>
-            </div>
-          </nav>
-        {% endblock nav %}
+            </nav>
+          {% endblock nav %}
 
-      </header>
-      <!-- end header section -->
-      {% block slider %}
-        <div class="container-fluid px-0">
-          <div class="row g-2 align-items-center">
-            <div class="col-lg-12 col-md-12 col-sm-12 pt-4">
-              <div class="header-text px-2 text-center text-white mt-2"
-                   data-aos="fade-right">
-                <span class="text-bold fs-6 fw-bold">{% trans "Your Health, Our Mission" %}</span>
-                <h3 class="text-bold text-white">
-                  {% trans "Empowering Your Journey to Wellness" %}
-                </h3>
-                <p class="fs-5">
-                  {% trans "Discover personalized health solutions and expert guidance tailored to your unique needs." %}
-                </p>
-                {% if request.user.is_authenticated %}
-                  <a href="{% url "dash:home" %}" class="btn btn-dark  rounded">
-                    {% trans "Dashboard" %}
-                  </a>
-                {% else %}
-                  <a href="{% url "user_auth:login" %}"
-                     class="btn btn-dark btn-lg rounded w-25">
-                    {% trans "Get started" %}
-                  </a>
-                {% endif %}
+        </header>
+        <!-- end header section -->
+        {% block slider %}
+          <div class="container-fluid px-0">
+            <div class="row g-2 align-items-center">
+              <div class="col-lg-12 col-md-12 col-sm-12 pt-4">
+                <div class="header-text px-2 text-center text-white mt-2"
+                     data-aos="fade-right">
+                  <span class="text-bold fs-6 fw-bold">{% trans "Your Health, Our Mission" %}</span>
+                  <h3 class="text-bold text-white">
+                    {% trans "Empowering Your Journey to Wellness" %}
+                  </h3>
+                  <p class="fs-5">
+                    {% trans "Discover personalized health solutions and expert guidance tailored to your unique needs." %}
+                  </p>
+                  {% if request.user.is_authenticated %}
+                    <a href="{% url "dash:home" %}" class="btn btn-dark  rounded">
+                      {% trans "Dashboard" %}
+                    </a>
+                  {% else %}
+                    <a href="{% url "user_auth:login" %}"
+                       class="btn btn-dark btn-lg rounded w-25">
+                      {% trans "Get started" %}
+                    </a>
+                  {% endif %}
+                </div>
               </div>
-            </div>
-            {% comment %} <div class="col-lg-6 col-md-12 col-sm-12">
+              {% comment %} <div class="col-lg-6 col-md-12 col-sm-12">
               <div class="header-image" data-aos="fade-left">
                 <img src="{% static 'images/food.png' %}" alt="My Health App Logo" class="img-fluid" />
               </div>
-            </div> {% endcomment %}
+              </div> {% endcomment %}
+            </div>
+
           </div>
+        {% endblock slider %}
 
-        </div>
-      {% endblock slider %}
-
-    </div>
-
-    {% block content %}
-      <div class="ai-chat-circle" id="aiChatCircle">
-        <svg width="50"
-             height="50"
-             viewBox="0 0 50 50"
-             fill="none"
-             xmlns="http://www.w3.org/2000/svg">
-          <circle cx="25" cy="25" r="24" fill="#4A90E2" stroke="#ffffff" stroke-width="2" />
-          <path d="M35 20c0-2.21-1.79-4-4-4H19c-2.21 0-4 1.79-4 4v8c0 2.21 1.79 4 4 4h12l4 4v-16z" fill="#ffffff" />
-          <circle cx="20" cy="24" r="2" fill="#4A90E2" />
-          <circle cx="25" cy="24" r="2" fill="#4A90E2" />
-          <circle cx="30" cy="24" r="2" fill="#4A90E2" />
-        </svg>
       </div>
 
-      <div class="chat-container" id="chatContainer">
-        <div class="chat-header">
-          <h3>
-            chat with Boo
-          </h3>
-          <button id="closeChatBtn">
-            &times;
-          </button>
+      {% block content %}
+        <div class="ai-chat-circle" id="aiChatCircle">
+          <svg width="50"
+               height="50"
+               viewBox="0 0 50 50"
+               fill="none"
+               xmlns="http://www.w3.org/2000/svg">
+            <circle cx="25" cy="25" r="24" fill="#4A90E2" stroke="#ffffff" stroke-width="2" />
+            <path d="M35 20c0-2.21-1.79-4-4-4H19c-2.21 0-4 1.79-4 4v8c0 2.21 1.79 4 4 4h12l4 4v-16z" fill="#ffffff" />
+            <circle cx="20" cy="24" r="2" fill="#4A90E2" />
+            <circle cx="25" cy="24" r="2" fill="#4A90E2" />
+            <circle cx="30" cy="24" r="2" fill="#4A90E2" />
+          </svg>
         </div>
-        <div class="chat-messages" id="chatMessages">
-        </div>
-        <div class="chat-input">
-          <textarea id="userInput" placeholder="Type your message..."></textarea>
-          <button id="sendMessageBtn">
-            Send
-          </button>
-        </div>
-      </div>
-      <section id="about" class="py-5">
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col-lg-4" data-aos="fade-right">
-              <!-- Canvas for the animation -->
-              <canvas id="about-canvas"></canvas>
-            </div>
-            <div class="col-lg-8 text-center" data-aos="fade-left">
-              <h2 class="mb-4 ">
-                {% trans "About My Healthy Partner" %}
-              </h2>
-              <p class="lead">
-                {% trans "We are dedicated to revolutionizing healthcare through innovative technology and personalized care." %}
-              </p>
-              <p>
-                {% trans "Our platform brings together cutting-edge tools and expert knowledge to help you take control of your health journey. We believe in empowering individuals with the right information and resources to make informed decisions about their well-being." %}
-              </p>
-              <ul class="list-unstyled">
-                <li class="mb-2">
-                  <i class="fa fa-check text-teal me-2"></i>
-                  {% trans "Personalized health tracking" %}
-                </li>
-                <li class="mb-2">
-                  <i class="fa fa-check text-teal me-2"></i>
-                  {% trans "Expert medical advice" %}
-                </li>
-                <li class="mb-2">
-                  <i class="fa fa-check text-teal me-2"></i>
-                  {% trans "Secure and private platform" %}
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <section id="services" class="py-5 bg-light">
-        <div class="container">
-          <div class="row text-center mb-5">
-            <div class="col" data-aos="fade-up">
-              <h2>
-                {% trans "Our Services" %}
-              </h2>
-              <p class="lead fw-bold">
-                {% trans "Comprehensive healthcare solutions tailored to your needs" %}
-              </p>
-            </div>
+        <div class="chat-container" id="chatContainer">
+          <div class="chat-header">
+            <h3>
+              chat with Boo
+            </h3>
+            <button id="closeChatBtn">
+              &times;
+            </button>
           </div>
-          <div class="row g-4">
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-              <div class="card h-100 p-3 border-0 shadow-sm hover-scale">
-                <div class="card-body text-center">
-                  <i class="fa fa-heartbeat fa-3x text-teal mb-3"></i>
-                  <h5 class="card-title">
-                    {% trans "Health Monitoring" %}
-                  </h5>
-                  <p class="card-text">
-                    {% trans "Track your vital signs and health metrics in real-time with our advanced monitoring tools." %}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-              <div class="card h-100 p-3 border-0 shadow-sm hover-scale">
-                <div class="card-body text-center">
-                  <i class="fa fa-user-md fa-3x text-teal mb-3"></i>
-                  <h5 class="card-title">
-                    {% trans "Expert Consultations" %}
-                  </h5>
-                  <p class="card-text">
-                    {% trans "Connect with certified healthcare professionals for personalized advice and guidance." %}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-              <div class="card h-100 p-3 border-0 shadow-sm hover-scale">
-                <div class="card-body text-center">
-                  <i class="fa fa-calendar-check-o fa-3x text-teal mb-3"></i>
-                  <h5 class="card-title">
-                    {% trans "get the best coach " %}
-                  </h5>
-                  <p class="card-text">
-                    {% trans "Discover the latest coaching tips provided by our magnificent expert team" %}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
-              <div class="card h-100 p-3 border-0 shadow-sm hover-scale">
-                <div class="card-body text-center">
-                  <i class="fa fa-file-text-o fa-3x text-teal mb-3"></i>
-                  <h5 class="card-title">
-                    {% trans "Health Records" %}
-                  </h5>
-                  <p class="card-text">
-                    {% trans "Securely store and access your medical history, test results, and prescriptions." %}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
-              <div class="card h-100 p-3 border-0 shadow-sm hover-scale">
-                <div class="card-body text-center">
-                  <i class="fa fa-cutlery fa-3x text-teal mb-3"></i>
-                  <h5 class="card-title">
-                    {% trans "Nutrition Planning" %}
-                  </h5>
-                  <p class="card-text">
-                    {% trans "Get personalized meal plans and dietary recommendations from certified nutritionists." %}
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-4" data-aos="fade-up" data-aos-delay="600">
-              <div class="card h-100 p-3 border-0 shadow-sm hover-scale">
-                <div class="card-body text-center">
-                  <i class="fa fa-line-chart fa-3x text-teal mb-3"></i>
-                  <h5 class="card-title">
-                    {% trans "Progress Tracking" %}
-                  </h5>
-                  <p class="card-text">
-                    {% trans "Visualize and analyze your health progress with detailed charts and reports." %}
-                  </p>
-                </div>
-              </div>
-            </div>
+          <div class="chat-messages" id="chatMessages">
+          </div>
+          <div class="chat-input">
+            <textarea id="userInput" placeholder="Type your message..."></textarea>
+            <button id="sendMessageBtn">
+              Send
+            </button>
           </div>
         </div>
-      </section>
-
-      <!-- Our Team Section -->
-      <section id="team" class="py-5 bg-light">
-        <div class="container">
-          <div class="row text-center mb-5">
-            <div class="col">
-              <h2>{% trans "Our Team" %}</h2>
-              <p class="lead">{% trans "Meet the experts behind My Healthy Partner" %}</p>
-            </div>
-          </div>
-          <div class="row">
-            <!-- Team Member 1 -->
-            <div class="col-md-4 mb-4">
-              <div class="card h-100">
-                <img src="{% static 'images/rania2.jpg' %}" class="card-img-top " alt="Team Member">
-                <div class="card-body text-center">
-                  <h5 class="card-title">Rania Seghiri</h5>
-                </div>
+        <section id="about" class="py-5">
+          <div class="container">
+            <div class="row align-items-center">
+              <div class="col-lg-4" data-aos="fade-right">
+                <!-- Canvas for the animation -->
+                <canvas id="about-canvas"></canvas>
               </div>
-            </div>
-            
-            <!-- Team Member 2 -->
-            <div class="col-md-4 mb-4">
-              <div class="card h-100">
-                <img src="{% static 'images/rayan.jpg' %}" class="card-img-top" alt="Team Member">
-                <div class="card-body text-center">
-                  <h5 class="card-title">Bchtatou Rayane
-                  </h5>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Team Member 3 -->
-            <div class="col-md-4 mb-4">
-              <div class="card h-100">
-                <img src="{% static 'images/hiba2.jpg' %}" class="card-img-top" alt="Team Member">
-                <div class="card-body text-center">
-                  <h5 class="card-title">Mounib Hibet Allah</h5>
-                </div>
+              <div class="col-lg-8 text-center" data-aos="fade-left">
+                <h2 class="mb-4 ">
+                  {% trans "About My Healthy Partner" %}
+                </h2>
+                <p class="lead">
+                  {% trans "We are dedicated to revolutionizing healthcare through innovative technology and personalized care." %}
+                </p>
+                <p>
+                  {% trans "Our platform brings together cutting-edge tools and expert knowledge to help you take control of your health journey. We believe in empowering individuals with the right information and resources to make informed decisions about their well-being." %}
+                </p>
+                <ul class="list-unstyled">
+                  <li class="mb-2">
+                    <i class="fa fa-check text-teal me-2"></i>
+                    {% trans "Personalized health tracking" %}
+                  </li>
+                  <li class="mb-2">
+                    <i class="fa fa-check text-teal me-2"></i>
+                    {% trans "Expert medical advice" %}
+                  </li>
+                  <li class="mb-2">
+                    <i class="fa fa-check text-teal me-2"></i>
+                    {% trans "Secure and private platform" %}
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-        </div>
-        <div class="fs-3 text-center">{% trans "Second-year Master's students in Bioinformatics at Frères Mentouri University - Constantine 1" %}</div>
+        </section>
 
-      </section>
-
-      <section id="contact">
-        <div class="container-fluid">
-          <div class="row text-center my-5">
-            <div class="col" data-aos="fade-up">
-              <h2>
-                {% trans "Contact Us" %}
-              </h2>
-              <p class="lead">
-                {% trans "We'd love to hear from you!" %}
-              </p>
-            </div>
-          </div>
-          <div class="row justify-content-center align-items-start bg-light p-4 rounded">
-            <div class="col-lg-6 col-md-12" data-aos="fade-up" data-aos-delay="100">
-              <div class="contact-info bg-light p-4 rounded">
-
-                <h4 class="mb-4">
-                  {% trans "Contact Information" %}
-                </h4>
-                <div class="mb-4">
-                  <p>
-                    <i class="fa fa-map-marker fa-2x text-teal me-3"></i>
-                    <span class="text-dark">
-                      Ali Mendjeli- nouvelle ville - constantine
-                    </span>
-                  </p>
-                </div>
-                <div class="mb-4">
-                  <p>
-                    <i class="fa fa-phone fa-2x text-teal me-3"></i>
-                    <span class="text-dark">
-                      +2137 79 87 48 89
-                    </span>
-                  </p>
-                </div>
-                <div class="mb-4">
-                  <p>
-                    <i class="fa fa-envelope fa-2x text-teal me-3"></i>
-                    <span class="text-dark">
-                      myhealthypartner0@gmail.com
-                    </span>
-                  </p>
-                </div>
+        <section id="services" class="py-5 bg-light">
+          <div class="container">
+            <div class="row text-center mb-5">
+              <div class="col" data-aos="fade-up">
+                <h2>
+                  {% trans "Our Services" %}
+                </h2>
+                <p class="lead fw-bold">
+                  {% trans "Comprehensive healthcare solutions tailored to your needs" %}
+                </p>
               </div>
             </div>
-            <div class="col-lg-6 col-md-12" data-aos="fade-up" data-aos-delay="100">
-              <div class='contact-info bg-light p-4 rounded'>
-                <h4 class="mb-4">
-                  {% trans "Let's talk" %}
-                </h4>
-                <form method="post"
-                      class='form'
-                      action="{% url 'frontend:contact' %}"
-                      class="needs-validation"
-                      novalidate>
-                  {% csrf_token %}
-                  <div class="errorList">
+            <div class="row g-4">
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card h-100 p-3 border-0 shadow-sm hover-scale">
+                  <div class="card-body text-center">
+                    <i class="fa fa-heartbeat fa-3x text-teal mb-3"></i>
+                    <h5 class="card-title">
+                      {% trans "Health Monitoring" %}
+                    </h5>
+                    <p class="card-text">
+                      {% trans "Track your vital signs and health metrics in real-time with our advanced monitoring tools." %}
+                    </p>
                   </div>
-                  <div class="mb-3">
-                    <label for="name" class="form-label">
-                      {% trans "Name" %}
-                    </label>
-                    <input type="text" class="form-control" id="name" name="name" required />
-                    <div class="invalid-feedback">
-                      {% trans "Please enter your name." %}
+                </div>
+              </div>
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card h-100 p-3 border-0 shadow-sm hover-scale">
+                  <div class="card-body text-center">
+                    <i class="fa fa-user-md fa-3x text-teal mb-3"></i>
+                    <h5 class="card-title">
+                      {% trans "Expert Consultations" %}
+                    </h5>
+                    <p class="card-text">
+                      {% trans "Connect with certified healthcare professionals for personalized advice and guidance." %}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card h-100 p-3 border-0 shadow-sm hover-scale">
+                  <div class="card-body text-center">
+                    <i class="fa fa-calendar-check-o fa-3x text-teal mb-3"></i>
+                    <h5 class="card-title">
+                      {% trans "get the best coach " %}
+                    </h5>
+                    <p class="card-text">
+                      {% trans "Discover the latest coaching tips provided by our magnificent expert team" %}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="card h-100 p-3 border-0 shadow-sm hover-scale">
+                  <div class="card-body text-center">
+                    <i class="fa fa-file-text-o fa-3x text-teal mb-3"></i>
+                    <h5 class="card-title">
+                      {% trans "Health Records" %}
+                    </h5>
+                    <p class="card-text">
+                      {% trans "Securely store and access your medical history, test results, and prescriptions." %}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
+                <div class="card h-100 p-3 border-0 shadow-sm hover-scale">
+                  <div class="card-body text-center">
+                    <i class="fa fa-cutlery fa-3x text-teal mb-3"></i>
+                    <h5 class="card-title">
+                      {% trans "Nutrition Planning" %}
+                    </h5>
+                    <p class="card-text">
+                      {% trans "Get personalized meal plans and dietary recommendations from certified nutritionists." %}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4" data-aos="fade-up" data-aos-delay="600">
+                <div class="card h-100 p-3 border-0 shadow-sm hover-scale">
+                  <div class="card-body text-center">
+                    <i class="fa fa-line-chart fa-3x text-teal mb-3"></i>
+                    <h5 class="card-title">
+                      {% trans "Progress Tracking" %}
+                    </h5>
+                    <p class="card-text">
+                      {% trans "Visualize and analyze your health progress with detailed charts and reports." %}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Our Team Section -->
+        <section id="team" class="py-5 bg-light">
+          <div class="container">
+            <div class="row text-center mb-5">
+              <div class="col">
+                <h2>
+                  {% trans "Our Team" %}
+                </h2>
+                <p class="lead">
+                  {% trans "Meet the experts behind My Healthy Partner" %}
+                </p>
+              </div>
+            </div>
+            <div class="row">
+              <!-- Team Member 1 -->
+              <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                  <img src="{% static 'images/rania2.jpg' %}"
+                       class="card-img-top "
+                       alt="Team Member" />
+                  <div class="card-body text-center">
+                    <h5 class="card-title">
+                      Rania Seghiri
+                    </h5>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Team Member 2 -->
+              <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                  <img src="{% static 'images/rayan.jpg' %}"
+                       class="card-img-top"
+                       alt="Team Member" />
+                  <div class="card-body text-center">
+                    <h5 class="card-title">
+                      Bchtatou Rayane
+                    </h5>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Team Member 3 -->
+              <div class="col-md-4 mb-4">
+                <div class="card h-100">
+                  <img src="{% static 'images/hiba2.jpg' %}"
+                       class="card-img-top"
+                       alt="Team Member" />
+                  <div class="card-body text-center">
+                    <h5 class="card-title">
+                      Mounib Hibet Allah
+                    </h5>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="fs-3 text-center">
+            {% trans "Second-year Master's students in Bioinformatics at Frères Mentouri University - Constantine 1" %}
+          </div>
+
+        </section>
+
+        <section id="contact">
+          <div class="container-fluid">
+            <div class="row text-center my-5">
+              <div class="col" data-aos="fade-up">
+                <h2>
+                  {% trans "Contact Us" %}
+                </h2>
+                <p class="lead">
+                  {% trans "We'd love to hear from you!" %}
+                </p>
+              </div>
+            </div>
+            <div class="row justify-content-center align-items-start bg-light p-4 rounded">
+              <div class="col-lg-6 col-md-12" data-aos="fade-up" data-aos-delay="100">
+                <div class="contact-info bg-light p-4 rounded">
+
+                  <h4 class="mb-4">
+                    {% trans "Contact Information" %}
+                  </h4>
+                  <div class="d-flex w-100">
+                    <img src="{% static 'images/logo2.png' %}"
+                         alt="My Health App Logo"
+                         width="180"
+                         height="180"
+                         class="d-inline-block align-text-top m-autp border rounded mb-3" />
+
+                  </div>
+                  <div class="mb-4">
+                    <p>
+                      <i class="fa fa-map-marker fa-2x text-teal me-3"></i>
+                      <span class="text-dark">
+                        Ali Mendjeli- nouvelle ville - constantine
+                      </span>
+                    </p>
+                  </div>
+                  <div class="mb-4">
+                    <p>
+                      <i class="fa fa-phone fa-2x text-teal me-3"></i>
+                      <span class="text-dark">
+                        +2137 79 87 48 89
+                      </span>
+                    </p>
+                  </div>
+                  <div class="mb-4">
+                    <p>
+                      <i class="fa fa-envelope fa-2x text-teal me-3"></i>
+                      <span class="text-dark">
+                        myhealthypartner0@gmail.com
+                      </span>
+                    </p>
+                  </div>
+
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-12" data-aos="fade-up" data-aos-delay="100">
+                <div class='contact-info bg-light p-4 rounded'>
+                  <h4 class="mb-4">
+                    {% trans "Let's talk" %}
+                  </h4>
+                  <form method="post"
+                        class='form'
+                        action="{% url 'frontend:contact' %}"
+                        class="needs-validation"
+                        novalidate>
+                    {% csrf_token %}
+                    <div class="errorList">
                     </div>
-                  </div>
-                  <div class="mb-3">
-                    <label for="email" class="form-label">
-                      {% trans "Email address" %}
-                    </label>
-                    <input type="email" class="form-control" id="email" name="email" required />
-                    <div class="invalid-feedback">
-                      {% trans "Please enter a valid email address." %}
+                    <div class="mb-3">
+                      <label for="name" class="form-label">
+                        {% trans "Name" %}
+                      </label>
+                      <input type="text" class="form-control" id="name" name="name" required />
+                      <div class="invalid-feedback">
+                        {% trans "Please enter your name." %}
+                      </div>
                     </div>
-                  </div>
-                  <div class="mb-3">
-                    <label for="message" class="form-label">
-                      {% trans "Message" %}
-                    </label>
-                    <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
-                    <div class="invalid-feedback">
-                      {% trans "Please enter your message." %}
+                    <div class="mb-3">
+                      <label for="email" class="form-label">
+                        {% trans "Email address" %}
+                      </label>
+                      <input type="email" class="form-control" id="email" name="email" required />
+                      <div class="invalid-feedback">
+                        {% trans "Please enter a valid email address." %}
+                      </div>
                     </div>
-                  </div>
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-outline-dark btn-lg">
-                      {% trans "Send Message" %}
-                    </button>
-                  </div>
-                </form>
+                    <div class="mb-3">
+                      <label for="message" class="form-label">
+                        {% trans "Message" %}
+                      </label>
+                      <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                      <div class="invalid-feedback">
+                        {% trans "Please enter your message." %}
+                      </div>
+                    </div>
+                    <div class="text-center">
+                      <button type="submit" class="btn btn-outline-dark btn-lg">
+                        {% trans "Send Message" %}
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+      {% endblock content %}
+
+      {% block footer %}
+        <footer class="bg-dark text-white py-4">
+          <div class="container">
+            <div class="row">
+              <div class="col text-center">
+                <p class="mb-0 text-muted">
+                  {% trans " 2025 My Healthy Partner. All rights reserved." %}
+                </p>
               </div>
             </div>
-
           </div>
-        </div>
-      </section>
+        </footer>
+      {% endblock footer %}
 
-    {% endblock content %}
+      <!-- jQery -->
+      <script src="{% static "js/jquery-3.4.1.min.js" %}"></script>
+      <!-- bootstrap js -->
+      <script src="{% static "js/bootstrap.js" %}"></script>
+      <!-- Sweet Alert-->
+      <script src="{% static "js/sweetalert.js" %}"></script>
+      {% block js %}
+        <!-- Main js -->
+        <script src="{% static "js/script.js" %}"></script>
 
-    {% block footer %}
-      <footer class="bg-dark text-white py-4">
-        <div class="container">
-          <div class="row">
-            <div class="col text-center">
-              <p class="mb-0 text-muted">
-                {% trans " 2025 My Healthy Partner. All rights reserved." %}
-              </p>
-            </div>
-          </div>
-        </div>
-      </footer>
-    {% endblock footer %}
+      {% endblock js %}
 
-    <!-- jQery -->
-    <script src="{% static "js/jquery-3.4.1.min.js" %}"></script>
-    <!-- bootstrap js -->
-    <script src="{% static "js/bootstrap.js" %}"></script>
-    <!-- Sweet Alert-->
-    <script src="{% static "js/sweetalert.js" %}"></script>
-    {% block js %}
-      <!-- Main js -->
-      <script src="{% static "js/script.js" %}"></script>
+      <!-- Swiper Js -->
+      <script src="{% static "js/swiper.js" %}"></script>
+      <!-- Custom JS -->
+      <script src="{% static "js/custom.js" %}"></script>
+      <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-    {% endblock js %}
+      <!-- Add this before custom.js -->
+      <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-    <!-- Swiper Js -->
-    <script src="{% static "js/swiper.js" %}"></script>
-    <!-- Custom JS -->
-    <script src="{% static "js/custom.js" %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+      <!-- AOS script -->
+      <script src="{% static "js/aos.js" %}"></script>
+      <script>
+           // Init AOS
+           AOS.init();
+      </script>
+      {% block extra_js %}
+      {% endblock extra_js %}
+    </body>
 
-    <!-- Add this before custom.js -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-    <!-- AOS script -->
-    <script src="{% static "js/aos.js" %}"></script>
-    <script>
-         // Init AOS
-         AOS.init();
-    </script>
-    {% block extra_js %}
-    {% endblock extra_js %}
-  </body>
-
-</html>
+  </html>

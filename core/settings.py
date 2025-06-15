@@ -111,7 +111,7 @@ DATABASES = {
 # if config('ENV') == 'dev':
 #     DATABASES['default'] = DATABASES['dev']
 if config('ENV') == 'dev':
-    DATABASES['default'] = DATABASES['prod']
+    DATABASES['default'] = DATABASES['dev']
 
 # DATABASES['default'] = DATABASES['dev']
 
