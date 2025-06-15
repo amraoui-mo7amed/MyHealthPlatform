@@ -3,7 +3,7 @@
 {% load static i18n %}
 
 {% block dashtitle %}
-<div class="text-center">
+<div class="text-center fs-2" style="color:#4141e5" >
 
     {% trans "User Details" %}
 </div>
@@ -17,7 +17,7 @@
         </div>
         <div class="card">
             <div class="card-body">
-                <h3 class="bg-teal text-light p-2 mb-3">
+                <h3 class=" text-light p-2 mb-3" style="background:#4141e5">
                     {% trans "User Profile" %}
                 </h3>
                 <div class="row mb-3">
@@ -156,7 +156,7 @@
                     </div>
                 </div>
                 {% if request.user.profile.role == 'DOCTOR' %}
-                    <h3 class='bg-teal text-light p-2 mb-3'>
+                    <h3 class=' text-light p-2 mb-3' style="background:#4141e5">
                         {% trans "User Diet List" %}
                     </h3>
                     <div class="container-fluid">
@@ -175,7 +175,7 @@
                                                     {% trans "End Date" %}: {{ diet.end_date|date:"Y-m-d" }}
                                                 </p>
                                                 <a href="{% url "patient:diet_details" diet.pk %}"
-                                                   class="btn btn-teal">{% trans "View Details" %}</a>
+                                                   class="btn text-light" style="background:#0d016d"> {% trans "View Details" %}</a>
                                             </div>
                                         </div>
                                     </div>

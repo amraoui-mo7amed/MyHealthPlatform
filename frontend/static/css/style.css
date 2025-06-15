@@ -976,3 +976,21 @@ a:focus {
   color: #5aa2a7;
   text-decoration: underline;
 }
+
+#services i, 
+#contact i
+{
+  color: #a407a1 !important;
+}
+section h2 
+{
+  color: #785378 !important;
+}
+
+/* #team img 
+{
+  width: 120px;
+  height: 120px;
+  border-radius: 16px;
+  margin: .6rem auto ;
+} */

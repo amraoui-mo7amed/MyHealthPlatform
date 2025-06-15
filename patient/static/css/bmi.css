@@ -91,3 +91,8 @@ form #section3 .form-group label:hover:not(:first-child) {
     height: 130px;
     margin: 1rem;
  }
+
+ .btn-check:checked+.btn-outline-primary
+ {
+    background-color: #d045ce !important;
+ }

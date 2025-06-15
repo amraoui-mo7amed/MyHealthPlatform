@@ -6,8 +6,11 @@
     <link rel="stylesheet" href="{% static "css/profile.css" %}" />
 {% endblock extra_css %}
 
-{% block dashtitle %}
+{% block dashtitle %}   
+<div class="text-dark w-100 text-center fs-2">
     Edit Profile
+
+</div>
 {% endblock dashtitle %}
 
 {% block dash %}
@@ -56,7 +59,7 @@
                 <input class="form-control" name="email" value="{{ user.email }}" required />
             </div>
 
-            <button type='submit' class='btn btn-teal d-block ms-auto my-3'>
+            <button type='submit' class='btn btn-teal d-block ms-auto my-3' style="background:var(--bs-primary)">
                 {% trans "Save" %}
             </button>
         </div>

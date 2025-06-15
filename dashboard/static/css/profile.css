@@ -135,8 +135,12 @@
     margin-top: 1rem;
     font-size: 1.8rem;
     font-weight: 600;
+    color:var(--bs-dark);
 }
-
+.profile-tagline
+{
+    color:var(--bs-dark);
+}
 .profile-details {
     padding: 2rem;
 }
@@ -159,11 +163,12 @@
     font-size: 0.9rem;
     color: #666;
     margin-bottom: 0.25rem;
+    font-weight: bold;
 }
 
 .detail-value {
     font-size: 1.1rem;
-    font-weight: 500;
+    font-weight: normal;
     color: var(--text-color);
 }
 

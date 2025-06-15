@@ -19,7 +19,7 @@
     <!-- DOCTOR section -->
     {% if role == 'DOCTOR' %}
         <div id="diet_requests">
-            <h1 class="text-teal text-center">
+            <h1 class=" text-center" style="color:#4141e5 ">
                 {% trans "Diet requests" %}
             </h1>
             <div class="container-fluid">
@@ -33,7 +33,8 @@
                                     type="button"
                                     role="tab"
                                     aria-controls="nav-verified"
-                                    aria-selected="true">
+                                    aria-selected="true"
+                                    style="color:#4141e5">
                                 {% trans "Verified Requests" %}
                             </button>
                             <button class="nav-link"
@@ -43,7 +44,8 @@
                                     type="button"
                                     role="tab"
                                     aria-controls="nav-updates"
-                                    aria-selected="false">
+                                    aria-selected="false"
+                                    style="color:#4141e5">
                                 {% trans "Unverified Requests" %}
                             </button>
                         </div>
@@ -98,7 +100,8 @@
                                                         <td>
                                                             <div class="d-flex align-items-center ">
                                                                 <a href="{% url "doctor:diet-request-details" request.pk %}"
-                                                                   class="btn btn-teal btn-sm">
+                                                                   class="btn btn-sm text-light"
+                                                                   style="background:#4d57a5">
                                                                     {% trans "Details" %}
                                                                 </a>
                                                                 <button class="btn btn-sm btn-danger delete-button d-block w-100 ms-1"
@@ -166,7 +169,8 @@
                                                         <td>
                                                             <div class="d-flex align-items-center ">
                                                                 <a href="{% url "doctor:diet-request-details" request.pk %}"
-                                                                   class="btn btn-teal btn-sm">
+                                                                   class="btn btn-sm text-light"
+                                                                   style="background:#4141e5">
                                                                     {% trans "Details" %}
                                                                 </a>
                                                                 <button class="btn btn-sm btn-danger delete-button d-block w-100 ms-1"
