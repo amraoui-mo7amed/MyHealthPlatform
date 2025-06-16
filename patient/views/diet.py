@@ -261,7 +261,7 @@ def BMICalculator(request):
             food_allergy = request.POST.get('food_allergy')
             allergy_details = request.POST.get('allergy_details')
             smoke = request.POST.get('smoke')
-            weight_loss = request.POST.get('weight_loss')
+            weight_loss = request.POST.get('weight_loss',False)
             print(weight_loss)
             depression_stress = request.POST.get('depression_stress')
             medication = request.POST.get('medication')
@@ -430,5 +430,3 @@ def diet_history(request):
         'diets': diets
     }
     return render(request, 'patient/diet/diet_history.html', context=context)
-
-
