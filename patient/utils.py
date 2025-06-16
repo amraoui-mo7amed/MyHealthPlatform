@@ -129,9 +129,10 @@ def process_ai_diet_request(  patient,  bmi, diabetes=None, obesity=None, diabet
                             - the week starts from saturday 
                             - just send the diet plan without any other text
                             - return the diet plan as a json format
+                            - days must be 3 chars long
                             - example response:
                                 {
-                                    "saturday": 
+                                    "SAT": 
                                         {
                                             "breakfast": "Oatmeal with fruits",
                                             "lunch": "Grilled chicken salad",
