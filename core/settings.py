@@ -100,11 +100,12 @@ DATABASES = {
     },
     'prod':{
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': "postgres",
-            'USER': "postgres",
-            'PASSWORD':"1234",
-            'HOST': "localhost",
-            'PORT': ""
+            'NAME': "neondb",
+            'USER': "amrmoh023",
+            'PASSWORD':"32HaZQXRiTef",
+            'HOST': "ep-misty-mountain-08575177-pooler.us-east-2.aws.neon.tech",
+            'PORT': "5432",
+            'OPTIONS': {'sslmode': 'require'}
     }
 }
 

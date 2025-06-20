@@ -1,6 +1,6 @@
 from typing import Iterable
 from django.db import models
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 from django.core.exceptions import ValidationError
 from django.contrib.auth import get_user_model
 

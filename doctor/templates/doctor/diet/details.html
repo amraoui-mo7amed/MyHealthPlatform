@@ -15,13 +15,14 @@
 {% block dash %}
     <div class="container-fluid mb-3">
         <h2 class="text-teal fw-bold d-flex justify-content-between align-items-center mb-5 ">
-            {% trans "Diet Request Details" %}
+            <span class="text-dark flex-grow-1 text-center">{% trans "Diet Request Details" %}</span>
             <button class="btn btn-teal btn-sm"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#dietRequestDetailsContent"
                     aria-expanded="true"
-                    aria-controls="dietRequestDetailsContent">
+                    aria-controls="dietRequestDetailsContent"
+                    style="background:#4141e5">
                 <i class="fa fa-chevron-down"></i>
             </button>
         </h2>
@@ -29,10 +30,11 @@
             <div class="row w-75 m-auto">
                 <div class="col-lg-12 col-md-12 mb-4">
                     <div class="card h-100">
-                        <div class="card-header bg-teal text-light"
+                        <div class="card-header text-light"
                              data-toggle="collapse"
                              data-target="#patientInfo"
-                             aria-expanded="true">
+                             aria-expanded="true"
+                             style="background-color:#4141e5">
                             <h4 class='mb-0 text-center'>
                                 {% trans "Patient Information" %}
                             </h4>
@@ -57,7 +59,7 @@
 
                 <div class="col-lg-12 col-md-12 mb-4">
                     <div class="card h-100">
-                        <div class="card-header bg-teal text-light"
+                        <div class="card-header text-light " style="background-color:#4141e5"
                              data-toggle="collapse"
                              data-target="#bmiInfo"
                              aria-expanded="true">
@@ -97,7 +99,7 @@
                 {% if diabetes %}
                     <div class="col-lg-12 col-md-12 mb-4">
                         <div class="card h-100">
-                            <div class="card-header bg-teal text-light"
+                            <div class="card-header text-light" style="background-color:#4141e5"
                                  data-toggle="collapse"
                                  data-target="#diabetesInfo"
                                  aria-expanded="true">
@@ -126,7 +128,7 @@
                 {% if obesity %}
                     <div class="col-lg-12 col-md-12 mb-4">
                         <div class="card h-100">
-                            <div class="card-header bg-teal text-light"
+                            <div class="card-header  text-light" style="background-color:#4141e5"
                                  data-toggle="collapse"
                                  data-target="#obesityInfo"
                                  aria-expanded="true">
@@ -160,7 +162,7 @@
                 {% if diabetes_and_obesity %}
                     <div class="col-lg-12 col-md-12 mb-4">
                         <div class="card h-100">
-                            <div class="card-header bg-teal text-light"
+                            <div class="card-header text-light" style="background-color:#4141e5"
                                  data-toggle="collapse"
                                  data-target="#diabetesObesityInfo"
                                  aria-expanded="true">
@@ -211,7 +213,7 @@
                 {% endif %}
                 <div class="col-lg-12 col-md-12 mb-4">
                     <div class="card h-100">
-                        <div class="card-header bg-teal text-light"
+                        <div class="card-header text-light" style="background-color:#4141e5"
                              data-toggle="collapse"
                              data-target="#lifestyleInfo"
                              aria-expanded="true">
@@ -324,7 +326,8 @@
             </div>
             <div class="d-flex my-2">
                 <a href="{% url "doctor:diet-create" diet_request.pk %}"
-                   class="btn btn-teal ms-auto">
+                   class="btn btn-teal ms-auto"
+                   style="background:#4141e5">
                     {% if diet %}
                         {% trans "Preview Diet" %}
                     {% else %}
@@ -334,13 +337,14 @@
             </div>
         </div>
         <h3 class="text-teal d-flex justify-content-between align-items-center">
-            {% trans "Archive" %}
+            <span class="text-dark flex-grow-1 text-center">{% trans "Archive" %}</span>
             <button class="btn btn-teal btn-sm"
                     type="button"
                     data-bs-toggle="collapse"
                     data-bs-target="#recentDietDetailsContent"
                     aria-expanded="true"
-                    aria-controls="recentDietDetailsContent">
+                    aria-controls="recentDietDetailsContent"
+                    style="background:#4141e5">
                 <i class="fa fa-chevron-down"></i>
             </button>
         </h3>
@@ -362,7 +366,8 @@
                                                 {% trans "End Date" %}: {{ diet.end_date|date:"Y-m-d" }}
                                             </p>
                                             <a href="{% url "patient:diet_details" diet.pk %}"
-                                               class="btn btn-primary">{% trans "View Details" %}</a>
+                                               class="btn btn-primary"
+                                               style="background:#4141e5">{% trans "View Details" %}</a>
                                         </div>
                                     </div>
                                 </div>
